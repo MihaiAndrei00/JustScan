@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan">
         <activity
+            android:name=".LogRegistro"
+            android:exported="true" />
+        <activity
+            android:name=".LogRecuperarCuenta"
+            android:exported="true" />
+        <activity
+            android:name=".LogAdmin"
+            android:exported="true" />
+        <activity
             android:name=".LogUsuario"
             android:exported="true" />
         <activity
