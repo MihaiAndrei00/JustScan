@@ -1,17 +1,17 @@
 package com.example.just_scan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
-public class LogRegistro extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+public class LogUsuario extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.log_registro);
+        setContentView(R.layout.activity_main);
 
         //variables para la animacion del main
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
@@ -19,5 +19,6 @@ public class LogRegistro extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
+
     }
 }

@@ -3,11 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/background_1.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/background_2.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/background_3.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_email_icon.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_input.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_lock_icon.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_person_icon.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_smartphone_icon.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/gradient_list.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_email.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_email_selected.xml" value="0.2703125" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_lock.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_lock_selected.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_person.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_person_selected.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_smartphone.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_smartphone_selected.xml" value="0.2703125" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_log_admin.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_main.xml" value="0.264" />
-        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.36666666666666664" />
-        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_registro.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_admin.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.264" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_registro.xml" value="0.264" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_usuario.xml" value="0.25416666666666665" />
       </map>
     </option>
