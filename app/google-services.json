@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "516578084261",
+    "firebase_url": "https://justscan-c5c3e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "justscan-c5c3e",
+    "storage_bucket": "justscan-c5c3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516578084261:android:055a17a0394145e0da944c",
+        "android_client_info": {
+          "package_name": "com.example.just_scan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516578084261-jfh7dt40sub5dqa2pgnvm7664eepfa5s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_M0aNNpkYzDWyDYPZtDs-j-66VgZ8h54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516578084261-jfh7dt40sub5dqa2pgnvm7664eepfa5s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

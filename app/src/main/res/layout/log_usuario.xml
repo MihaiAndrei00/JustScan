@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogUsuario"
+    tools:context="com.example.controladores.LogUsuario"
     android:background="@drawable/gradient_list"
     android:id="@+id/mainLayout">
 
@@ -18,8 +18,9 @@
         android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:hint="Nombre de usuario"
+        android:hint="Email"
         android:inputType="textEmailAddress"
+        android:minHeight="48dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintBottom_toTopOf="@+id/txtContra"
@@ -27,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -40,14 +41,15 @@
         android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegistro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.925"
+        app:layout_constraintVertical_bias="0.934"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -59,9 +61,10 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.771"
+        app:layout_constraintVertical_bias="0.849"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -73,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.41"
         app:srcCompat="@drawable/logo"
         tools:ignore="MissingConstraints" />
 

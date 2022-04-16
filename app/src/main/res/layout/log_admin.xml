@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogAdmin"
+    tools:context="com.example.controladores.LogAdmin"
     android:background="@drawable/gradient_list"
     android:id="@+id/mainLayout">
 
