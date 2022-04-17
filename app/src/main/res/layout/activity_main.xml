@@ -14,7 +14,7 @@
         android:layout_width="157dp"
         android:layout_height="191dp"
         android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegistro"
+        app:layout_constraintBottom_toTopOf="@+id/btnCambiarContra"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/btnRegistro"
+        android:id="@+id/btnCambiarContra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"

@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.LogRegistro"
     android:background="@drawable/gradient_list"
-    android:id="@+id/mainLayout">
+    tools:context="com.example.controladores.LogRegistro">
 
     <ImageView
         android:id="@+id/logo"
@@ -26,10 +26,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
-        android:ems="10"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_email_icon"
         android:drawablePadding="12dp"
+        android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
@@ -47,10 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:ems="10"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_person_icon"
         android:drawablePadding="12dp"
+        android:ems="10"
         android:hint="Nombre de Usuario"
         android:inputType="textPersonName"
         android:paddingStart="12dp"
@@ -67,10 +67,10 @@
         android:id="@+id/txtContra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_lock_icon"
         android:drawablePadding="12dp"
+        android:ems="10"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:paddingStart="12dp"
@@ -88,10 +88,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:ems="10"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/custom_smartphone_icon"
         android:drawablePadding="12dp"
+        android:ems="10"
         android:hint="Telefono"
         android:inputType="text|phone"
         android:paddingStart="12dp"
@@ -117,5 +117,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.849"
         tools:ignore="MissingConstraints" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

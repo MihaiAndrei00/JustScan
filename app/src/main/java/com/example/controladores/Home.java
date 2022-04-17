@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.just_scan.R;
 
-public class home extends AppCompatActivity {
+public class Home extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

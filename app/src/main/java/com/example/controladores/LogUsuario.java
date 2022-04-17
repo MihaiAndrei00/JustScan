@@ -3,10 +3,11 @@ package com.example.controladores;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,8 @@ public class LogUsuario extends AppCompatActivity {
     private EditText txtEmail;
     private EditText txtContra;
     private Button btnRegistro;
+    private Button btnRecuperar;
+    private ProgressBar progressBarLogIn;
     private Intent intent;
 
     FirebaseAuth mAuth;
@@ -38,11 +41,15 @@ public class LogUsuario extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
 
-
+        //edittext
         txtEmail=findViewById(R.id.txtEmail);
         txtContra=findViewById(R.id.txtContra);
+        //progressbar
+        progressBarLogIn=findViewById(R.id.progressBarLogin);
+        progressBarLogIn.setVisibility(View.GONE);
 
-        btnRegistro=findViewById(R.id.btnRegistro);
+        btnRegistro=findViewById(R.id.btnCambiarContra);
+        btnRecuperar=findViewById(R.id.btnRecuperar);
 
         mAuth=FirebaseAuth.getInstance();
 
@@ -52,18 +59,29 @@ public class LogUsuario extends AppCompatActivity {
                 String email= txtEmail.getText().toString();
                 String contrasena=txtContra.getText().toString();
 
-
+                progressBarLogIn.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            intent= new Intent(LogUsuario.this,home.class);
+                            progressBarLogIn.setVisibility(View.GONE);
+                            intent= new Intent(LogUsuario.this, Home.class);
                             startActivity(intent);
 
+                        }else{
+                            Toast.makeText(LogUsuario.this,"Inicio de sesión fallido",Toast.LENGTH_LONG).show();
+                            progressBarLogIn.setVisibility(View.GONE);
                         }
                     }
                 });
 
+            }
+        });
+        btnRecuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(LogUsuario.this, LogCambiarContra.class);
+                startActivity(intent);
             }
         });
 

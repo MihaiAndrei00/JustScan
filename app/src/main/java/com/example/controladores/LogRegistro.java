@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.just_scan.R;
@@ -25,6 +27,9 @@ public class LogRegistro extends AppCompatActivity {
     private EditText txtTelefono;
     private EditText txtContra;
     private Button btnRegistrar;
+    private Intent intent;
+
+    private ProgressBar progressBar;
 
     //llamamos a la base de datos
     FirebaseDatabase database=FirebaseDatabase.getInstance();
@@ -49,7 +54,8 @@ public class LogRegistro extends AppCompatActivity {
         txtNombreUsuario=findViewById(R.id.txtNombreUsuario);
         txtTelefono=findViewById(R.id.txtTelefono);
         txtContra=findViewById(R.id.txtContra);
-
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
         //botón
         btnRegistrar=findViewById(R.id.btnRegistrar);
 
@@ -58,8 +64,12 @@ public class LogRegistro extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //listener boton llamando al método de registrar
 
+        //llamo al metodo para registrar
+        registrar();
+    }
+
+    private void registrar(){
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +78,7 @@ public class LogRegistro extends AppCompatActivity {
                 String telefono= txtTelefono.getText().toString();
                 String password= txtContra.getText().toString();
 
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -80,8 +91,10 @@ public class LogRegistro extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(LogRegistro.this,"Usuario Registrado",Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
                                     }else{
                                         Toast.makeText(LogRegistro.this,"Registro Fallido",Toast.LENGTH_LONG).show();
+                                        progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
@@ -94,45 +107,4 @@ public class LogRegistro extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
-
-
-
-
-    /*
-    public void registrarUsuario( ){
-        String email= txtEmail.getText().toString();
-         String nombreUsuario= txtNombreUsuario.getText().toString();
-        String telefono= txtTelefono.getText().toString();
-        String password= txtContra.getText().toString();
-
-
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    usuario =new Usuario(email,nombreUsuario,telefono,password);
-                     FirebaseDatabase.getInstance().getReference("Usuarios").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(usuario);
-
-                    Toast.makeText(LogRegistro.this,"Usuario Registrado",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-
-
-
-
-
-
-
-       /* usuarioNuevo=new Usuario(email,nombreUsuario,telefono,password);
-        bd.child("users").setValue(usuarioNuevo);
-        Toast.makeText(this,"Usuario Registrado",Toast.LENGTH_LONG).show();
-*/
     }

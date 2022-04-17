@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private Intent intent;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
 
     @Override
@@ -38,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.start();
 
         //asocio los botones con sus vistas
-        btnRegistro=findViewById(R.id.btnRegistro);
+        btnRegistro=findViewById(R.id.btnCambiarContra);
         btnInicioSesion=findViewById(R.id.btnInicioSesion);
 
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        database = FirebaseDatabase.getInstance();
+         myRef = database.getReference("message");
 
         myRef.setValue("Base de datos");
 
