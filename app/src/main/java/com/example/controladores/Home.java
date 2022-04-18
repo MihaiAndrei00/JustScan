@@ -31,7 +31,7 @@ public class Home extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            Log.d("email", user.getUid() );
+            Log.d("email", user.getProviderId() );
         } else {
             // No user is signed in
         }
