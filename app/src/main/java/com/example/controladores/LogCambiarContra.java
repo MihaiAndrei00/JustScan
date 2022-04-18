@@ -36,7 +36,7 @@ public class LogCambiarContra extends AppCompatActivity {
 
         //declaro vistas
         txtEmail=findViewById(R.id.txtEmail);
-        btnCambiarContra=findViewById(R.id.btnCambiarContra);
+        btnCambiarContra=findViewById(R.id.btnIniciarSesion);
         mAuth=FirebaseAuth.getInstance();
 
         btnCambiarContra.setOnClickListener(new View.OnClickListener() {

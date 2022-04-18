@@ -3,10 +3,12 @@ package com.example.controladores;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,12 +24,16 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LogUsuario extends AppCompatActivity {
     private EditText txtEmail;
     private EditText txtContra;
-    private Button btnRegistro;
-    private Button btnRecuperar;
+    private Button btnInicioSesion;
+    private TextView tvContra;
+    private TextView tvRegistro;
     private ProgressBar progressBarLogIn;
+    private ConstraintLayout constraintLayout;
+    private AnimationDrawable animationDrawable;
     private Intent intent;
 
-    FirebaseAuth mAuth;
+    //instancia del FirebaseAuth que nos proporciona diferentes metodos de autorización de firebase
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +41,9 @@ public class LogUsuario extends AppCompatActivity {
         setContentView(R.layout.log_usuario);
 
         //variables para la animacion del main
-        ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        constraintLayout = findViewById(R.id.mainLayout);
+
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
@@ -47,29 +54,48 @@ public class LogUsuario extends AppCompatActivity {
         //progressbar
         progressBarLogIn=findViewById(R.id.progressBarLogin);
         progressBarLogIn.setVisibility(View.GONE);
-
-        btnRegistro=findViewById(R.id.btnCambiarContra);
-        btnRecuperar=findViewById(R.id.btnRecuperar);
-
+         //boton
+        btnInicioSesion=findViewById(R.id.btnIniciarSesion);
+        //textViews
+        tvContra=findViewById(R.id.olvidarContra);
+        tvRegistro=findViewById(R.id.tvRegistro);
         mAuth=FirebaseAuth.getInstance();
 
-        btnRegistro.setOnClickListener(new View.OnClickListener() {
+        //llamada al método de inicio de sesión
+        iniciarSesion();
+
+        //llamada al metodo de recuperar la contraseña
+        linkArecuperarContrasena();
+
+        //llamada al metodo de registro
+        linkARegistro();
+
+    }
+    private void iniciarSesion(){
+
+        btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email= txtEmail.getText().toString();
                 String contrasena=txtContra.getText().toString();
-
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    txtEmail.setError("Introduzca una dirección de email válida");
+                    txtEmail.requestFocus();
+                    return;
+                }
                 progressBarLogIn.setVisibility(View.VISIBLE);
+
                 mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressBarLogIn.setVisibility(View.GONE);
                             intent= new Intent(LogUsuario.this, Home.class);
+                            intent.putExtra("correo", txtEmail.getText().toString());
                             startActivity(intent);
 
                         }else{
-                            Toast.makeText(LogUsuario.this,"Inicio de sesión fallido",Toast.LENGTH_LONG).show();
+                            Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
                             progressBarLogIn.setVisibility(View.GONE);
                         }
                     }
@@ -77,15 +103,25 @@ public class LogUsuario extends AppCompatActivity {
 
             }
         });
-        btnRecuperar.setOnClickListener(new View.OnClickListener() {
+    }
+    private void linkArecuperarContrasena(){
+        tvContra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent= new Intent(LogUsuario.this, LogCambiarContra.class);
                 startActivity(intent);
             }
         });
-
     }
 
-
+    private void linkARegistro(){
+        tvRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(LogUsuario.this, LogRegistro.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
+

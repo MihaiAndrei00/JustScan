@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.start();
 
         //asocio los botones con sus vistas
-        btnRegistro=findViewById(R.id.btnCambiarContra);
+        btnRegistro=findViewById(R.id.btnIniciarSesion);
         btnInicioSesion=findViewById(R.id.btnInicioSesion);
 
         // Write a message to the database
