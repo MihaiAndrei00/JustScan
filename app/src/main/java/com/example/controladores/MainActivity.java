@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Write a message to the database
         database = FirebaseDatabase.getInstance();
-         myRef = database.getReference("message");
+        myRef = database.getReference("message");
 
         myRef.setValue("Base de datos");
 

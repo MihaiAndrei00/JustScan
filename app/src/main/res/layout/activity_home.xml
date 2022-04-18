@@ -7,6 +7,15 @@
     tools:context="com.example.controladores.Home">
 
     <TextView
+        android:id="@+id/tvPrueba"
+        android:layout_width="170dp"
+        android:layout_height="39dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tvCorreo"
         android:layout_width="170dp"
         android:layout_height="39dp"
