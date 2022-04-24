@@ -102,10 +102,7 @@ public class LogUsuario extends AppCompatActivity {
                         if(task.isSuccessful()){
                             progressBarLogIn.setVisibility(View.GONE);
                             intent= new Intent(LogUsuario.this, Home.class);
-                            intent.putExtra("correo", txtEmail.getText().toString());
-
                             startActivity(intent);
-
                         }else{
                             Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
                             progressBarLogIn.setVisibility(View.GONE);

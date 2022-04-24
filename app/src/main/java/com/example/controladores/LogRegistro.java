@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LogRegistro extends AppCompatActivity {
@@ -30,6 +28,8 @@ public class LogRegistro extends AppCompatActivity {
     private EditText txtContra;
     private Button btnRegistrar;
     private Intent intent;
+    private int esAdmin;
+
 
     private ProgressBar progressBar;
 
@@ -80,14 +80,14 @@ public class LogRegistro extends AppCompatActivity {
                 String nombreUsuario= txtNombreUsuario.getText().toString();
                 String telefono= txtTelefono.getText().toString();
                 String password= txtContra.getText().toString();
-
+                esAdmin=0;
                 progressBar.setVisibility(View.VISIBLE);
 
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password);
+                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, esAdmin);
                             FirebaseDatabase.getInstance().getReference("Usuarios").child(FirebaseAuth.
                                     getInstance().getCurrentUser().getUid()).
                                     setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
