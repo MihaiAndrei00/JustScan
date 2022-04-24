@@ -10,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan">
 
-    <activity
-            android:name="com.example.controladores.Home"
-            android:exported="false" />
-
         <activity
             android:name="com.example.controladores.LogRegistro"
             android:exported="true" />
@@ -22,9 +18,6 @@
             android:exported="true" />
         <activity
             android:name="com.example.controladores.LogCambiarContra"
-            android:exported="true" />
-        <activity
-            android:name="com.example.controladores.LogAdmin"
             android:exported="true" />
         <activity
             android:name="com.example.controladores.MainActivity"
