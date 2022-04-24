@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.just_scan.Home;
 import com.example.just_scan.R;
 import com.example.modelo.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;

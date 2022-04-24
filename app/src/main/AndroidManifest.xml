@@ -24,9 +24,6 @@
             android:name="com.example.controladores.LogCambiarContra"
             android:exported="true" />
         <activity
-            android:name="com.example.controladores.LogAdmin"
-            android:exported="true" />
-        <activity
             android:name="com.example.controladores.MainActivity"
             android:exported="true">
             <intent-filter>
