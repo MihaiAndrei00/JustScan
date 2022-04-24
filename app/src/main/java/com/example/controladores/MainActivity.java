@@ -5,10 +5,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.VideoView;
 
 import com.example.just_scan.R;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+    VideoView video;
+    MediaPlayer mediaPlayer;
+    Uri uri;
+    int mCurrentVideoPosition;
     private Button btnRegistro;
     private Button btnInicioSesion;
     private ConstraintLayout constraintLayout;
@@ -33,11 +40,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //variables para la animacion del main
-        constraintLayout = findViewById(R.id.mainLayout);
-        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
+        video = findViewById(R.id.video);
+        uri = Uri.parse("android.resource://"
+                + getPackageName()
+                + "/"
+                + R.raw.video);
+
+        video.setVideoURI(uri);
+        video.start();
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer = mediaPlayer;
+                mediaPlayer.setLooping(true);
+                if(mCurrentVideoPosition != 0){
+                    mediaPlayer.seekTo(mCurrentVideoPosition);
+                    mediaPlayer.start();
+                }
+            }
+        });
 
         //asocio los botones con sus vistas
         btnRegistro=findViewById(R.id.btnIniciarSesion);
@@ -84,5 +105,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mCurrentVideoPosition = mediaPlayer.getCurrentPosition();
+        video.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        video.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mediaPlayer.release();
+        mediaPlayer = null;
     }
 }

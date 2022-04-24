@@ -10,11 +10,11 @@
             android:title="@string/perfil" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_dialog_map"
             android:title="@string/rutas" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/icono_edificio"
             android:title="@string/rutas" />
     </group>
 </menu>

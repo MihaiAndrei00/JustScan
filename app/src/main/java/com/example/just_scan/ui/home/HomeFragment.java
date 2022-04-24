@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.example.just_scan.R;
 import com.example.just_scan.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
