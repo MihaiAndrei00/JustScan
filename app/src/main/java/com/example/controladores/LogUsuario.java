@@ -53,12 +53,12 @@ public class LogUsuario extends AppCompatActivity {
 
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
-
+    /*
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-
+*/
         //edittext
         txtEmail=findViewById(R.id.txtEmail);
         txtContra=findViewById(R.id.txtContra);
@@ -102,7 +102,7 @@ public class LogUsuario extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressBarLogIn.setVisibility(View.GONE);
-                            intent= new Intent(LogUsuario.this, Home.class);
+                            intent= new Intent(LogUsuario.this, pruebaVisibilidad.class);
                             startActivity(intent);
                         }else{
                             Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
