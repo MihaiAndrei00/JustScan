@@ -2,6 +2,8 @@ package com.example.controladores;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -11,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,33 +34,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LogUsuario extends AppCompatActivity {
+
+    AnimationDrawable animationDrawable;
+    ConstraintLayout constraintLayout;
+
     private EditText txtEmail;
     private EditText txtContra;
     private Button btnInicioSesion;
     private TextView tvContra;
     private TextView tvRegistro;
     private ProgressBar progressBarLogIn;
-    private ConstraintLayout constraintLayout;
-    private AnimationDrawable animationDrawable;
     private Intent intent;
 
     //instancia del FirebaseAuth que nos proporciona diferentes metodos de autorización de firebase
     private FirebaseAuth mAuth;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_usuario);
 
-        //variables para la animacion del main
+        //animacion fondo
         constraintLayout = findViewById(R.id.mainLayout);
-
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setEnterFadeDuration(1500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
+
 
         //edittext
         txtEmail=findViewById(R.id.txtEmail);
@@ -133,5 +136,6 @@ public class LogUsuario extends AppCompatActivity {
             }
         });
     }
+
 }
 

@@ -22,6 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LogRegistro extends AppCompatActivity {
+
+    AnimationDrawable animationDrawable;
+    ConstraintLayout constraintLayout;
+
     private EditText txtEmail;
     private EditText txtNombreUsuario;
     private EditText txtTelefono;
@@ -46,9 +50,9 @@ public class LogRegistro extends AppCompatActivity {
         setContentView(R.layout.log_registro);
 
         //variables para la animacion del main
-        ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
+        constraintLayout = findViewById(R.id.mainLayout);
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(1500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
 

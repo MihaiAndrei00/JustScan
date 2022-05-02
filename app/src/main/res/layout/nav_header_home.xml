@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.controladores.NavHeaderHomeController"
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/background_2"
     android:gravity="bottom"
@@ -23,6 +22,7 @@
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/nombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/mailUuario"
         android:layout_width="379dp"
         android:layout_height="wrap_content" />
