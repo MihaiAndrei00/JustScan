@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.just_scan.R;
 import com.example.modelo.Usuario;
+import com.example.utilidades.Constantes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -33,6 +34,7 @@ public class LogRegistro extends AppCompatActivity {
     private Button btnRegistrar;
     private Intent intent;
     private int esAdmin;
+    private String urlFoto;
 
 
     private ProgressBar progressBar;
@@ -85,13 +87,14 @@ public class LogRegistro extends AppCompatActivity {
                 String telefono= txtTelefono.getText().toString();
                 String password= txtContra.getText().toString();
                 esAdmin=0;
+                urlFoto= Constantes.URL_FOTO_DEFECTO;
                 progressBar.setVisibility(View.VISIBLE);
 
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, esAdmin);
+                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password,urlFoto, esAdmin);
                             FirebaseDatabase.getInstance().getReference("Usuarios").child(FirebaseAuth.
                                     getInstance().getCurrentUser().getUid()).
                                     setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {

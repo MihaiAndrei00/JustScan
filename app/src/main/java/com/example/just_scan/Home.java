@@ -1,15 +1,21 @@
 package com.example.just_scan;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.Logica.LUsuario;
+import com.example.controladores.CambiarPerfil;
 import com.example.modelo.Usuario;
+import com.example.utilidades.Constantes;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,21 +27,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.just_scan.databinding.ActivityHomeBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+
 
 public class Home extends AppCompatActivity {
-
-    FirebaseUser usuario;
-    FirebaseAuth mAuth;
-
-    TextView nombreUsuario;
-    TextView mailUsuario;
-    NavigationView navigationView;
-    View headerView;
-
-    private String  fullName;
+    //firenbase
+    private StorageTask uploadTask;
+    private String myUri="";
+    private Uri imageUri;
+    private StorageReference storageProfileReference;
+    private FirebaseUser usuario;
+    private FirebaseAuth mAuth;
+    private DatabaseReference reference;
+    //vistas
+    private ImageView fotoUser;
+    private TextView nombreUsuario;
+    private TextView mailUsuario;
+    private NavigationView navigationView;
+    private View headerView;
+    private String userId;
+    private String fullName, email;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityHomeBinding binding;
-
+    //intent
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +62,9 @@ public class Home extends AppCompatActivity {
         //ini
         mAuth = FirebaseAuth.getInstance();
         usuario = mAuth.getInstance().getCurrentUser();
-
+        reference = FirebaseDatabase.getInstance().getReference("Usuarios");
+        userId = usuario.getUid();
+        storageProfileReference= FirebaseStorage.getInstance().getReference().child("Profile Pic");
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -55,6 +76,8 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         //mAppBarConfiguration contendra las rutas a las diferentes pestañas
@@ -68,7 +91,9 @@ public class Home extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+
         upDateNavHeader();
+
     }
 
     @Override
@@ -85,18 +110,56 @@ public class Home extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    public void upDateNavHeader(){
+    public void upDateNavHeader() {
+        //mailUsuario.setText(usuario.getEmail());
 
         navigationView = findViewById(R.id.nav_view);
         headerView = navigationView.getHeaderView(0);
         nombreUsuario = headerView.findViewById(R.id.nombreUsuario);
         mailUsuario = headerView.findViewById(R.id.mailUuario);
-        //ImageView fotoUsuario = headerView.findViewById(R.id.fotoUsuario);
-        nombreUsuario.setText(usuario.getDisplayName());
+        fotoUser=headerView.findViewById(R.id.fotoUsuario);
+        reference = FirebaseDatabase.getInstance().getReference("Usuarios");
+        userId = usuario.getUid();
         mailUsuario.setText(usuario.getEmail());
+        nombreUsuario.setText(usuario.getDisplayName());
 
-    //uso glid para cargar la foto del usuario
+        fotoUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(Home.this, CambiarPerfil.class);
+                startActivity(intent);
 
-
+            }
+        });
     }
-}
+
+
+
+    /*
+    public void anadirFotoPerfilPorDefecto() {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<LUsuario> listaUsuarios = new ArrayList<>();
+                for (DataSnapshot childDataSnapShot : snapshot.getChildren()) {
+                    usuarioClass = childDataSnapShot.getValue(Usuario.class);
+                    LUsuario lUsuario=new LUsuario(childDataSnapShot.getKey(),usuarioClass);
+                    listaUsuarios.add(lUsuario);
+                }
+
+                for (LUsuario lUsuario : listaUsuarios){
+                    if (lUsuario.getUsuario().getFotoPerfil() == null || lUsuario.getUsuario().getFotoPerfil() == "") {
+                        reference.child(lUsuario.getKey()).child("fotoPerfil").setValue(Constantes.URL_FOTO_DEFECTO);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+     */
+    }

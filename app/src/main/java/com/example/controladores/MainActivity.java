@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mCurrentVideoPosition = mediaPlayer.getCurrentPosition();
+//        mCurrentVideoPosition = mediaPlayer.getCurrentPosition();
         video.pause();
     }
 

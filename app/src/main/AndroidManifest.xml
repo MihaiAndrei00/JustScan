@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan">
         <activity
+            android:name="com.example.controladores.CambiarPerfil"
+            android:exported="true" />
+        <activity
             android:name=".Home"
             android:exported="true"
             android:label="@string/title_activity_home"
