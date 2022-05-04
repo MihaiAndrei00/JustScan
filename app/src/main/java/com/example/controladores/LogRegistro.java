@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.just_scan.R;
 import com.example.modelo.Usuario;
+import com.example.utilidades.Constantes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -77,7 +78,7 @@ public class LogRegistro extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, esAdmin);
+                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, Constantes.URL_FOTO_DEFECTO, esAdmin);
                             FirebaseDatabase.getInstance().getReference("Usuarios").child(FirebaseAuth.
                                     getInstance().getCurrentUser().getUid()).
                                     setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {

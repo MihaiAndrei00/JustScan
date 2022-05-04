@@ -18,25 +18,24 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogCambiarContra extends AppCompatActivity {
-    ConstraintLayout constraintLayout;
-    AnimationDrawable animationDrawable;
-
+    private ConstraintLayout constraintLayout;
+    private AnimationDrawable animationDrawable;
+    //vistas
     private EditText txtEmail;
     private FirebaseAuth mAuth;
     private Button btnCambiarContra;
+    //intent
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_cambiar_contra);
-
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(1500);
         animationDrawable.setExitFadeDuration(2500);
         animationDrawable.start();
-
         //declaro vistas
         txtEmail=findViewById(R.id.txtEmail);
         btnCambiarContra=findViewById(R.id.btnIniciarSesion);

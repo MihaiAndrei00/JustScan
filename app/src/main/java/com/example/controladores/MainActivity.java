@@ -21,10 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-    VideoView video;
-    MediaPlayer mediaPlayer;
-    Uri uri;
-    int mCurrentVideoPosition;
+    private VideoView video;
+    private MediaPlayer mediaPlayer;
+    private Uri uri;
+    private int mCurrentVideoPosition;
     private Button btnRegistro;
     private Button btnInicioSesion;
     private ConstraintLayout constraintLayout;
@@ -32,20 +32,16 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //variables para la animacion del main
         video = findViewById(R.id.video);
         uri = Uri.parse("android.resource://"
                 + getPackageName()
                 + "/"
                 + R.raw.video);
-
         video.setVideoURI(uri);
         video.start();
         video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -63,14 +59,10 @@ public class MainActivity extends AppCompatActivity {
         //asocio los botones con sus vistas
         btnRegistro=findViewById(R.id.btnIniciarSesion);
         btnInicioSesion=findViewById(R.id.btnInicioSesion);
-
         // Write a message to the database
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
-
         myRef.setValue("Base de datos");
-
-
         // Read from the database
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -80,16 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 String value = dataSnapshot.getValue(String.class);
                 Log.d("JUST_SCAN_APP", "Value is: " + value);
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
                 Log.w("JUST_SCAN_APP", "Failed to read value.", error.toException());
             }
         });
-
-
-
         //listener de los botones
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -114,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 //        mCurrentVideoPosition = mediaPlayer.getCurrentPosition();
         video.pause();
     }
-
     @Override
     protected void onResume() {
         super.onResume();

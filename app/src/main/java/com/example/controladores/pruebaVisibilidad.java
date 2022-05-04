@@ -43,21 +43,17 @@ public class pruebaVisibilidad extends AppCompatActivity {
     private String telefono;
     private Intent intent;
     private RecyclerView rv;
-    MainAdapter adpt;
-    ArrayList<Ruta>listaRutas;
-
+    private MainAdapter adpt;
+    private ArrayList<Ruta>listaRutas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prueba_visibilidad);
         botonAnadir=findViewById(R.id.anadirRuta);
         rv=findViewById(R.id.vistaRutas);
-
         user=FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
         userId=user.getUid();
-
-
         referenceRutas=FirebaseDatabase.getInstance().getReference("Rutas");
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
@@ -73,13 +69,11 @@ public class pruebaVisibilidad extends AppCompatActivity {
                 }
                 adpt.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
         // Read from the database
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -95,18 +89,12 @@ public class pruebaVisibilidad extends AppCompatActivity {
                         }else{
                             botonAnadir.setVisibility(View.INVISIBLE);
                         }
-
-
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
         intentAñadirRuta();
     }
     private void intentAñadirRuta(){

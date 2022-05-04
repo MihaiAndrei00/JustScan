@@ -7,12 +7,7 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.Logica.LUsuario;
-import com.example.controladores.CambiarPerfil;
-import com.example.modelo.Usuario;
-import com.example.utilidades.Constantes;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -102,14 +97,12 @@ public class Home extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
     public void upDateNavHeader() {
         //mailUsuario.setText(usuario.getEmail());
 
@@ -126,8 +119,7 @@ public class Home extends AppCompatActivity {
         fotoUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(Home.this, CambiarPerfil.class);
-                startActivity(intent);
+
 
             }
         });

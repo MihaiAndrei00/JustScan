@@ -37,12 +37,8 @@ public class AnadirRuta extends AppCompatActivity {
         myRef= database.getReference();
         //llamo al metodo para registrar
         registrarRuta();
-
-
     }
-
     private void registrarRuta() {
-
         anadirRuta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +48,7 @@ public class AnadirRuta extends AppCompatActivity {
                 String foto="https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId= UUID.randomUUID().toString();
                 Ruta ruta = new Ruta(uId, titulo,descripcion,duracion,foto);
-             myRef.child("Rutas").child(ruta.getuId()).setValue(ruta);
-
+                myRef.child("Rutas").child(ruta.getuId()).setValue(ruta);
             }
         });
     }
