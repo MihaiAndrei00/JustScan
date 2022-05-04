@@ -1,69 +1,60 @@
 package com.example.controladores;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.just_scan.R;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.example.modelo.Ruta;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.UUID;
 
 public class AnadirRuta extends AppCompatActivity {
-    private ImageView verImagen;
-    private ProgressDialog mProgressDialog;
-    private Button botonAnadirRuta;
-    private StorageReference mStorage;
-    private Intent intent;
-    private static final int GALERY_INTENT=1;
+    //vistas
+    private EditText tituloRuta;
+    private EditText descripcionRuta;
+    private EditText duracionRuta;
+    private Button anadirRuta;
+    //bd
+    private FirebaseDatabase database=FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
+    private Ruta ruta;
+    //declaramos la valoracion a null ya que mas adelan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.anadir_ruta);
-        botonAnadirRuta=findViewById(R.id.AgregarFoto);
-        mStorage= FirebaseStorage.getInstance().getReference();
-        verImagen=findViewById(R.id.verImagen);
-        mProgressDialog= new ProgressDialog(this);
-        botonAnadirRuta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent= new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, GALERY_INTENT);
-            }
-        });
+        tituloRuta=findViewById(R.id.tituloRutaVista);
+        descripcionRuta=findViewById(R.id.descripcionRutaVista);
+        duracionRuta=findViewById(R.id.duracionRutaVista);
+        anadirRuta=findViewById(R.id.agregarRuta);
+        //Obtenemos la referencia de nuestra bd
+        myRef= database.getReference();
+        //llamo al metodo para registrar
+        registrarRuta();
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== GALERY_INTENT && resultCode==RESULT_OK){
-           mProgressDialog.setTitle("Subiendo...");
-           mProgressDialog.setCancelable(false);
-           mProgressDialog.show();
+    private void registrarRuta() {
 
-            Uri uri= data.getData();
-            StorageReference filePath= mStorage.child("fotosRutas").child(uri.getLastPathSegment());
-            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   mProgressDialog.dismiss();
-                   Uri descargarFoto=taskSnapshot.getStorage().getDownloadUrl().getResult();
+        anadirRuta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String titulo=tituloRuta.getText().toString();
+                String descripcion= descripcionRuta.getText().toString();
+                String duracion=duracionRuta.getText().toString();
+                String foto="https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
+                String uId= UUID.randomUUID().toString();
+                Ruta ruta = new Ruta(uId, titulo,descripcion,duracion,foto);
+             myRef.child("Rutas").child(ruta.getuId()).setValue(ruta);
 
-
-                    Toast.makeText(AnadirRuta.this, "Foto subida", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            }
+        });
     }
 }

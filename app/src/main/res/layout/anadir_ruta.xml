@@ -6,66 +6,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/agregarRuta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="Agregar Ruta"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descripcion" />
-
     <EditText
-        android:id="@+id/tituloRuta"
+        android:id="@+id/descripcionRutaVista"
         android:layout_width="300dp"
         android:layout_height="48dp"
         android:layout_marginTop="76dp"
         android:ems="10"
-        android:hint="Titulo"
+        android:hint="Descripción"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloRutaVista" />
 
-    <EditText
-        android:id="@+id/descripcion"
+    <Button
+        android:id="@+id/agregarRuta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="64dp"
+        android:text="Agregar Ruta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duracionRutaVista"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/tituloRutaVista"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="128dp"
         android:ems="10"
-        android:hint="Descripcion"
+        android:hint="Titulo"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AgregarFoto" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/AgregarFoto"
-        android:layout_width="151dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="52dp"
-        android:text="Agregar imagen"
+    <EditText
+        android:id="@+id/duracionRutaVista"
+        android:layout_width="309dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="88dp"
+        android:ems="10"
+        android:hint="Duración"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloRuta"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/descripcionRutaVista" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

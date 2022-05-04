@@ -29,16 +29,10 @@ public class LogRegistro extends AppCompatActivity {
     private Button btnRegistrar;
     private Intent intent;
     private int esAdmin;
-
-
     private ProgressBar progressBar;
-
     //llamamos a la base de datos
-    FirebaseDatabase database=FirebaseDatabase.getInstance();
-
+    private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
-
-
     private Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +56,8 @@ public class LogRegistro extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         //botón
         btnRegistrar=findViewById(R.id.btnRegistrar);
-
-
         //creamos la instancia de la base de datos con la referencia de nuestro modelo, en este caso Usuario
-
         mAuth = FirebaseAuth.getInstance();
-
-
         //llamo al metodo para registrar
         registrar();
     }
