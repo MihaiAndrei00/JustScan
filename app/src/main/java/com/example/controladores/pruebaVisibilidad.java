@@ -2,11 +2,9 @@ package com.example.controladores;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.controladores.AdapterRutas.MainAdapter;
-import com.example.just_scan.Home;
 import com.example.just_scan.R;
 import com.example.modelo.Ruta;
 import com.example.modelo.Usuario;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,14 +25,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class pruebaVisibilidad extends AppCompatActivity {
+public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener {
     private Button botonAnadir;
-    private TextView permisostv;
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceRutas;
     private String userId;
     private String  fullName,email;
+    private SearchView buscador;
     private int permisos;
     private String telefono;
     private Intent intent;
@@ -51,6 +45,7 @@ public class pruebaVisibilidad extends AppCompatActivity {
         setContentView(R.layout.prueba_visibilidad);
         botonAnadir=findViewById(R.id.anadirRuta);
         rv=findViewById(R.id.vistaRutas);
+        buscador=findViewById(R.id.buscadorVista);
         user=FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
         userId=user.getUid();
@@ -58,8 +53,11 @@ public class pruebaVisibilidad extends AppCompatActivity {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaRutas=new ArrayList<>();
-        adpt= new MainAdapter(this,listaRutas);
+        adpt= new MainAdapter(this,listaRutas,this);
+
         rv.setAdapter(adpt);
+
+
         referenceRutas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -96,6 +94,18 @@ public class pruebaVisibilidad extends AppCompatActivity {
             }
         });
         intentAñadirRuta();
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                buscar(newText);
+                return false;
+            }
+        });
     }
     private void intentAñadirRuta(){
 
@@ -106,8 +116,26 @@ public class pruebaVisibilidad extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void clickEnRuta(int position) {
+        listaRutas.get(position);
+        intent= new Intent(this, VerRuta.class);
+        intent.putExtra("titulo", listaRutas.get(position).getTitulo());
+        intent.putExtra("descripcion", listaRutas.get(position).getDescripcion());
+        intent.putExtra("duracion", listaRutas.get(position).getDuración());
+        startActivity(intent);
+    }
+    private void buscar(String s){
+        ArrayList<Ruta>rutaBuscada=new ArrayList<>();
 
-
+        for(Ruta ruta: listaRutas){
+            if(ruta.getTitulo().toLowerCase().contains(s.toLowerCase())){
+                rutaBuscada.add(ruta);
+            }
+        }
+        adpt=new MainAdapter(this,rutaBuscada,this);
+        rv.setAdapter(adpt);
     }
 }
 

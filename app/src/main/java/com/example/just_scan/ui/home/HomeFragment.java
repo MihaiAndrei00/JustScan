@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.controladores.AdapterRutas.MainAdapter;
-import com.example.just_scan.Home;
-import com.example.just_scan.R;
 import com.example.just_scan.databinding.FragmentHomeBinding;
 import com.example.modelo.Ruta;
 import com.google.firebase.database.DataSnapshot;
@@ -46,34 +43,30 @@ public class HomeFragment extends Fragment {
 
         View root = binding.getRoot();
 
-        referenceRutas= FirebaseDatabase.getInstance().getReference("Rutas");
-        rv.findViewById(R.id.vistaRutas);
-        rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        listaRutas=new ArrayList<>();
-        adpt= new MainAdapter(getContext(),listaRutas);
-        rv.setAdapter(adpt);
-        referenceRutas.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Ruta ruta= dataSnapshot.getValue(Ruta.class);
-                    listaRutas.add(ruta);
-                }
-                adpt.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        final RecyclerView rv = binding.vistaRutas;
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
 
+                referenceRutas= FirebaseDatabase.getInstance().getReference("Rutas");
+                rv.setHasFixedSize(true);
+                rv.setLayoutManager(new LinearLayoutManager(getContext()));
+                listaRutas=new ArrayList<>();
+                //adpt= new MainAdapter(getContext(),listaRutas);
+                rv.setAdapter(adpt);
+                referenceRutas.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            Ruta ruta= dataSnapshot.getValue(Ruta.class);
+                            listaRutas.add(ruta);
+                        }
+                        adpt.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
 
             }
         });

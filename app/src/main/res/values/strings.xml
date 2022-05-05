@@ -11,4 +11,13 @@
     <string name="perfil">Perfil</string>
     <string name="rutas">Rutas</string>
     <string name="edificios">Edificios</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_intento2_fragment">Intento2Fragment</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_intento_fragment">IntentoFragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
