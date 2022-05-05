@@ -44,10 +44,11 @@
 
     <Button
         android:id="@+id/btnIniciarSesion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="168dp"
+        android:layout_height="46dp"
         android:background="@drawable/custom_button"
         android:text="Cambiar contraseña"
+        android:textColor="#fff"
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,32 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button3.xml" value="0.3671875" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button4.xml" value="0.3671875" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_cambiar_perfil.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_home.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_log_admin.xml" value="0.36666666666666664" />
-        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_main.xml" value="0.536" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/app_bar_home.xml" value="0.2" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/content_home.xml" value="0.3140625" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/fragment_gallery.xml" value="0.32135416666666666" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/fragment_home.xml" value="0.3140625" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/item.xml" value="0.36666666666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_cambiar_contra.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_registro.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_usuario.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/prueba_visibilidad.xml" value="0.4" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/menu/activity_main_drawer.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/menu/home.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/menu/searchmenu.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3671875" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3671875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/background_1.xml" value="0.3015625" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3151041666666667" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_home.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_main.xml" value="0.28541666666666665" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_maps.xml" value="0.19166666666666668" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.371875" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/app_bar_home.xml" value="0.134375" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/fragment_home.xml" value="0.3527777777777778" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/fragment_principal.xml" value="0.3578125" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_admin.xml" value="0.28541666666666665" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_cambiar_contra.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.25" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_registro.xml" value="0.28541666666666665" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_usuario.xml" value="0.33" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/prueba_visibilidad.xml" value="0.371875" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/menu/activity_main_drawer.xml" value="0.134375" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/menu/home.xml" value="0.134375" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/menu/intento.xml" value="0.134375" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/menu/intento2.xml" value="0.134375" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/menu/searchmenu.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2875" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_cambiar_perfil.xml" value="0.2" />

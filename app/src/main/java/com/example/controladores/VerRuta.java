@@ -27,7 +27,7 @@ public class VerRuta extends AppCompatActivity {
 
         tituloTv.setText(titulo);
         descripcionTv.setText(descripcion);
-        duracionTv.setText(duracion);
+        duracionTv.setText("Duracion: " + duracion);
 
 
     }

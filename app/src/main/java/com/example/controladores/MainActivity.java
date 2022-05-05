@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         uri = Uri.parse("android.resource://"
                 + getPackageName()
                 + "/"
-                + R.raw.video);
+                + R.raw.video2);
         video.setVideoURI(uri);
         video.start();
         video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

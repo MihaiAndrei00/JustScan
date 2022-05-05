@@ -38,7 +38,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.myViewHolder>{
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         Ruta ruta = rutas.get(position);
         holder.titulo.setText(ruta.getTitulo());
-        holder.duracion.setText(ruta.getDuración());
+        holder.duracion.setText("Duracion: " + ruta.getDuración());
     }
 
     @Override

@@ -7,10 +7,13 @@
 
     <Button
         android:id="@+id/anadirRuta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="173dp"
+        android:layout_height="45dp"
         android:layout_marginTop="104dp"
-        android:text="Button"
+        android:background="@drawable/custom_button"
+        android:text="Añadir"
+        android:textColor="#fff"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vistaRutas"
-        android:layout_width="317dp"
-        android:layout_height="453dp"
+        android:layout_width="400dp"
+        android:layout_height="525dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
