@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.myViewHolder>{
     Context context;
     ArrayList<Ruta>rutas;
+
     private myViewHolder.onRutaListener onRutaListener;
     public MainAdapter(Context context, ArrayList<Ruta> listaRutas,onRutaListener onRutaListener) {
         this.context=context;

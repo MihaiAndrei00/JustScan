@@ -54,10 +54,7 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaRutas=new ArrayList<>();
         adpt= new MainAdapter(this,listaRutas,this);
-
         rv.setAdapter(adpt);
-
-
         referenceRutas.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,7 +105,6 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
         });
     }
     private void intentAñadirRuta(){
-
         botonAnadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +120,7 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
         intent.putExtra("titulo", listaRutas.get(position).getTitulo());
         intent.putExtra("descripcion", listaRutas.get(position).getDescripcion());
         intent.putExtra("duracion", listaRutas.get(position).getDuración());
+        intent.putExtra("foto",listaRutas.get(position).getFoto());
         startActivity(intent);
     }
     private void buscar(String s){

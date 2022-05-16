@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/verFotoRuta" />
 
     <TextView
         android:id="@+id/tvDuracion"
@@ -39,10 +39,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/verFotoRuta" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/verFotoRuta"
         android:layout_width="291dp"
         android:layout_height="241dp"
         android:layout_marginTop="20dp"
@@ -54,7 +54,7 @@
     <Button
         android:id="@+id/botonComenzar"
         android:layout_width="130dp"
-        android:layout_height="46dp"
+        android:layout_height="48dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/custom_button"
         android:text="Comenzar"
