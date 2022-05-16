@@ -41,13 +41,13 @@ public class LogRegistro extends AppCompatActivity {
         setContentView(R.layout.log_registro);
 
         //variables para la animacion del main
-        /*
+
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-        */
+
         //EditText
         txtEmail=findViewById(R.id.txtEmail);
         txtNombreUsuario=findViewById(R.id.txtNombreUsuario);

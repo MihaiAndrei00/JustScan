@@ -44,12 +44,12 @@ public class LogUsuario extends AppCompatActivity {
 
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
-    /*
+
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-*/
+
         //edittext
         txtEmail=findViewById(R.id.txtEmail);
         txtContra=findViewById(R.id.txtContra);
