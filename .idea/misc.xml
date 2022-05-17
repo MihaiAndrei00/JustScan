@@ -6,10 +6,16 @@
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button3.xml" value="0.3671875" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button4.xml" value="0.3671875" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_menu_camera.xml" value="0.2703125" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_cambiar_perfil.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_home.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_calle.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_edificio.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_monumento.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_restaurante.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_log_admin.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_main.xml" value="0.536" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_principal.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/app_bar_home.xml" value="0.2" />
@@ -17,6 +23,7 @@
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/fragment_gallery.xml" value="0.32135416666666666" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/fragment_home.xml" value="0.3140625" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/item.xml" value="0.36666666666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/listar_rutas.xml" value="0.4" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_cambiar_contra.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/log_registro.xml" value="0.35104166666666664" />

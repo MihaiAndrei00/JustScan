@@ -6,4 +6,37 @@
     android:layout_height="match_parent"
     tools:context="com.example.controladores.listar.ListarRestaurante">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vistaRestaurantes"
+        android:layout_width="383dp"
+        android:layout_height="566dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buscadorVista"
+        app:layout_constraintVertical_bias="0.948" />
+
+    <SearchView
+        android:id="@+id/buscadorVista"
+        android:layout_width="399dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/custom_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/botonAnadirRestauranteAdmin"
+        android:layout_width="77dp"
+        android:layout_height="71dp"
+        android:layout_marginBottom="560dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.964"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buscadorVista"
+        app:layout_constraintVertical_bias="0.571"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

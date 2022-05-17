@@ -76,7 +76,7 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
         reference=FirebaseDatabase.getInstance().getReference("Usuarios");
         //vistas
         fotoUsuario=findViewById(R.id.fotoUsuario);
-        nombreUsuarioTv=findViewById(R.id.nombreUsuarioTv);
+        nombreUsuarioTv=findViewById(R.id.nombreUsuario);
         cardEdificios=findViewById(R.id.cardEdificios);
         cardEdificios.setOnClickListener(this);
         cardRutas=findViewById(R.id.cardRutas);

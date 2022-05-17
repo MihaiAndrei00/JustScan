@@ -6,14 +6,35 @@
     android:layout_height="match_parent"
     tools:context="com.example.controladores.listar.ListarEdificio">
 
+    <SearchView
+        android:id="@+id/buscadorVista"
+        android:layout_width="399dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/custom_button"
+        app:layout_constraintBottom_toTopOf="@+id/botonAnadirEdificioAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
-        android:id="@+id/botonAnadirCalleAdmin"
+        android:id="@+id/botonAnadirEdificioAdmin"
         android:layout_width="67dp"
         android:layout_height="61dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="104dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vistaEdificios"
+        android:layout_width="383dp"
+        android:layout_height="566dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonAnadirEdificioAdmin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
