@@ -3,7 +3,7 @@ package com.example.controladores.listar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.controladores.AdapterRutas.MainAdapter;
 import com.example.controladores.add.AnadirRuta;
-import com.example.controladores.interfaces.BotonAddInterfaz;
 import com.example.controladores.ver.VerRuta;
 import com.example.just_scan.R;
 import com.example.modelo.Ruta;
@@ -28,8 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener, BotonAddInterfaz {
-    private Button botonAnadir;
+public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener {
+    private ImageButton botonAnadir;
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceRutas;
@@ -42,11 +41,13 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
     private RecyclerView rv;
     private MainAdapter adpt;
     private ArrayList<Ruta>listaRutas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.prueba_visibilidad);
-        rv=findViewById(R.id.vistaRutas);
+        setContentView(R.layout.listar_rutas);
+        botonAnadir=findViewById(R.id.botonAnadirRutaAdmin);
+        rv=(RecyclerView) findViewById(R.id.vistaRutas);
         buscador=findViewById(R.id.buscadorVista);
         user=FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
@@ -81,7 +82,11 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
                     email=userProfile.getEmail();
                     permisos=userProfile.getEsAdmin();
                     telefono=userProfile.getTelefono();
-
+                    if(permisos==1){
+                        botonAnadir.setVisibility(View.VISIBLE);
+                    }else{
+                        botonAnadir.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
             @Override
@@ -99,6 +104,14 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
             public boolean onQueryTextChange(String newText) {
                 buscar(newText);
                 return false;
+            }
+        });
+
+        botonAnadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(ListarRuta.this, AnadirRuta.class);
+                startActivity(intent);
             }
         });
     }
@@ -126,10 +139,5 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
         rv.setAdapter(adpt);
     }
 
-    @Override
-    public void pulsarBotonAnadir(int botonId) {
-        intent= new Intent(this, AnadirRuta.class);
-        startActivity(intent);
-    }
 }
 

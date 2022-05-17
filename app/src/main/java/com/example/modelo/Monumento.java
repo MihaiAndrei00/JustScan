@@ -1,6 +1,7 @@
 package com.example.modelo;
 
 public class Monumento {
+    private String uId;
     private String nombre;
     private String calle;
     private String historia;
@@ -10,12 +11,21 @@ public class Monumento {
     public Monumento() {
     }
 
-    public Monumento(String nombre, String calle, String historia, String foto, int valoracion) {
+    public Monumento(String uId, String nombre, String calle, String historia, String foto, int valoracion) {
+        this.uId = uId;
         this.nombre = nombre;
         this.calle = calle;
         this.historia = historia;
         this.foto = foto;
         this.valoracion = valoracion;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public String getNombre() {

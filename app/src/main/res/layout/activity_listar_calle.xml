@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.controladores.listar.ListarCalle">
 
+    <ImageButton
+        android:id="@+id/botonAnadirCalleAdmin"
+        android:layout_width="67dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

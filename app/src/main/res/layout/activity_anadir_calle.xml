@@ -2,81 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/verImagen"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <EditText
-        android:id="@+id/calleEdificio"
-        android:layout_width="358dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="?android:attr/actionModeFindDrawable"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Descripción"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreDeEdificio" />
+    android:layout_height="match_parent"
+    tools:context="com.example.controladores.add.AnadirCalle">
 
     <Button
-        android:id="@+id/agregarEdificio"
+        android:id="@+id/agregarCalle"
         android:layout_width="130dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custom_button2"
-        android:text="Agregar Ruta"
+        android:text="Agregar Calle"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historiaCalle"
-        app:layout_constraintVertical_bias="0.589" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <EditText
-        android:id="@+id/nombreDeEdificio"
+        android:id="@+id/nombreDeCalle"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="92dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@android:drawable/ic_menu_edit"
         android:drawablePadding="12dp"
         android:ems="10"
-        android:hint="Titulo"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagenEdificio" />
-
-    <EditText
-        android:id="@+id/historiaCalle"
-        android:layout_width="358dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
-        android:drawablePadding="12dp"
-        android:ems="10"
-        android:hint="Duración"
+        android:hint="Nombre"
         android:inputType="textPersonName"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calleEdificio" />
+        app:layout_constraintTop_toBottomOf="@+id/imagenCalle" />
+
+    <EditText
+        android:id="@+id/historiaCalle"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Historia"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreDeCalle" />
 
     <ImageView
-        android:id="@+id/imagenEdificio"
+        android:id="@+id/imagenCalle"
         android:layout_width="262dp"
         android:layout_height="216dp"
         android:layout_marginTop="28dp"
@@ -84,5 +66,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

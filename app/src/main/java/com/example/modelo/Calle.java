@@ -1,19 +1,29 @@
 package com.example.modelo;
 
 public class Calle {
+    private String uId;
     private String nombre;
     private String historia;
-    private String imagen;
+    private String foto;
     private int valoracion;
 
     public Calle() {
     }
 
-    public Calle(String nombre, String historia, String imagen, int valoracion) {
+    public Calle(String uId, String nombre, String historia, String foto, int valoracion) {
+        this.uId = uId;
         this.nombre = nombre;
         this.historia = historia;
-        this.imagen = imagen;
+        this.foto = foto;
         this.valoracion = valoracion;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public String getNombre() {
@@ -33,11 +43,11 @@ public class Calle {
     }
 
     public String getImagen() {
-        return imagen;
+        return foto;
     }
 
     public void setImagen(String imagen) {
-        this.imagen = imagen;
+        this.foto = imagen;
     }
 
     public int getValoracion() {
