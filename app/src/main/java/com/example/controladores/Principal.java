@@ -15,8 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.example.controladores.listar.ListarCalle;
+import com.example.controladores.listar.ListarEdificio;
+import com.example.controladores.listar.ListarMonumento;
+import com.example.controladores.listar.ListarRestaurante;
+import com.example.controladores.listar.ListarRuta;
+import com.example.controladores.logs.LogUsuario;
+import com.example.controladores.ver.VerEdificio;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,9 +42,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.HashMap;
 
-public class Principal extends AppCompatActivity {
+public class Principal extends AppCompatActivity implements View.OnClickListener{
     private FirebaseUser user;
     private FirebaseAuth auth;
     private DatabaseReference reference;
@@ -54,6 +63,7 @@ public class Principal extends AppCompatActivity {
     private ImageView fotoUsuario;
     private TextView nombreUsuarioTv;
     private Intent intent;
+    private CardView cardEdificios, cardRutas, cardRestauratnes,cardQR,cardMonumentos,cardCalles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +76,56 @@ public class Principal extends AppCompatActivity {
         reference=FirebaseDatabase.getInstance().getReference("Usuarios");
         //vistas
         fotoUsuario=findViewById(R.id.fotoUsuario);
+        nombreUsuarioTv=findViewById(R.id.nombreUsuarioTv);
+        cardEdificios=findViewById(R.id.cardEdificios);
+        cardEdificios.setOnClickListener(this);
+        cardRutas=findViewById(R.id.cardRutas);
+        cardRutas.setOnClickListener(this);
+        cardRestauratnes=findViewById(R.id.cardRestaurantes);
+        cardRestauratnes.setOnClickListener(this);
+        cardQR=findViewById(R.id.cardQR);
+        cardQR.setOnClickListener(this);
+        cardMonumentos=findViewById(R.id.cardMonumentos);
+        cardMonumentos.setOnClickListener(this);
+        cardCalles=findViewById(R.id.cardCalles);
+        cardCalles.setOnClickListener(this);
         fotoUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               actualizarFotoPerfil();
+                actualizarFotoPerfil();
             }
         });
-        nombreUsuarioTv=findViewById(R.id.nombreUsuarioTv);
+        usuarioLoggeado();
 
     }
-
     @Override
-    protected void onStart() {
-        usuarioLoggeado();
-        super.onStart();
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.cardEdificios:
+                intent=new Intent(Principal.this, ListarEdificio.class);
+                startActivity(intent);
+                break;
+            case R.id.cardCalles:
+                intent=new Intent(Principal.this, ListarCalle.class);
+                startActivity(intent);
+                break;
+            case R.id.cardRutas:
+                intent=new Intent(Principal.this, ListarRuta.class);
+                startActivity(intent);
+                break;
+            case R.id.cardMonumentos:
+                intent=new Intent(Principal.this, ListarMonumento.class);
+                startActivity(intent);
+                break;
+            case R.id.cardQR:
+                intent=new Intent(Principal.this, ListarEdificio.class);
+                startActivity(intent);
+                break;
+            case R.id.cardRestaurantes:
+                intent=new Intent(Principal.this, ListarRestaurante.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     private void actualizarFotoPerfil() {
@@ -225,4 +271,6 @@ public class Principal extends AppCompatActivity {
             finish();
         }
     }
+
+
 }

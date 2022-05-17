@@ -1,4 +1,4 @@
-package com.example.controladores;
+package com.example.controladores.logs;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.controladores.Principal;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

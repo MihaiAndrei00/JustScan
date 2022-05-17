@@ -1,4 +1,4 @@
-package com.example.controladores;
+package com.example.controladores.listar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.controladores.AdapterRutas.MainAdapter;
+import com.example.controladores.add.AnadirRuta;
+import com.example.controladores.interfaces.BotonAddInterfaz;
+import com.example.controladores.ver.VerRuta;
 import com.example.just_scan.R;
 import com.example.modelo.Ruta;
 import com.example.modelo.Usuario;
@@ -25,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener {
+public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener, BotonAddInterfaz {
     private Button botonAnadir;
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -43,7 +46,6 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prueba_visibilidad);
-        botonAnadir=findViewById(R.id.anadirRuta);
         rv=findViewById(R.id.vistaRutas);
         buscador=findViewById(R.id.buscadorVista);
         user=FirebaseAuth.getInstance().getCurrentUser();
@@ -79,18 +81,14 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
                     email=userProfile.getEmail();
                     permisos=userProfile.getEsAdmin();
                     telefono=userProfile.getTelefono();
-                        if(permisos==1){
-                            botonAnadir.setVisibility(View.VISIBLE);
-                        }else{
-                            botonAnadir.setVisibility(View.INVISIBLE);
-                        }
+
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        intentAñadirRuta();
+
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -104,15 +102,7 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
             }
         });
     }
-    private void intentAñadirRuta(){
-        botonAnadir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent= new Intent(pruebaVisibilidad.this, AnadirRuta.class);
-                startActivity(intent);
-            }
-        });
-    }
+
     @Override
     public void clickEnRuta(int position) {
         listaRutas.get(position);
@@ -121,6 +111,7 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
         intent.putExtra("descripcion", listaRutas.get(position).getDescripcion());
         intent.putExtra("duracion", listaRutas.get(position).getDuración());
         intent.putExtra("foto",listaRutas.get(position).getFoto());
+        intent.putExtra("uid", listaRutas.get(position).getuId());
         startActivity(intent);
     }
     private void buscar(String s){
@@ -133,6 +124,12 @@ public class pruebaVisibilidad extends AppCompatActivity implements MainAdapter.
         }
         adpt=new MainAdapter(this,rutaBuscada,this);
         rv.setAdapter(adpt);
+    }
+
+    @Override
+    public void pulsarBotonAnadir(int botonId) {
+        intent= new Intent(this, AnadirRuta.class);
+        startActivity(intent);
     }
 }
 

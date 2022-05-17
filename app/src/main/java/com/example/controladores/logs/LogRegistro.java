@@ -1,4 +1,4 @@
-package com.example.controladores;
+package com.example.controladores.logs;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;

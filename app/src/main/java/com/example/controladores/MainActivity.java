@@ -13,6 +13,8 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.controladores.logs.LogRegistro;
+import com.example.controladores.logs.LogUsuario;
 import com.example.just_scan.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,14 +84,14 @@ public class MainActivity extends AppCompatActivity {
         btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(MainActivity.this,LogRegistro.class);
+                intent= new Intent(MainActivity.this, LogRegistro.class);
                 startActivity(intent);
             }
         });
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent= new Intent(MainActivity.this,LogUsuario.class);
+                intent= new Intent(MainActivity.this, LogUsuario.class);
                 startActivity(intent);
             }
         });

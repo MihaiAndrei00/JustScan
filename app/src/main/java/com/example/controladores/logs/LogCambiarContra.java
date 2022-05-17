@@ -1,4 +1,4 @@
-package com.example.controladores;
+package com.example.controladores.logs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +55,7 @@ public class LogCambiarContra extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LogCambiarContra.this,"Revisa tu email para el cambio de contraseña",Toast.LENGTH_LONG).show();
-                    intent= new Intent(LogCambiarContra.this,LogUsuario.class);
+                    intent= new Intent(LogCambiarContra.this, LogUsuario.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(LogCambiarContra.this,"Error al cambiar la contraseña",Toast.LENGTH_LONG).show();

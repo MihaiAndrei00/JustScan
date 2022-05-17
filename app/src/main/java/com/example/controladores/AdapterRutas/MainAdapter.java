@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.controladores.AdapterRutas.MainAdapter.myViewHolder.onRutaListener;
 import com.example.just_scan.R;
 import com.example.modelo.Ruta;
@@ -40,6 +41,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.myViewHolder>{
         Ruta ruta = rutas.get(position);
         holder.titulo.setText(ruta.getTitulo());
         holder.duracion.setText("Duracion: " + ruta.getDuración());
+
+        Glide.with(context).load(rutas.get(position).getFoto()).into(holder.img);
     }
 
     @Override
