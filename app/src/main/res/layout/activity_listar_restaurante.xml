@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.controladores.listar.ListarRestaurante">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vistaRestaurantes"
         android:layout_width="383dp"
@@ -38,5 +39,6 @@
         app:layout_constraintHorizontal_bias="0.964"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buscadorVista"
-        app:layout_constraintVertical_bias="0.571"/>
+        app:layout_constraintVertical_bias="0.571"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
