@@ -6,7 +6,7 @@
     android:layout_height="220dp">
 
     <ImageView
-        android:id="@+id/imgCalleItem"
+        android:id="@+id/card_background"
         android:layout_width="407dp"
         android:layout_height="220dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,23 +18,23 @@
         android:id="@+id/degradado"
         android:layout_width="410dp"
         android:layout_height="156dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgCalleItem"
+        app:layout_constraintBottom_toBottomOf="@+id/card_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgCalleItem"
+        app:layout_constraintTop_toTopOf="@+id/card_background"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/black_gradient" />
 
     <TextView
-        android:id="@+id/nombreCalleItem"
+        android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginBottom="28dp"
         android:textSize="20dp"
         android:text="TextView"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/imgCalleItem"
+        app:layout_constraintBottom_toBottomOf="@+id/card_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent" />
