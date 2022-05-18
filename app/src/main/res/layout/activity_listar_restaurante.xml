@@ -16,11 +16,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buscadorVista"
+        app:layout_constraintTop_toBottomOf="@+id/buscadorRestaurantes"
         app:layout_constraintVertical_bias="0.948" />
 
     <SearchView
-        android:id="@+id/buscadorVista"
+        android:id="@+id/buscadorRestaurantes"
         android:layout_width="399dp"
         android:layout_height="51dp"
         android:layout_marginTop="32dp"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.964"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buscadorVista"
+        app:layout_constraintTop_toBottomOf="@+id/buscadorRestaurantes"
         app:layout_constraintVertical_bias="0.571"
         tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

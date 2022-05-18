@@ -52,10 +52,9 @@ public class AnadirEdificio extends AppCompatActivity {
         setContentView(R.layout.activity_anadir_edificio);
         nombreEdificio = findViewById(R.id.nombreDeEdificio);
         calleEdificio = findViewById(R.id.calleEdificio);
-        historiaEdificio = findViewById(R.id.historiaCalle);
+        historiaEdificio = findViewById(R.id.historiaEdificio);
         fotoDeEdificio = findViewById(R.id.imagenEdificio);
         anadirEdificio = findViewById(R.id.agregarEdificio);
-
         storage=FirebaseStorage.getInstance();
         storageReference=storage.getReference();
         fotoDeEdificio.setImageResource(R.drawable.logo);

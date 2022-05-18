@@ -24,7 +24,6 @@ import com.example.controladores.listar.ListarMonumento;
 import com.example.controladores.listar.ListarRestaurante;
 import com.example.controladores.listar.ListarRuta;
 import com.example.controladores.logs.LogUsuario;
-import com.example.controladores.ver.VerEdificio;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

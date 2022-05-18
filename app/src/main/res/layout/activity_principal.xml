@@ -50,60 +50,64 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardEdificios"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#fff">
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:src="@drawable/icono_edificio2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edificios"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardRutas"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#fff">
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icono_ruta2"/>
+                        android:src="@drawable/icono_ruta2" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Rutas"
                         android:textAlignment="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -152,6 +156,7 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardQR"
                 android:layout_width="150dp"
@@ -195,62 +200,66 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardCalles"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#fff">
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icono_calles2"/>
+                        android:src="@drawable/icono_calles2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Calles"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardRestaurantes"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
-                app:cardCornerRadius="15dp"
-                app:cardBackgroundColor="#fff">
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icono_restaurante2"/>
+                        android:src="@drawable/icono_restaurante2" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Restaurantes"
-                        android:textSize="16dp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:textSize="16dp" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -258,6 +267,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 </RelativeLayout>

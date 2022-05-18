@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.controladores.listar.ListarMonumento">
     <SearchView
-        android:id="@+id/buscadorVista"
+        android:id="@+id/buscadorMonumentosItem"
         android:layout_width="399dp"
         android:layout_height="51dp"
         android:layout_marginTop="28dp"

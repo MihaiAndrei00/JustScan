@@ -15,7 +15,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class VerRuta extends AppCompatActivity {
-   private Intent intent;
+    private Intent intent;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Rutas");
     private StorageReference reference= FirebaseStorage.getInstance().getReference();

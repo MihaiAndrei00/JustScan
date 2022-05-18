@@ -19,6 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan.NoActionBar">
         <activity
+            android:name="com.example.controladores.ver.VerCalle"
+            android:exported="true" />
+        <activity
+            android:name="com.example.controladores.ver.VerEdificio"
+            android:exported="true" />
+        <activity
+            android:name="com.example.controladores.ver.VerMonumento"
+            android:exported="true" />
+        <activity
+            android:name="com.example.controladores.ver.VerRestaurante"
+            android:exported="true" />
+        <activity
             android:name="com.example.controladores.add.AnadirRestaurante"
             android:exported="false" />
         <activity
