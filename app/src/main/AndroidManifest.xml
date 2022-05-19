@@ -73,11 +73,6 @@
             android:name="com.example.controladores.ver.VerRuta"
             android:exported="false" />
         <activity
-            android:name=".Home"
-            android:exported="true"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.JustScan.NoActionBar" />
-        <activity
             android:name="com.example.controladores.logs.LogRegistro"
             android:exported="true" />
         <activity

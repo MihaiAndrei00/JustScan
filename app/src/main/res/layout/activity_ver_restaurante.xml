@@ -4,64 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.ver.VerRestaurante">
+    tools:context="com.example.controladores.ver.VerMonumento"
+    android:background="#000">
+
+
+    <ImageView
+        android:id="@+id/verFotoRestauranteExtras"
+        android:layout_width="413dp"
+        android:layout_height="296dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="415dp"
+        android:layout_height="292dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/verFotoRestauranteExtras"
+        app:srcCompat="@drawable/black_gradient" />
 
     <TextView
         android:id="@+id/nombreRestauranteExtras"
         android:layout_width="221dp"
         android:layout_height="32dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginBottom="52dp"
         android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.021"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvDescripcionRestauranteExtras"
-        android:layout_width="345dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="410dp"
+        android:layout_height="437dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras" />
+        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvCalleRestauranteExtras"
         android:layout_width="128dp"
         android:layout_height="31dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginStart="4dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/tipoDeComidaExtras"
-        app:layout_constraintHorizontal_bias="0.767"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras" />
+        app:layout_constraintTop_toBottomOf="@+id/nombreRestauranteExtras"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tipoDeComidaExtras"
         android:layout_width="128dp"
         android:layout_height="31dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="24dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras" />
+        android:textColor="#fff"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/verFotoRestauranteExtras"
-        android:layout_width="291dp"
-        android:layout_height="241dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreRestauranteExtras"
-        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

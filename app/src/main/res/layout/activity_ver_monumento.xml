@@ -4,20 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.ver.VerMonumento">
+    tools:context="com.example.controladores.ver.VerMonumento"
+    android:background="#000">
 
-    <TextView
-        android:id="@+id/nombreMonumentoExtras"
-        android:layout_width="221dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="52dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
         android:id="@+id/tvDescripcionMonumentoExtras"
@@ -25,7 +15,7 @@
         android:layout_height="437dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -33,18 +23,6 @@
         app:layout_constraintTop_toBottomOf="@+id/verFotoMonumentoExtras"
         app:layout_constraintVertical_bias="0.514" />
 
-    <TextView
-        android:id="@+id/tvCalleMonumentoExtras"
-        android:layout_width="128dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
-        android:text="TextView"
-        android:textSize="15dp"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombreMonumentoExtras"
-        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/verFotoMonumentoExtras"
@@ -61,9 +39,35 @@
         android:layout_height="292dp"
         app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/verFotoMonumentoExtras"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/black_gradient" />
 
+    <TextView
+        android:id="@+id/nombreMonumentoExtras"
+        android:layout_width="221dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="52dp"
+        android:text="TextView"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCalleMonumentoExtras"
+        android:layout_width="128dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="4dp"
+        android:text="TextView"
+        android:textSize="15dp"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombreMonumentoExtras"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
