@@ -3,6 +3,7 @@ package com.example.controladores.listar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
@@ -36,7 +37,7 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
     //AdMob
     private String tag ="ListarRuta";
     private AdView mAdView;
-    private ImageButton botonAnadir;
+    private Button botonAnadir;
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceRutas;

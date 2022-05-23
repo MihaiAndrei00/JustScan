@@ -3,6 +3,7 @@ package com.example.controladores.listar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
@@ -36,7 +37,7 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-    private ImageButton botonAnadirMonumento;
+    private Button botonAnadirMonumento;
     private Intent intent;
     private FirebaseUser user;
     private DatabaseReference reference;
