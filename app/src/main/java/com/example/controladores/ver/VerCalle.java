@@ -10,6 +10,11 @@ import android.widget.TextView;
 import com.example.controladores.Principal;
 import com.example.controladores.interfaces.ComunicaMenu;
 import com.example.just_scan.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -17,6 +22,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class VerCalle extends AppCompatActivity implements ComunicaMenu {
+    //AdMob
+    private String tag ="VerCalle";
+    private AdView mAdView;
     private Intent intent;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Calles");
@@ -29,6 +37,8 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_ver_calle);
+            //AdMob
+            MobileAds.initialize(this);
             nombre=getIntent().getStringExtra("nombre");
             historia=getIntent().getStringExtra("historia");
             fotoIntent=getIntent().getStringExtra("foto");
@@ -43,6 +53,16 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
             }catch (Exception e){
                 Picasso.get().load(R.drawable.ic_person_selected).into(verFotoCalle);
         }
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -50,4 +70,9 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
         intent= new Intent(this, Principal.class);
         startActivity(intent);
     }
+
+
+
+
+
 }

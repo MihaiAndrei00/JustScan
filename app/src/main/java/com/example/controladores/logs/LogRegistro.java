@@ -15,6 +15,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.just_scan.R;
 import com.example.modelo.Usuario;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LogRegistro extends AppCompatActivity {
+    //AdMob
+    private String tag ="Principal";
+    private AdView mAdView;
     private EditText txtEmail;
     private EditText txtNombreUsuario;
     private EditText txtTelefono;
@@ -38,6 +46,9 @@ public class LogRegistro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_registro);
+
+        //AdMob
+        MobileAds.initialize(this);
 
         //variables para la animacion del main
 
@@ -60,6 +71,16 @@ public class LogRegistro extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //llamo al metodo para registrar
         registrar();
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void registrar(){

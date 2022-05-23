@@ -18,6 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan.NoActionBar">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4177967180722969~6611644180"/>
+        <activity
+            android:name="com.example.controladores.Qr"
+            android:exported="true" />
         <activity
             android:name="com.example.controladores.ver.VerCalle"
             android:exported="true" />

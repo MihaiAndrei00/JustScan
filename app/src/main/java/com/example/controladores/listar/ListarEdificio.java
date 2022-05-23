@@ -17,6 +17,11 @@ import com.example.controladores.ver.VerEdificio;
 import com.example.just_scan.R;
 import com.example.modelo.Edificio;
 import com.example.modelo.Usuario;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ListarEdificio extends AppCompatActivity implements EdificiosAdapter.myViewHolder.onEdificioListener{
+    //AdMob
+    private String tag ="Principal";
+    private AdView mAdView;
     private ImageButton botonListarEdificio;
     private Intent intent;
     private FirebaseUser user;
@@ -45,6 +53,8 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_edificio);
+        //AdMob
+        MobileAds.initialize(this);
         rv=(RecyclerView) findViewById(R.id.vistaEdificios);
         buscador=findViewById(R.id.buscadorEdificios);
         user= FirebaseAuth.getInstance().getCurrentUser();
@@ -120,6 +130,16 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
                 startActivity(intent);
             }
         });
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

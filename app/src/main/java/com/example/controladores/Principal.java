@@ -25,6 +25,13 @@ import com.example.controladores.listar.ListarRestaurante;
 import com.example.controladores.listar.ListarRuta;
 import com.example.controladores.logs.LogUsuario;
 import com.example.just_scan.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -41,7 +48,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-
 import java.util.HashMap;
 
 public class Principal extends AppCompatActivity implements View.OnClickListener{
@@ -50,6 +56,10 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
     private DatabaseReference reference;
     private StorageReference referenciaAlmacenamiento;
     private String rutaAlmacenamiento="FotosDePerfil/*";
+
+    //AdMob
+    private String tag ="Principal";
+    private AdView mAdView;
 
     /*PERMISOS*/
     private static final int CODIGO_DE_SOLICITUD_DE_ALMACENAMIENTO=200;
@@ -88,6 +98,9 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
         cardMonumentos.setOnClickListener(this);
         cardCalles=findViewById(R.id.cardCalles);
         cardCalles.setOnClickListener(this);
+        //AdMob
+        MobileAds.initialize(this);
+
         fotoUsuario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +109,18 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
         });
         usuarioLoggeado();
 
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -117,7 +141,7 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.cardQR:
-                intent=new Intent(Principal.this, ListarEdificio.class);
+                intent=new Intent(Principal.this, Qr.class);
                 startActivity(intent);
                 break;
             case R.id.cardRestaurantes:

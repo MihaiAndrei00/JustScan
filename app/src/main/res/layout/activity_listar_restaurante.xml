@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.listar.ListarRestaurante">
+    tools:context="com.example.controladores.listar.ListarRestaurante"
+    android:background="@color/black">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,21 +25,33 @@
         android:layout_width="399dp"
         android:layout_height="51dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/custom_button"
+        android:background="#585858"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/botonAnadirRestauranteAdmin"
-        android:layout_width="77dp"
-        android:layout_height="71dp"
-        android:layout_marginBottom="560dp"
+        android:layout_width="71dp"
+        android:layout_height="70dp"
+        android:background="@drawable/add_button_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/vistaRestaurantes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buscadorRestaurantes" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.964"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buscadorRestaurantes"
-        app:layout_constraintVertical_bias="0.571"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.AdView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

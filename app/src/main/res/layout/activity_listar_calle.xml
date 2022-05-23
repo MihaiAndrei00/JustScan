@@ -4,30 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.listar.ListarCalle">
+    tools:context="com.example.controladores.listar.ListarCalle"
+    android:background="@color/black">
 
     <SearchView
         android:id="@+id/buscadorCalle"
         android:layout_width="399dp"
         android:layout_height="51dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/custom_button"
+        android:background="#585858"
         app:layout_constraintBottom_toTopOf="@+id/botonAnadirCalleAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/botonAnadirCalleAdmin"
-        android:layout_width="67dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="71dp"
+        android:layout_height="70dp"
+        android:background="@drawable/add_button_foreground"
+        app:layout_constraintBottom_toTopOf="@+id/vistaCalle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.953"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/buscadorCalle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vistaCalle"
@@ -38,4 +36,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAnadirCalleAdmin"
         app:layout_constraintVertical_bias="0.428" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="4dp"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.gms.ads.AdView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

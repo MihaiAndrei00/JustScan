@@ -13,11 +13,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.just_scan.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogCambiarContra extends AppCompatActivity {
+
+    //AdMob
+    private String tag ="Principal";
+    private AdView mAdView;
+
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     //vistas
@@ -30,6 +40,8 @@ public class LogCambiarContra extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_cambiar_contra);
+        //AdMob
+        MobileAds.initialize(this);
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -47,6 +59,16 @@ public class LogCambiarContra extends AppCompatActivity {
                 resetPassword();
             }
         });
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
     private void resetPassword(){
         String email= txtEmail.getText().toString();

@@ -17,6 +17,11 @@ import com.example.controladores.ver.VerRuta;
 import com.example.just_scan.R;
 import com.example.modelo.Ruta;
 import com.example.modelo.Usuario;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewHolder.onRutaListener {
+    //AdMob
+    private String tag ="ListarRuta";
+    private AdView mAdView;
     private ImageButton botonAnadir;
     private FirebaseUser user;
     private DatabaseReference reference;
@@ -46,6 +54,8 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listar_rutas);
+        //AdMob
+        MobileAds.initialize(this);
         botonAnadir=findViewById(R.id.botonAnadirRutaAdmin);
         rv=(RecyclerView) findViewById(R.id.vistaRutas);
         buscador=findViewById(R.id.buscadorVista);
@@ -114,6 +124,16 @@ public class ListarRuta extends AppCompatActivity implements MainAdapter.myViewH
                 startActivity(intent);
             }
         });
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

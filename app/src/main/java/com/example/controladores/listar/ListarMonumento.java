@@ -17,6 +17,11 @@ import com.example.controladores.ver.VerEdificio;
 import com.example.just_scan.R;
 import com.example.modelo.Monumento;
 import com.example.modelo.Usuario;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +33,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ListarMonumento extends AppCompatActivity  implements MonumentosAdapter.myViewHolder.onMonumentoListener{
+    //AdMob
+    private String tag ="Principal";
+    private AdView mAdView;
     private ImageButton botonAnadirMonumento;
     private Intent intent;
     private FirebaseUser user;
@@ -45,6 +53,8 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_monumento);
+        //AdMob
+        MobileAds.initialize(this);
         rv=(RecyclerView) findViewById(R.id.vistaMonumentos);
         buscador=findViewById(R.id.buscadorMonumentosItem);
         user= FirebaseAuth.getInstance().getCurrentUser();
@@ -112,6 +122,16 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
                 return false;
             }
         });
+
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 
