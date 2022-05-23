@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.ver.VerMonumento"
-    android:background="#000">
+    android:background="#000"
+    tools:context="com.example.controladores.ver.VerMonumento">
 
 
     <ImageView
@@ -29,8 +29,8 @@
 
     <TextView
         android:id="@+id/nombreRestauranteExtras"
-        android:layout_width="221dp"
-        android:layout_height="32dp"
+        android:layout_width="410dp"
+        android:layout_height="36dp"
         android:layout_marginTop="184dp"
         android:layout_marginBottom="52dp"
         android:text="TextView"
@@ -45,41 +45,39 @@
 
     <TextView
         android:id="@+id/tvDescripcionRestauranteExtras"
-        android:layout_width="410dp"
-        android:layout_height="437dp"
+        android:layout_width="414dp"
+        android:layout_height="353dp"
         android:text="TextView"
-        android:textAlignment="center"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/verFotoRestauranteExtras" />
 
     <TextView
         android:id="@+id/tvCalleRestauranteExtras"
-        android:layout_width="128dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="411dp"
+        android:layout_height="24dp"
         android:text="TextView"
         android:textColor="#fff"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreRestauranteExtras"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tipoDeComidaExtras"
-        android:layout_width="128dp"
+        android:layout_width="409dp"
         android:layout_height="31dp"
-        android:layout_marginStart="4dp"
         android:layout_marginBottom="24dp"
         android:text="TextView"
         android:textColor="#fff"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/verFotoRestauranteExtras"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.gms.ads.AdView
@@ -94,9 +92,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent">
-    </com.google.android.gms.ads.AdView>
-
+        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
