@@ -92,7 +92,8 @@ public class AnadirRestaurante extends AppCompatActivity {
                 String descripcion = descripcionRestaurante.getText().toString();
                 String tipoComida = tipoDeComida.getText().toString();
                 String uId = UUID.randomUUID().toString();
-                int valoracion = 0;
+                double lat = 40.4130882;
+                double longi=-3.702548;
 
                 StorageReference ref = storageReference.child("FotosDeRestaurantes/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -107,7 +108,7 @@ public class AnadirRestaurante extends AppCompatActivity {
                                 if (uriTask.isSuccessful()) {
                                     HashMap<String, Object> resultado = new HashMap<>();
                                     resultado.put(imagenRuta, downloadUri.toString());
-                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(), valoracion);
+                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(),lat,longi );
                                     myRef.child(restaurante.getuId()).setValue(restaurante);
                                     Toast.makeText(AnadirRestaurante.this, "Restaurante subida correctamente", Toast.LENGTH_SHORT).show();
                                 } else {

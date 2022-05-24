@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -146,6 +145,8 @@ public class ListarRestaurante extends AppCompatActivity implements Restaurantes
         intent.putExtra("comida", listaRestaurantes.get(position).getTipoDeComida());
         intent.putExtra("foto",listaRestaurantes.get(position).getFoto());
         intent.putExtra("uid", listaRestaurantes.get(position).getuId());
+        intent.putExtra("latitud", listaRestaurantes.get(position).getLatitud());
+        intent.putExtra("longitud", listaRestaurantes.get(position).getLongitud());
         startActivity(intent);
     }
     private void buscar(String s){

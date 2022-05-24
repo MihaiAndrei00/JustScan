@@ -7,19 +7,22 @@ public class Restaurante {
     private String tipoDeComida;
     private String descripcion;
     private String foto;
-    private int valoracion;
+    private double latitud;
+    private double longitud;
+
 
     public Restaurante() {
     }
 
-    public Restaurante(String uId, String nombre, String calle, String tipoDeComida, String descripcion, String foto, int valoracion) {
+    public Restaurante(String uId, String nombre, String calle, String tipoDeComida, String descripcion, String foto, double latitud, double longitud) {
         this.uId = uId;
         this.nombre = nombre;
         this.calle = calle;
         this.tipoDeComida = tipoDeComida;
         this.descripcion = descripcion;
         this.foto = foto;
-        this.valoracion = valoracion;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public String getuId() {
@@ -70,11 +73,19 @@ public class Restaurante {
         this.foto = foto;
     }
 
-    public int getValoracion() {
-        return valoracion;
+    public double getLatitud() {
+        return latitud;
     }
 
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

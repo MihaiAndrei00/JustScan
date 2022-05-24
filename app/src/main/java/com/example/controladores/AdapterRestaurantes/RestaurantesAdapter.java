@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.example.just_scan.R;
 import com.example.modelo.Restaurante;
+
 import java.util.ArrayList;
 
 public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapter.myViewHolder>{
@@ -57,6 +60,7 @@ public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapte
             nombre=(TextView) itemView.findViewById(R.id.nombreRestauranteItem);
             calleRestaurante=(TextView) itemView.findViewById(R.id.calleRestauranteItem);
             tipoComida=(TextView) itemView.findViewById(R.id.tipoDeComidaItem);
+
             this.onRestauranteListener=onRestauranteListener;
             itemView.setOnClickListener(this);
         }
