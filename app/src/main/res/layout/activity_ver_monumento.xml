@@ -10,8 +10,8 @@
 
     <TextView
         android:id="@+id/tvDescripcionMonumentoExtras"
-        android:layout_width="411dp"
-        android:layout_height="354dp"
+        android:layout_width="405dp"
+        android:layout_height="221dp"
         android:text="TextView"
         android:textColor="#fff"
         app:layout_constraintBottom_toTopOf="@+id/adView"
@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verFotoMonumentoExtras"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.112" />
 
     <ImageView
         android:id="@+id/verFotoMonumentoExtras"
@@ -67,6 +67,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreMonumentoExtras"
         app:layout_constraintVertical_bias="0.0" />
+
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnPanoramicoMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="48dp"
+        android:src="@drawable/ic_baseline_panorama_24"
+        app:layout_constraintEnd_toStartOf="@+id/btnNavegarMonumento"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionMonumentoExtras" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnNavegarMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_baseline_navigation_24"
+        app:layout_constraintEnd_toStartOf="@+id/mostrarEnGoogleMapsMonumento"
+        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionMonumentoExtras" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mostrarEnGoogleMapsMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_baseline_map_24"
+        app:layout_constraintEnd_toStartOf="@+id/mostrarEnMapaMonumento"
+        app:layout_constraintHorizontal_bias="0.868"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionMonumentoExtras" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/mostrarEnMapaMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescripcionMonumentoExtras" />
+
+
+
+
+
+
+
+
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

@@ -39,7 +39,7 @@ public class CallesAdapter extends RecyclerView.Adapter<CallesAdapter.myViewHold
     public void onBindViewHolder(@NonNull CallesAdapter.myViewHolder holder, int position) {
         Calle calle = listaCalles.get(position);
         holder.nombre.setText(calle.getNombre());
-        Glide.with(context).load(listaCalles.get(position).getImagen()).into(holder.img);
+        Glide.with(context).load(listaCalles.get(position).getFoto()).into(holder.img);
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -142,8 +141,10 @@ public class ListarCalle extends AppCompatActivity  implements CallesAdapter.myV
         intent= new Intent(this, VerCalle.class);
         intent.putExtra("nombre", listaCalles.get(position).getNombre());
         intent.putExtra("historia", listaCalles.get(position).getHistoria());
-        intent.putExtra("foto", listaCalles.get(position).getImagen());
+        intent.putExtra("foto", listaCalles.get(position).getFoto());
         intent.putExtra("uid", listaCalles.get(position).getuId());
+        intent.putExtra("latitud", listaCalles.get(position).getLatitud());
+        intent.putExtra("longitud", listaCalles.get(position).getLongitud());
         startActivity(intent);
     }
     private void buscar(String s){

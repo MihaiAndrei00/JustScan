@@ -88,7 +88,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardRutas"
+                android:id="@+id/cardPerfil"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
@@ -105,12 +105,12 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icono_ruta2" />
+                        android:src="@drawable/custom_person_icon" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Rutas"
+                        android:text="Perfil"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="16dp" />

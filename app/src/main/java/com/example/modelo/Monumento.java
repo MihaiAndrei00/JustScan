@@ -6,18 +6,20 @@ public class Monumento {
     private String calle;
     private String historia;
     private String foto;
-    private int valoracion;
+    private double latitud;
+    private double longitud;
 
     public Monumento() {
     }
 
-    public Monumento(String uId, String nombre, String calle, String historia, String foto, int valoracion) {
+    public Monumento(String uId, String nombre, String calle, String historia, String foto, double latitud, double longitud) {
         this.uId = uId;
         this.nombre = nombre;
         this.calle = calle;
         this.historia = historia;
         this.foto = foto;
-        this.valoracion = valoracion;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public String getuId() {
@@ -60,11 +62,19 @@ public class Monumento {
         this.foto = foto;
     }
 
-    public int getValoracion() {
-        return valoracion;
+    public double getLatitud() {
+        return latitud;
     }
 
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

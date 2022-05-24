@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.controladores.AdapterMonumentos.MonumentosAdapter;
 import com.example.controladores.add.AnadirMonumento;
-import com.example.controladores.ver.VerEdificio;
+import com.example.controladores.ver.VerMonumento;
 import com.example.just_scan.R;
 import com.example.modelo.Monumento;
 import com.example.modelo.Usuario;
@@ -139,12 +138,14 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
     @Override
     public void clickEnMonumento(int position) {
         listaMonumentos.get(position);
-        intent= new Intent(this, VerEdificio.class);
+        intent= new Intent(this, VerMonumento.class);
         intent.putExtra("nombre", listaMonumentos.get(position).getNombre());
         intent.putExtra("calle", listaMonumentos.get(position).getCalle());
         intent.putExtra("historia", listaMonumentos.get(position).getHistoria());
         intent.putExtra("foto",listaMonumentos.get(position).getFoto());
         intent.putExtra("uid", listaMonumentos.get(position).getuId());
+        intent.putExtra("latitud", listaMonumentos.get(position).getLatitud());
+        intent.putExtra("longitud", listaMonumentos.get(position).getLongitud());
         startActivity(intent);
     }
     private void buscar(String s){

@@ -20,4 +20,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_intento_fragment">IntentoFragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_map_edificio">MapEdificio</string>
+    <string name="title_activity_map_monumento">MapMonumento</string>
+    <string name="title_activity_map_calle">MapCalle</string>
 </resources>

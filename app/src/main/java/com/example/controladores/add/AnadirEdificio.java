@@ -91,7 +91,8 @@ public class AnadirEdificio extends AppCompatActivity {
                 String historia = historiaEdificio.getText().toString();
                 String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                int valoracion=0;
+                double lat=40.415511;
+                double longi=-3.7074009;
 
                 StorageReference ref= storageReference.child("FotosDeEdificios/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -106,7 +107,7 @@ public class AnadirEdificio extends AppCompatActivity {
                                 if(uriTask.isSuccessful()){
                                     HashMap<String, Object> resultado= new HashMap<>();
                                     resultado.put(imagenRuta,downloadUri.toString());
-                                    Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),valoracion);
+                                    Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),lat,longi);
                                     myRef.child(edificio.getuId()).setValue(edificio);
                                     Toast.makeText(AnadirEdificio.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
                                 }else{

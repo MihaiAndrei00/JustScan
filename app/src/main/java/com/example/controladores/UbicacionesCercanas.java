@@ -7,22 +7,17 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
-import com.example.controladores.listar.ListarCalle;
-import com.example.controladores.listar.ListarEdificio;
-import com.example.controladores.listar.ListarMonumento;
-import com.example.controladores.listar.ListarRestaurante;
-import com.example.controladores.logs.LogUsuario;
 import com.example.just_scan.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -47,58 +42,45 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-public class Principal extends AppCompatActivity implements View.OnClickListener{
+public class UbicacionesCercanas extends AppCompatActivity {
+    private ImageView fotoPerfil;
+    private AdView mAdView;
+    private String tag ="Principal";
+    private EditText txtEmail;
+    private EditText txtNombreUsuario;
+    private EditText txtTelefono;
+    private Button btnActualizar;
+    private Intent intent;
     private FirebaseUser user;
     private FirebaseAuth auth;
     private DatabaseReference reference;
     private StorageReference referenciaAlmacenamiento;
     private String rutaAlmacenamiento="FotosDePerfil/*";
-
-    //AdMob
-    private String tag ="Principal";
-    private AdView mAdView;
-
-    /*PERMISOS*/
-    private static final int CODIGO_DE_SOLICITUD_DE_ALMACENAMIENTO=200;
-    private static final int CODIGO_PARA_LA_SELECCION_DE_LA_IMAGEN=300;
-    /*MATRICES*/
     private String [] permisosDeAlmacenamiento;
     private Uri imagen_uri;
     private String perfilImagen="fotoPerfil";
-    //Vista
-    private ImageView fotoUsuario;
-    private TextView nombreUsuarioTv;
-    private Intent intent;
-    private CardView cardEdificios, cardRutas, cardRestauratnes,cardQR,cardMonumentos,cardCalles;
+    /*PERMISOS*/
+    private static final int CODIGO_DE_SOLICITUD_DE_ALMACENAMIENTO=200;
+    private static final int CODIGO_PARA_LA_SELECCION_DE_LA_IMAGEN=300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
+        setContentView(R.layout.activity_ubicaciones_cercanas);
+        txtEmail=findViewById(R.id.txtEmailUpdate);
+        txtNombreUsuario=findViewById(R.id.txtNombreUsuarioUpdate);
+        txtTelefono=findViewById(R.id.txtTelefonoUpdate);
+        btnActualizar=findViewById(R.id.btnActualizar);
+        mAdView = findViewById(R.id.adView);
+        fotoPerfil=findViewById(R.id.fotoPerfil);
         referenciaAlmacenamiento= FirebaseStorage.getInstance().getReference();
         permisosDeAlmacenamiento=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         auth=FirebaseAuth.getInstance();
         user=auth.getCurrentUser();
-        reference=FirebaseDatabase.getInstance().getReference("Usuarios");
-        //vistas
-        fotoUsuario=findViewById(R.id.fotoUsuario);
-        nombreUsuarioTv=findViewById(R.id.nombreUsuario);
-        cardEdificios=findViewById(R.id.cardEdificios);
-        cardEdificios.setOnClickListener(this);
-        cardRutas=findViewById(R.id.cardPerfil);
-        cardRutas.setOnClickListener(this);
-        cardRestauratnes=findViewById(R.id.cardRestaurantes);
-        cardRestauratnes.setOnClickListener(this);
-        cardQR=findViewById(R.id.cardQR);
-        cardQR.setOnClickListener(this);
-        cardMonumentos=findViewById(R.id.cardMonumentos);
-        cardMonumentos.setOnClickListener(this);
-        cardCalles=findViewById(R.id.cardCalles);
-        cardCalles.setOnClickListener(this);
-        //AdMob
-        MobileAds.initialize(this);
+        reference= FirebaseDatabase.getInstance().getReference("Usuarios");
 
-        fotoUsuario.setOnClickListener(new View.OnClickListener() {
+
+        fotoPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 actualizarFotoPerfil();
@@ -116,36 +98,15 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-    }
+        btnActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               reference.child(user.getUid()).child("nombreUsuario").setValue(txtNombreUsuario.getText().toString());
+               reference.child(user.getUid()).child("email").setValue(txtEmail.getText().toString());
+               reference.child(user.getUid()).child("telefono").setValue(txtTelefono.getText().toString());
+            }
+        });
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.cardEdificios:
-                intent=new Intent(Principal.this, ListarEdificio.class);
-                startActivity(intent);
-                break;
-            case R.id.cardCalles:
-                intent=new Intent(Principal.this, ListarCalle.class);
-                startActivity(intent);
-                break;
-            case R.id.cardPerfil:
-                intent=new Intent(Principal.this, UbicacionesCercanas.class);
-                startActivity(intent);
-                break;
-            case R.id.cardMonumentos:
-                intent=new Intent(Principal.this, ListarMonumento.class);
-                startActivity(intent);
-                break;
-            case R.id.cardQR:
-                intent=new Intent(Principal.this, Qr.class);
-                startActivity(intent);
-                break;
-            case R.id.cardRestaurantes:
-                intent=new Intent(Principal.this, ListarRestaurante.class);
-                startActivity(intent);
-                break;
-        }
     }
 
     private void actualizarFotoPerfil() {
@@ -171,7 +132,7 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
     }
     //Comprobar si los permisos de almacenamiento estan habilitados
     private boolean comprobarPermisosAlmacenamiento() {
-        boolean resultado= ContextCompat.checkSelfPermission(Principal.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+        boolean resultado= ContextCompat.checkSelfPermission(UbicacionesCercanas.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
                 (PackageManager.PERMISSION_GRANTED);
         return resultado;
     }
@@ -219,29 +180,29 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
                         Task<Uri> uriTask=taskSnapshot.getStorage().getDownloadUrl();
                         while (!uriTask.isSuccessful());
                         Uri downloadUri=uriTask.getResult();
-                            if(uriTask.isSuccessful()){
-                                HashMap<String, Object> resultado= new HashMap<>();
-                                resultado.put(perfilImagen,downloadUri.toString());
-                                reference.child(user.getUid()).updateChildren(resultado).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(Principal.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(Principal.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }else{
-                                Toast.makeText(Principal.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
-                            }
+                        if(uriTask.isSuccessful()){
+                            HashMap<String, Object> resultado= new HashMap<>();
+                            resultado.put(perfilImagen,downloadUri.toString());
+                            reference.child(user.getUid()).updateChildren(resultado).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(UbicacionesCercanas.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }else{
+                            Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Principal.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -265,12 +226,16 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
                 for (DataSnapshot ds : snapshot.getChildren()){
                     String nombreUsuario= ""+ ds.child("nombreUsuario").getValue();
                     String imagen=""+ ds.child("fotoPerfil").getValue();
-                    nombreUsuarioTv.setText(nombreUsuario);
+                    String email=""+ds.child("email").getValue();
+                    String tlf=""+ds.child("telefono").getValue();
+                    txtNombreUsuario.setText(nombreUsuario);
+                    txtEmail.setText(email);
+                    txtTelefono.setText(tlf);
 
                     try {
-                        Picasso.get().load(imagen).into(fotoUsuario);
+                        Picasso.get().load(imagen).into(fotoPerfil);
                     }catch (Exception e){
-                        Picasso.get().load(R.drawable.ic_person_selected).into(fotoUsuario);
+                        Picasso.get().load(R.drawable.ic_person_selected).into(fotoPerfil);
                     }
 
                 }
@@ -287,10 +252,9 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
             consultaParaMostrarDatos();
             Toast.makeText(this,"Bienvenido a Just Scan", Toast.LENGTH_SHORT).show();
         }else{
-            startActivity(new Intent(Principal.this, LogUsuario.class));
+            startActivity(new Intent(UbicacionesCercanas.this, Principal.class));
             finish();
         }
     }
-
 
 }

@@ -90,7 +90,8 @@ public class AnadirMonumento extends AppCompatActivity {
                 String historia = historiaMonumento.getText().toString();
                 String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                int valoracion = 0;
+                double latitud =  40.4137818;
+                double longitud=  -3.6921271;
 
                 StorageReference ref = storageReference.child("FotosDeMonumentos/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -105,7 +106,7 @@ public class AnadirMonumento extends AppCompatActivity {
                                 if (uriTask.isSuccessful()) {
                                     HashMap<String, Object> resultado = new HashMap<>();
                                     resultado.put(imagenRuta, downloadUri.toString());
-                                    Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(), valoracion);
+                                    Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(),latitud, longitud);
                                     myRef.child(monumento.getuId()).setValue(monumento);
                                     Toast.makeText(AnadirMonumento.this, "Monumento subida correctamente", Toast.LENGTH_SHORT).show();
                                 } else {

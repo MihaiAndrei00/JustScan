@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.just_scan.R;
-import com.example.maps.MapsActivity;
+import com.example.maps.MapRestaurante;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -84,7 +84,7 @@ public class VerRestaurante extends AppCompatActivity {
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(VerRestaurante.this, MapsActivity.class);
+                intent=new Intent(VerRestaurante.this, MapRestaurante.class);
                 intent.putExtra("latitud", lat);
                 intent.putExtra("longitud", longi);
                 if(intent.resolveActivity(getPackageManager())!=null){

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -152,6 +151,8 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
         intent.putExtra("historia", listaEdificios.get(position).getHistoria());
         intent.putExtra("foto",listaEdificios.get(position).getFoto());
         intent.putExtra("uid", listaEdificios.get(position).getuId());
+        intent.putExtra("latitud", listaEdificios.get(position).getLatitud());
+        intent.putExtra("longitud", listaEdificios.get(position).getLongitud());
         startActivity(intent);
     }
     private void buscar(String s){

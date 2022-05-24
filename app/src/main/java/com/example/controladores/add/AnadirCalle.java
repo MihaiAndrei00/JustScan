@@ -88,7 +88,8 @@ public class AnadirCalle extends AppCompatActivity {
                 String historia = historiaCalle.getText().toString();
                 String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                int valoracion=0;
+                double latitud= 40.420179;
+                double longitud= -3.7039276;
 
                 StorageReference ref= storageReference.child("FotosDeCalles/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -103,7 +104,7 @@ public class AnadirCalle extends AppCompatActivity {
                                 if(uriTask.isSuccessful()){
                                     HashMap<String, Object> resultado= new HashMap<>();
                                     resultado.put(imagenRuta,downloadUri.toString());
-                                    Calle calle = new Calle(uId, nombre, historia, downloadUri.toString(),valoracion);
+                                    Calle calle = new Calle(uId, nombre, historia, downloadUri.toString(),latitud,longitud);
                                     myRef.child(calle.getuId()).setValue(calle);
                                     Toast.makeText(AnadirCalle.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
                                 }else{

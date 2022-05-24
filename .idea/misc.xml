@@ -58,9 +58,16 @@
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_listar_calle.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_listar_edificio.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_main.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_map_calle.xml" value="0.371875" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_map_edificio.xml" value="0.1742627345844504" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_map_monumento.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_mapa.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_maps.xml" value="0.25" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_principal.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_principal.xml" value="0.33" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ubicaciones_cercanas.xml" value="0.17872340425531916" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_calle.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_edificio.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_monumento.xml" value="0.24344569288389514" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_restaurante.xml" value="0.2467948717948718" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.371875" />
@@ -69,7 +76,7 @@
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_admin.xml" value="0.28541666666666665" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_cambiar_contra.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_recuperar_cuenta.xml" value="0.25" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_registro.xml" value="0.28541666666666665" />
+        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_registro.xml" value="0.15671641791044777" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/log_usuario.xml" value="0.33" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/prueba_visibilidad.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/ver_ruta.xml" value="0.33" />

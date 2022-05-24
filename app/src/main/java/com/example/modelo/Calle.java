@@ -5,17 +5,20 @@ public class Calle {
     private String nombre;
     private String historia;
     private String foto;
-    private int valoracion;
+    private double latitud;
+    private double longitud;
+
 
     public Calle() {
     }
 
-    public Calle(String uId, String nombre, String historia, String foto, int valoracion) {
+    public Calle(String uId, String nombre, String historia, String foto, double latitud, double longitud) {
         this.uId = uId;
         this.nombre = nombre;
         this.historia = historia;
         this.foto = foto;
-        this.valoracion = valoracion;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
 
     public String getuId() {
@@ -42,19 +45,27 @@ public class Calle {
         this.historia = historia;
     }
 
-    public String getImagen() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setImagen(String imagen) {
-        this.foto = imagen;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
-    public int getValoracion() {
-        return valoracion;
+    public double getLatitud() {
+        return latitud;
     }
 
-    public void setValoracion(int valoracion) {
-        this.valoracion = valoracion;
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
     }
 }

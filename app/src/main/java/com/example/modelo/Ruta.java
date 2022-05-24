@@ -1,7 +1,5 @@
 package com.example.modelo;
 
-import android.net.Uri;
-
 public class Ruta {
     private String uId;
     private String titulo;
