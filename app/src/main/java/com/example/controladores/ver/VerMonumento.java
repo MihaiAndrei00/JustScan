@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +38,9 @@ public class VerMonumento extends AppCompatActivity {
     private TextView descripcionTv;
     private TextView calleTv;
     private double lat, longi;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;
+    private Animation fabOpen, fabClose, rotateForward, rotateBackward;
+    private boolean isOpen=false;
     private Uri uri;
     private Intent intent;
     @Override
@@ -63,6 +67,18 @@ public class VerMonumento extends AppCompatActivity {
         btnVerMapaGoogleMaps=findViewById(R.id.mostrarEnGoogleMapsMonumento);
         btnNavegar=findViewById(R.id.btnNavegarMonumento);
         btnPanoramico=findViewById(R.id.btnPanoramicoMonumento);
+        btnAnimacion=findViewById(R.id.btnAnimationMonumento);
+        fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
+        fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
+        rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
+        rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+
+        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationOpen();
+            }
+        });
 
 
         btnPanoramico.setOnClickListener(new View.OnClickListener() {
@@ -131,5 +147,30 @@ public class VerMonumento extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+    private void animationOpen(){
+        if(isOpen){
+            btnAnimacion.startAnimation(rotateForward);
+            btnVerMapa.startAnimation(fabClose);
+            btnVerMapa.setClickable(false);
+            btnPanoramico.startAnimation(fabClose);
+            btnPanoramico.setClickable(false);
+            btnNavegar.startAnimation(fabClose);
+            btnNavegar.setClickable(false);
+            btnVerMapaGoogleMaps.startAnimation(fabClose);
+            btnVerMapaGoogleMaps.setClickable(false);
+            isOpen=false;
+        }else{
+            btnAnimacion.startAnimation(rotateBackward);
+            btnVerMapa.startAnimation(fabOpen);
+            btnVerMapa.setClickable(true);
+            btnPanoramico.startAnimation(fabOpen);
+            btnPanoramico.setClickable(true);
+            btnNavegar.startAnimation(fabOpen);
+            btnNavegar.setClickable(true);
+            btnVerMapaGoogleMaps.startAnimation(fabOpen);
+            btnVerMapaGoogleMaps.setClickable(true);
+            isOpen=true;
+        }
     }
 }

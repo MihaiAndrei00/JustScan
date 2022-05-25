@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +39,9 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
     private TextView tituloTv;
     private ImageView verFotoCalle;
     private TextView descripcionTv;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;
+    private Animation fabOpen, fabClose, rotateForward, rotateBackward;
+    private boolean isOpen=false;
     private Uri uri;
     private double lat, longi;
     @Override
@@ -62,6 +66,19 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
             btnNavegar=findViewById(R.id.btnNavegarCalle);
             btnVerMapaGoogleMaps=findViewById(R.id.mostrarEnGoogleMapsCalle);
             btnVerMapa=findViewById(R.id.mostrarEnMapaCalle);
+            btnAnimacion=findViewById(R.id.btnAnimationCalle);
+            fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
+            fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
+            rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
+            rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+
+
+        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationOpen();
+            }
+        });
 
         btnPanoramico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,15 +131,6 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
 
         });
 
-
-
-
-
-
-
-
-
-
             try {
                 Picasso.get().load(fotoIntent).into(verFotoCalle);
             }catch (Exception e){
@@ -138,6 +146,32 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+
+    private void animationOpen() {
+        if(isOpen){
+            btnAnimacion.startAnimation(rotateForward);
+            btnVerMapa.startAnimation(fabClose);
+            btnVerMapa.setClickable(false);
+            btnPanoramico.startAnimation(fabClose);
+            btnPanoramico.setClickable(false);
+            btnNavegar.startAnimation(fabClose);
+            btnNavegar.setClickable(false);
+            btnVerMapaGoogleMaps.startAnimation(fabClose);
+            btnVerMapaGoogleMaps.setClickable(false);
+            isOpen=false;
+        }else{
+            btnAnimacion.startAnimation(rotateBackward);
+            btnVerMapa.startAnimation(fabOpen);
+            btnVerMapa.setClickable(true);
+            btnPanoramico.startAnimation(fabOpen);
+            btnPanoramico.setClickable(true);
+            btnNavegar.startAnimation(fabOpen);
+            btnNavegar.setClickable(true);
+            btnVerMapaGoogleMaps.startAnimation(fabOpen);
+            btnVerMapaGoogleMaps.setClickable(true);
+            isOpen=true;
+        }
     }
 
     @Override
