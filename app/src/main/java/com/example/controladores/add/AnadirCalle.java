@@ -110,7 +110,7 @@ public class AnadirCalle extends AppCompatActivity {
                                     resultado.put(imagenRuta,downloadUri.toString());
                                     Calle calle = new Calle(uId, nombre, historia, downloadUri.toString(),latidudNum,longitudNum);
                                     myRef.child(calle.getuId()).setValue(calle);
-                                    Toast.makeText(AnadirCalle.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AnadirCalle.this, "Calle subida correctamente", Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText(AnadirCalle.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                                 }

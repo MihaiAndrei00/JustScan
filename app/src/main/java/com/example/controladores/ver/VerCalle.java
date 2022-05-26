@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.controladores.Principal;
 import com.example.controladores.interfaces.ComunicaMenu;
-import com.example.controladores.listar.ListarMonumento;
+import com.example.controladores.listar.ListarCalle;
 import com.example.just_scan.R;
 import com.example.maps.MapCalle;
 import com.google.android.gms.ads.AdRequest;
@@ -95,11 +95,9 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
                 myRef.child(idCalle).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-
                         Toast.makeText(VerCalle.this,"Elemento Borrado correctamente", Toast.LENGTH_SHORT).show();
-                        intent=new Intent(VerCalle.this, ListarMonumento.class);
+                        intent=new Intent(VerCalle.this, ListarCalle.class);
                         startActivity(intent);
-
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
