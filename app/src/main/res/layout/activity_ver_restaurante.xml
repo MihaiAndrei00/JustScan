@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="#fff"
+            android:justificationMode="inter_word"
             app:layout_constraintBottom_toTopOf="@+id/adView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

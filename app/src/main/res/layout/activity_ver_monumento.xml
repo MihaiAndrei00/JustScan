@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:scrollbarAlwaysDrawVerticalTrack="true"
             android:text="TextView"
+            android:justificationMode="inter_word"
             android:textColor="#fff"
             app:layout_constraintBottom_toTopOf="@+id/adView"
             app:layout_constraintEnd_toEndOf="parent"
