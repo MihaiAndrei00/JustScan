@@ -35,6 +35,8 @@ public class AnadirRestaurante extends AppCompatActivity {
     private EditText calleRestaurante;
     private EditText descripcionRestaurante;
     private EditText tipoDeComida;
+    private EditText latitudRestaurante;
+    private EditText longitudRestaurante;
     private Button anadirRestaurante;
     //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,6 +51,8 @@ public class AnadirRestaurante extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_restaurante);
+        latitudRestaurante=findViewById(R.id.et_latitudRestaurante);
+        longitudRestaurante=findViewById(R.id.et_latitudRestaurante);
         nombreRestaurante = findViewById(R.id.nombreDeRestaurante);
         calleRestaurante = findViewById(R.id.calleRestaurante);
         descripcionRestaurante = findViewById(R.id.descripcionRestaurante);
@@ -92,8 +96,10 @@ public class AnadirRestaurante extends AppCompatActivity {
                 String descripcion = descripcionRestaurante.getText().toString();
                 String tipoComida = tipoDeComida.getText().toString();
                 String uId = UUID.randomUUID().toString();
-                double lat = 40.4130882;
-                double longi=-3.702548;
+                String latitud= latitudRestaurante.getText().toString();
+                double latidudNum=Double.parseDouble(latitud);
+                String longitud= longitudRestaurante.getText().toString();
+                double longitudNum=Double.parseDouble(longitud);
 
                 StorageReference ref = storageReference.child("FotosDeRestaurantes/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -108,7 +114,7 @@ public class AnadirRestaurante extends AppCompatActivity {
                                 if (uriTask.isSuccessful()) {
                                     HashMap<String, Object> resultado = new HashMap<>();
                                     resultado.put(imagenRuta, downloadUri.toString());
-                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(),lat,longi );
+                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(),latidudNum,longitudNum );
                                     myRef.child(restaurante.getuId()).setValue(restaurante);
                                     Toast.makeText(AnadirRestaurante.this, "Restaurante subida correctamente", Toast.LENGTH_SHORT).show();
                                 } else {

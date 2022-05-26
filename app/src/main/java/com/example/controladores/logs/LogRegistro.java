@@ -42,6 +42,7 @@ public class LogRegistro extends AppCompatActivity {
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
     private Usuario usuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

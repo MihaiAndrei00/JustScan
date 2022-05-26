@@ -42,7 +42,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-public class UbicacionesCercanas extends AppCompatActivity {
+public class VerPerfil extends AppCompatActivity {
     private ImageView fotoPerfil;
     private AdView mAdView;
     private String tag ="Principal";
@@ -66,7 +66,7 @@ public class UbicacionesCercanas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ubicaciones_cercanas);
+        setContentView(R.layout.activity_ver_perfil);
         txtEmail=findViewById(R.id.txtEmailUpdate);
         txtNombreUsuario=findViewById(R.id.txtNombreUsuarioUpdate);
         txtTelefono=findViewById(R.id.txtTelefonoUpdate);
@@ -132,7 +132,7 @@ public class UbicacionesCercanas extends AppCompatActivity {
     }
     //Comprobar si los permisos de almacenamiento estan habilitados
     private boolean comprobarPermisosAlmacenamiento() {
-        boolean resultado= ContextCompat.checkSelfPermission(UbicacionesCercanas.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+        boolean resultado= ContextCompat.checkSelfPermission(VerPerfil.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
                 (PackageManager.PERMISSION_GRANTED);
         return resultado;
     }
@@ -186,23 +186,23 @@ public class UbicacionesCercanas extends AppCompatActivity {
                             reference.child(user.getUid()).updateChildren(resultado).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(UbicacionesCercanas.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(VerPerfil.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }else{
-                            Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UbicacionesCercanas.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -252,7 +252,7 @@ public class UbicacionesCercanas extends AppCompatActivity {
             consultaParaMostrarDatos();
             Toast.makeText(this,"Bienvenido a Just Scan", Toast.LENGTH_SHORT).show();
         }else{
-            startActivity(new Intent(UbicacionesCercanas.this, Principal.class));
+            startActivity(new Intent(VerPerfil.this, Principal.class));
             finish();
         }
     }

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.just_scan.R;
 import com.example.modelo.Calle;
-import com.example.modelo.Ruta;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -34,13 +33,15 @@ public class AnadirCalle extends AppCompatActivity {
     //vistas
     private EditText nombreCalle;
     private EditText historiaCalle;
+    private EditText latitudCalle;
+    private EditText longitudCalle;
     private Button anadirCalle;
     //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Calles");
     private FirebaseStorage storage;
     private StorageReference storageReference;
-    private Ruta ruta;
+
     private Uri imageUri;
     private String imagenRuta="foto";
     private ImageView fotoDeCalle;
@@ -49,6 +50,8 @@ public class AnadirCalle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_calle);
+        latitudCalle=findViewById(R.id.et_latitudCalle);
+        longitudCalle=findViewById(R.id.et_LongitudCalle);
         nombreCalle = findViewById(R.id.nombreDeCalle);
         historiaCalle = findViewById(R.id.historiaCalle);
         anadirCalle = findViewById(R.id.agregarCalle);
@@ -86,10 +89,11 @@ public class AnadirCalle extends AppCompatActivity {
             public void onClick(View view) {
                 String nombre = nombreCalle.getText().toString();
                 String historia = historiaCalle.getText().toString();
-                String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                double latitud= 40.420179;
-                double longitud= -3.7039276;
+                String latitud= latitudCalle.getText().toString();
+                double latidudNum=Double.parseDouble(latitud);
+                String longitud= longitudCalle.getText().toString();
+                double longitudNum=Double.parseDouble(longitud);
 
                 StorageReference ref= storageReference.child("FotosDeCalles/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -104,7 +108,7 @@ public class AnadirCalle extends AppCompatActivity {
                                 if(uriTask.isSuccessful()){
                                     HashMap<String, Object> resultado= new HashMap<>();
                                     resultado.put(imagenRuta,downloadUri.toString());
-                                    Calle calle = new Calle(uId, nombre, historia, downloadUri.toString(),latitud,longitud);
+                                    Calle calle = new Calle(uId, nombre, historia, downloadUri.toString(),latidudNum,longitudNum);
                                     myRef.child(calle.getuId()).setValue(calle);
                                     Toast.makeText(AnadirCalle.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
                                 }else{
@@ -121,7 +125,6 @@ public class AnadirCalle extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                         Toast.makeText(AnadirCalle.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
                     }
                 });

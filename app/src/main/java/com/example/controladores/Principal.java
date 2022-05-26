@@ -130,7 +130,7 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
                 startActivity(intent);
                 break;
             case R.id.cardPerfil:
-                intent=new Intent(Principal.this, UbicacionesCercanas.class);
+                intent=new Intent(Principal.this, VerPerfil.class);
                 startActivity(intent);
                 break;
             case R.id.cardMonumentos:

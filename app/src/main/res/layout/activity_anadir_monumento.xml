@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.controladores.add.AnadirMonumento">
+
     <EditText
         android:id="@+id/calleMonumento"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="?android:attr/actionModeFindDrawable"
         android:drawablePadding="12dp"
@@ -19,30 +20,27 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreDeMonumento" />
 
     <Button
         android:id="@+id/agregarMonumento"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="174dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/custom_button2"
         android:text="Agregar Monumento"
         android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/historiaMonumento"
-        app:layout_constraintVertical_bias="0.589" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/nombreDeMonumento"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@android:drawable/ic_menu_edit"
         android:drawablePadding="12dp"
@@ -52,7 +50,7 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenMonumento" />
 
@@ -60,7 +58,7 @@
         android:id="@+id/historiaMonumento"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@android:drawable/ic_lock_idle_alarm"
         android:drawablePadding="12dp"
@@ -70,10 +68,44 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calleMonumento" />
 
+    <EditText
+        android:id="@+id/et_latitudMonumento"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Latitud"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historiaMonumento" />
+
+    <EditText
+        android:id="@+id/et_LongitudMonumento"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Longitud"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_latitudMonumento" />
 
     <ImageView
         android:id="@+id/imagenMonumento"

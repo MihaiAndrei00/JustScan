@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.just_scan.R;
 import com.example.modelo.Edificio;
-import com.example.modelo.Ruta;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -35,13 +34,14 @@ public class AnadirEdificio extends AppCompatActivity {
     private EditText nombreEdificio;
     private EditText calleEdificio;
     private EditText historiaEdificio;
+    private EditText latitudEdificio;
+    private EditText longitudEdificio;
     private Button anadirEdificio;
     //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Edificios");
     private FirebaseStorage storage;
     private StorageReference storageReference;
-    private Ruta ruta;
     private Uri imageUri;
     private String imagenRuta="foto";
     private ImageView fotoDeEdificio;
@@ -50,6 +50,8 @@ public class AnadirEdificio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_edificio);
+        latitudEdificio=findViewById(R.id.et_latitudEdificio);
+        longitudEdificio=findViewById(R.id.et_LongitudEdificio);
         nombreEdificio = findViewById(R.id.nombreDeEdificio);
         calleEdificio = findViewById(R.id.calleEdificio);
         historiaEdificio = findViewById(R.id.historiaEdificio);
@@ -91,8 +93,10 @@ public class AnadirEdificio extends AppCompatActivity {
                 String historia = historiaEdificio.getText().toString();
                 String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                double lat=40.415511;
-                double longi=-3.7074009;
+                String latitud= latitudEdificio.getText().toString();
+                double latidudNum=Double.parseDouble(latitud);
+                String longitud= longitudEdificio.getText().toString();
+                double longitudNum=Double.parseDouble(longitud);
 
                 StorageReference ref= storageReference.child("FotosDeEdificios/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -107,7 +111,7 @@ public class AnadirEdificio extends AppCompatActivity {
                                 if(uriTask.isSuccessful()){
                                     HashMap<String, Object> resultado= new HashMap<>();
                                     resultado.put(imagenRuta,downloadUri.toString());
-                                    Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),lat,longi);
+                                    Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),latidudNum,longitudNum);
                                     myRef.child(edificio.getuId()).setValue(edificio);
                                     Toast.makeText(AnadirEdificio.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
                                 }else{

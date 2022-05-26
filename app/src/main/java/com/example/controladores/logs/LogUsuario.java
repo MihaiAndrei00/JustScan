@@ -3,7 +3,6 @@ package com.example.controladores.logs;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LogUsuario extends AppCompatActivity {
     //AdMob
@@ -40,6 +40,7 @@ public class LogUsuario extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private Intent intent;
+    private FirebaseUser user;
 
     //instancia del FirebaseAuth que nos proporciona diferentes metodos de autorización de firebase
     private FirebaseAuth mAuth;
@@ -75,8 +76,10 @@ public class LogUsuario extends AppCompatActivity {
         tvRegistro=findViewById(R.id.tvRegistro);
         mAuth=FirebaseAuth.getInstance();
 
+        user=mAuth.getCurrentUser();
         //llamada al método de inicio de sesión
         iniciarSesion();
+
 
         //llamada al metodo de recuperar la contraseña
         linkArecuperarContrasena();
@@ -102,11 +105,7 @@ public class LogUsuario extends AppCompatActivity {
             public void onClick(View v) {
                 String email= txtEmail.getText().toString();
                 String contrasena=txtContra.getText().toString();
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    txtEmail.setError("Introduzca una dirección de email válida");
-                    txtEmail.requestFocus();
-                    return;
-                }
+
                 progressBarLogIn.setVisibility(View.VISIBLE);
 
                 mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -114,8 +113,14 @@ public class LogUsuario extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             progressBarLogIn.setVisibility(View.GONE);
-                            intent= new Intent(LogUsuario.this, Principal.class);
-                            startActivity(intent);
+                            if (user.isEmailVerified()){
+                                intent= new Intent(LogUsuario.this, Principal.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(LogUsuario.this,"Verifica tu correo electrónico",Toast.LENGTH_LONG).show();
+                                user.sendEmailVerification();
+                            }
+
                         }else{
                             Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
                             progressBarLogIn.setVisibility(View.GONE);

@@ -34,6 +34,8 @@ public class AnadirMonumento extends AppCompatActivity {
     private EditText nombreMonumento;
     private EditText calleMonumento;
     private EditText historiaMonumento;
+    private EditText latitudMonumento;
+    private EditText longitudMonumento;
     private Button anadirMonumento;
     //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -48,6 +50,8 @@ public class AnadirMonumento extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anadir_monumento);
+        latitudMonumento=findViewById(R.id.et_latitudMonumento);
+        longitudMonumento=findViewById(R.id.et_LongitudMonumento);
         nombreMonumento = findViewById(R.id.nombreDeMonumento);
         calleMonumento = findViewById(R.id.calleMonumento);
         historiaMonumento = findViewById(R.id.historiaMonumento);
@@ -90,8 +94,10 @@ public class AnadirMonumento extends AppCompatActivity {
                 String historia = historiaMonumento.getText().toString();
                 String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
-                double latitud =  40.4137818;
-                double longitud=  -3.6921271;
+                String latitud= latitudMonumento.getText().toString();
+                double latidudNum=Double.parseDouble(latitud);
+                String longitud= longitudMonumento.getText().toString();
+                double longitudNum=Double.parseDouble(longitud);
 
                 StorageReference ref = storageReference.child("FotosDeMonumentos/");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -106,7 +112,7 @@ public class AnadirMonumento extends AppCompatActivity {
                                 if (uriTask.isSuccessful()) {
                                     HashMap<String, Object> resultado = new HashMap<>();
                                     resultado.put(imagenRuta, downloadUri.toString());
-                                    Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(),latitud, longitud);
+                                    Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(),latidudNum, longitudNum);
                                     myRef.child(monumento.getuId()).setValue(monumento);
                                     Toast.makeText(AnadirMonumento.this, "Monumento subida correctamente", Toast.LENGTH_SHORT).show();
                                 } else {

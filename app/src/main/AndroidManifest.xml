@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan.NoActionBar">
         <activity
-            android:name="com.example.controladores.UbicacionesCercanas"
+            android:name="com.example.controladores.VerPerfil"
             android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -133,8 +133,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.controladores.listar.ListarRuta" />
-        <activity android:name="com.example.controladores.add.AnadirRuta" />
     </application>
 
 </manifest>

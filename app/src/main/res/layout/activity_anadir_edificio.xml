@@ -10,7 +10,7 @@
         android:id="@+id/calleEdificio"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="?android:attr/actionModeFindDrawable"
         android:drawablePadding="12dp"
@@ -20,7 +20,7 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreDeEdificio" />
 
@@ -28,16 +28,11 @@
         android:id="@+id/agregarEdificio"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/custom_button2"
         android:text="Agregar Edificio"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/historiaEdificio"
-        app:layout_constraintVertical_bias="0.589" />
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="637dp" />
 
     <EditText
         android:id="@+id/nombreDeEdificio"
@@ -57,11 +52,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenEdificio" />
 
+
     <EditText
         android:id="@+id/historiaEdificio"
         android:layout_width="358dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@android:drawable/ic_lock_idle_alarm"
         android:drawablePadding="12dp"
@@ -71,9 +67,44 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calleEdificio" />
+
+    <EditText
+        android:id="@+id/et_latitudEdificio"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Latitud"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/historiaEdificio" />
+
+    <EditText
+        android:id="@+id/et_LongitudEdificio"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:hint="Longitud"
+        android:inputType="textPersonName"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_latitudEdificio" />
 
     <ImageView
         android:id="@+id/imagenEdificio"
