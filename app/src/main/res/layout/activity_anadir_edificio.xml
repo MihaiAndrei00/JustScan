@@ -28,11 +28,14 @@
         android:id="@+id/agregarEdificio"
         android:layout_width="130dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="36dp"
         android:background="@drawable/custom_button2"
         android:text="Agregar Edificio"
         android:textColor="#fff"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="637dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/nombreDeEdificio"
