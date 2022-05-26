@@ -39,7 +39,6 @@ public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapte
         Restaurante restaurante = listaRestaurantes.get(position);
         holder.nombre.setText(restaurante.getNombre());
         holder.calleRestaurante.setText("Localización: " + restaurante.getCalle());
-        holder.tipoComida.setText(restaurante.getTipoDeComida());
         Glide.with(context).load(listaRestaurantes.get(position).getFoto()).into(holder.img);
     }
 
@@ -52,14 +51,13 @@ public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapte
         ImageView img;
         TextView nombre;
         TextView calleRestaurante;
-        TextView tipoComida;
         RestaurantesAdapter.myViewHolder.onRestauranteListener onRestauranteListener;
         public myViewHolder(@NonNull View itemView, RestaurantesAdapter.myViewHolder.onRestauranteListener onRestauranteListener) {
             super(itemView);
             img= (ImageView) itemView.findViewById(R.id.imgRestauranteItem);
             nombre=(TextView) itemView.findViewById(R.id.nombreRestauranteItem);
             calleRestaurante=(TextView) itemView.findViewById(R.id.calleRestauranteItem);
-            tipoComida=(TextView) itemView.findViewById(R.id.tipoDeComidaItem);
+
 
             this.onRestauranteListener=onRestauranteListener;
             itemView.setOnClickListener(this);

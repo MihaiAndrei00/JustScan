@@ -8,9 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.listar.ListarMonumento;
 import com.example.just_scan.R;
 import com.example.maps.MapEdificio;
 import com.google.android.gms.ads.AdRequest;
@@ -18,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -38,7 +43,8 @@ public class VerEdificio extends AppCompatActivity {
     private ImageView verFotoEdificio;
     private TextView descripcionTv;
     private TextView calleTv;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;;
+    private int permisosUser;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion,borrarElemento,editarElemento;
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
     private Uri uri;
@@ -56,6 +62,7 @@ public class VerEdificio extends AppCompatActivity {
         calle=getIntent().getStringExtra("calle");
         fotoIntent=getIntent().getStringExtra("foto");
         idEdificio=getIntent().getStringExtra("uid");
+        permisosUser=getIntent().getIntExtra("permisos",permisosUser);
         nombreTv=findViewById(R.id.nombreEdificioExtras);
         descripcionTv=findViewById(R.id.tvDescripcionEdificioExtras);
         calleTv=findViewById(R.id.tvCalleEdificioExtras);
@@ -68,20 +75,48 @@ public class VerEdificio extends AppCompatActivity {
         btnNavegar=findViewById(R.id.btnNavegarEdificio);
         btnPanoramico=findViewById(R.id.btnPanoramicoEdificio);
         btnAnimacion=findViewById(R.id.btnAnimationEdificio);
+        borrarElemento=findViewById(R.id.borrarEdificio);
+        editarElemento=findViewById(R.id.EditarEdificio);
         fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
         fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
 
+        if(permisosUser==1){
+            borrarElemento.setVisibility(View.VISIBLE);
+            editarElemento.setVisibility(View.VISIBLE);
+        }else{
+            borrarElemento.setVisibility(View.GONE);
+            editarElemento.setVisibility(View.GONE);
+        }
+        borrarElemento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRef.child(idEdificio).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
 
+                        Toast.makeText(VerEdificio.this,"Elemento Borrado correctamente", Toast.LENGTH_SHORT).show();
+                        intent=new Intent(VerEdificio.this, ListarMonumento.class);
+                        startActivity(intent);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VerEdificio.this,"Error al borrar elemento", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+        });
         btnAnimacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 animationOpen();
             }
         });
-
-
         btnPanoramico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,8 +128,6 @@ public class VerEdificio extends AppCompatActivity {
                 }
             }
         });
-
-
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +140,6 @@ public class VerEdificio extends AppCompatActivity {
 
             }
         });
-
         btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +151,6 @@ public class VerEdificio extends AppCompatActivity {
                 }
             }
         });
-
         btnNavegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,8 +163,6 @@ public class VerEdificio extends AppCompatActivity {
             }
 
         });
-
-
 
         try {
             Picasso.get().load(fotoIntent).into(verFotoEdificio);
@@ -154,6 +183,10 @@ public class VerEdificio extends AppCompatActivity {
     }
     private void animationOpen(){
         if(isOpen){
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.VISIBLE);
+                borrarElemento.setVisibility(View.VISIBLE);
+            }
             btnAnimacion.startAnimation(rotateForward);
             btnVerMapa.startAnimation(fabClose);
             btnVerMapa.setClickable(false);
@@ -165,6 +198,10 @@ public class VerEdificio extends AppCompatActivity {
             btnVerMapaGoogleMaps.setClickable(false);
             isOpen=false;
         }else{
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.GONE);
+                borrarElemento.setVisibility(View.GONE);
+            }
             btnAnimacion.startAnimation(rotateBackward);
             btnVerMapa.startAnimation(fabOpen);
             btnVerMapa.setClickable(true);

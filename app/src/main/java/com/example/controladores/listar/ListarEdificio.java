@@ -153,6 +153,7 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
         intent.putExtra("uid", listaEdificios.get(position).getuId());
         intent.putExtra("latitud", listaEdificios.get(position).getLatitud());
         intent.putExtra("longitud", listaEdificios.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
         startActivity(intent);
     }
     private void buscar(String s){

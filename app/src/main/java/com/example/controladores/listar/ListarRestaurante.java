@@ -147,6 +147,7 @@ public class ListarRestaurante extends AppCompatActivity implements Restaurantes
         intent.putExtra("uid", listaRestaurantes.get(position).getuId());
         intent.putExtra("latitud", listaRestaurantes.get(position).getLatitud());
         intent.putExtra("longitud", listaRestaurantes.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
         startActivity(intent);
     }
     private void buscar(String s){

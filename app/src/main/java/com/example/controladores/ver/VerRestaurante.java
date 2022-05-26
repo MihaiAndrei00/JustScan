@@ -8,9 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.listar.ListarRestaurante;
 import com.example.just_scan.R;
 import com.example.maps.MapRestaurante;
 import com.google.android.gms.ads.AdRequest;
@@ -18,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,13 +38,14 @@ public class VerRestaurante extends AppCompatActivity {
     private DatabaseReference myRef=database.getReference().child("Restaurantes");
     private StorageReference reference= FirebaseStorage.getInstance().getReference();
     private String nombre, descripcion , calle, fotoIntent,idRestaurante,tipoDeComida;
+    private int permisosUser;
     private double lat, longi;
     private TextView nombreTv;
     private TextView tipoDeComidaTv;
     private ImageView verFotoRestaurante;
     private TextView descripcionTv;
     private TextView calleTv;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion, borrarElemento,editarElemento;
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
     private Intent intent;
@@ -50,6 +56,7 @@ public class VerRestaurante extends AppCompatActivity {
         setContentView(R.layout.activity_ver_restaurante);
         //AdMob
         MobileAds.initialize(this);
+        permisosUser=getIntent().getIntExtra("permisos",permisosUser);
         nombre=getIntent().getStringExtra("nombre");
         descripcion=getIntent().getStringExtra("historia");
         calle=getIntent().getStringExtra("calle");
@@ -72,10 +79,45 @@ public class VerRestaurante extends AppCompatActivity {
         btnNavegar=findViewById(R.id.btnNavegar);
         btnPanoramico=findViewById(R.id.btnPanoramico);
         btnAnimacion=findViewById(R.id.btnAnimationRestaurante);
+        borrarElemento=findViewById(R.id.borrarRestaurante);
+        editarElemento=findViewById(R.id.EditarRestaurante);
         fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
         fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+
+        if(permisosUser==1){
+            borrarElemento.setVisibility(View.VISIBLE);
+            editarElemento.setVisibility(View.VISIBLE);
+        }else{
+            borrarElemento.setVisibility(View.GONE);
+            editarElemento.setVisibility(View.GONE);
+        }
+
+
+        borrarElemento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRef.child(idRestaurante).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Toast.makeText(VerRestaurante.this,"Elemento Borrado correctamente", Toast.LENGTH_SHORT).show();
+                        intent=new Intent(VerRestaurante.this, ListarRestaurante.class);
+                        startActivity(intent);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VerRestaurante.this,"Error al borrar elemento", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+        });
+
         btnAnimacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +193,11 @@ public class VerRestaurante extends AppCompatActivity {
     }
     private void animationOpen(){
         if(isOpen){
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.VISIBLE);
+                borrarElemento.setVisibility(View.VISIBLE);
+            }
+            btnVerMapa.setClickable(true);
             btnAnimacion.startAnimation(rotateForward);
             btnVerMapa.startAnimation(fabClose);
             btnVerMapa.setClickable(false);
@@ -162,6 +209,11 @@ public class VerRestaurante extends AppCompatActivity {
             btnVerMapaGoogleMaps.setClickable(false);
             isOpen=false;
         }else{
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.GONE);
+                borrarElemento.setVisibility(View.GONE);
+            }
+            btnVerMapa.setClickable(false);
             btnAnimacion.startAnimation(rotateBackward);
             btnVerMapa.startAnimation(fabOpen);
             btnVerMapa.setClickable(true);

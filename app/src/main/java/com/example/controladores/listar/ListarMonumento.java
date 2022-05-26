@@ -146,6 +146,7 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
         intent.putExtra("uid", listaMonumentos.get(position).getuId());
         intent.putExtra("latitud", listaMonumentos.get(position).getLatitud());
         intent.putExtra("longitud", listaMonumentos.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
         startActivity(intent);
     }
     private void buscar(String s){

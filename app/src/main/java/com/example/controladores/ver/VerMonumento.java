@@ -8,9 +8,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.listar.ListarMonumento;
 import com.example.just_scan.R;
 import com.example.maps.MapMonumento;
 import com.google.android.gms.ads.AdRequest;
@@ -18,6 +21,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,12 +38,13 @@ public class VerMonumento extends AppCompatActivity {
     private DatabaseReference myRef=database.getReference().child("Momnumentos");
     private StorageReference reference= FirebaseStorage.getInstance().getReference();
     private String nombre, descripcion , calle, fotoIntent,idMonumento;
+    private int permisosUser;
     private TextView nombreTv;
     private ImageView verFotoMonumento;
     private TextView descripcionTv;
     private TextView calleTv;
     private double lat, longi;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion, borrarElemento,editarElemento;
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
     private Uri uri;
@@ -56,6 +62,7 @@ public class VerMonumento extends AppCompatActivity {
         calle=getIntent().getStringExtra("calle");
         fotoIntent=getIntent().getStringExtra("foto");
         idMonumento=getIntent().getStringExtra("uid");
+        permisosUser=getIntent().getIntExtra("permisos",permisosUser);
         nombreTv=findViewById(R.id.nombreMonumentoExtras);
         descripcionTv=findViewById(R.id.tvDescripcionMonumentoExtras);
         calleTv=findViewById(R.id.tvCalleMonumentoExtras);
@@ -68,10 +75,43 @@ public class VerMonumento extends AppCompatActivity {
         btnNavegar=findViewById(R.id.btnNavegarMonumento);
         btnPanoramico=findViewById(R.id.btnPanoramicoMonumento);
         btnAnimacion=findViewById(R.id.btnAnimationMonumento);
+        borrarElemento=findViewById(R.id.borrarMonumento);
+        editarElemento=findViewById(R.id.EditarMonumento);
         fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
         fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+
+        if(permisosUser==1){
+            borrarElemento.setVisibility(View.VISIBLE);
+            editarElemento.setVisibility(View.VISIBLE);
+        }else{
+            borrarElemento.setVisibility(View.GONE);
+            editarElemento.setVisibility(View.GONE);
+        }
+
+        borrarElemento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRef.child(idMonumento).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Toast.makeText(VerMonumento.this,"Elemento Borrado correctamente", Toast.LENGTH_SHORT).show();
+                        intent=new Intent(VerMonumento.this, ListarMonumento.class);
+                        startActivity(intent);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VerMonumento.this,"Error al borrar elemento", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+        });
 
         btnAnimacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +119,6 @@ public class VerMonumento extends AppCompatActivity {
                 animationOpen();
             }
         });
-
 
         btnPanoramico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +131,6 @@ public class VerMonumento extends AppCompatActivity {
                 }
             }
         });
-
-
         btnVerMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +143,6 @@ public class VerMonumento extends AppCompatActivity {
 
             }
         });
-
         btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +154,6 @@ public class VerMonumento extends AppCompatActivity {
                 }
             }
         });
-
         btnNavegar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,6 +185,10 @@ public class VerMonumento extends AppCompatActivity {
     }
     private void animationOpen(){
         if(isOpen){
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.VISIBLE);
+                borrarElemento.setVisibility(View.VISIBLE);
+            }
             btnAnimacion.startAnimation(rotateForward);
             btnVerMapa.startAnimation(fabClose);
             btnVerMapa.setClickable(false);
@@ -161,6 +200,10 @@ public class VerMonumento extends AppCompatActivity {
             btnVerMapaGoogleMaps.setClickable(false);
             isOpen=false;
         }else{
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.GONE);
+                borrarElemento.setVisibility(View.GONE);
+            }
             btnAnimacion.startAnimation(rotateBackward);
             btnVerMapa.startAnimation(fabOpen);
             btnVerMapa.setClickable(true);

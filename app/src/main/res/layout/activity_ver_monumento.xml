@@ -8,18 +8,30 @@
     tools:context="com.example.controladores.ver.VerMonumento">
 
 
-    <TextView
-        android:id="@+id/tvDescripcionMonumentoExtras"
-        android:layout_width="410dp"
-        android:layout_height="204dp"
-        android:text="TextView"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ScrollDescripcionMonumento"
+        android:layout_width="409dp"
+        android:layout_height="209dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verFotoMonumentoExtras"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintTop_toBottomOf="@+id/verFotoMonumentoExtras">
+
+        <TextView
+            android:id="@+id/tvDescripcionMonumentoExtras"
+            android:layout_width="410dp"
+            android:layout_height="204dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:text="TextView"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toTopOf="@+id/adView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/verFotoMonumentoExtras"
+            app:layout_constraintVertical_bias="0.09" />
+    </androidx.core.widget.NestedScrollView>
 
     <ImageView
         android:id="@+id/verFotoMonumentoExtras"
@@ -73,61 +85,60 @@
         android:id="@+id/btnAnimationMonumento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent"  />
+        app:layout_constraintHorizontal_bias="0.923"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnPanoramicoMonumento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/ic_baseline_panorama_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnNavegarMonumento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/ic_baseline_navigation_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.667"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mostrarEnGoogleMapsMonumento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/ic_baseline_map_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.667"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintHorizontal_bias="0.284"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mostrarEnMapaMonumento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="176dp"
+        android:layout_marginTop="36dp"
         android:src="@drawable/ic_baseline_location_on_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.918"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -143,5 +154,26 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/borrarMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_baseline_delete_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/EditarMonumento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollDescripcionMonumento" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

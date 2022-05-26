@@ -145,6 +145,7 @@ public class ListarCalle extends AppCompatActivity  implements CallesAdapter.myV
         intent.putExtra("uid", listaCalles.get(position).getuId());
         intent.putExtra("latitud", listaCalles.get(position).getLatitud());
         intent.putExtra("longitud", listaCalles.get(position).getLongitud());
+        intent.putExtra("permisos", permisos);
         startActivity(intent);
     }
     private void buscar(String s){

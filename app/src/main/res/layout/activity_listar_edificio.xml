@@ -9,8 +9,8 @@
 
     <SearchView
         android:id="@+id/buscadorEdificios"
-        android:layout_width="399dp"
-        android:layout_height="51dp"
+        android:layout_width="338dp"
+        android:layout_height="47dp"
         android:layout_marginTop="28dp"
         android:background="#585858"
         app:layout_constraintBottom_toTopOf="@+id/botonAnadirEdificioAdmin"
@@ -29,12 +29,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vistaEdificios"
-        android:layout_width="383dp"
-        android:layout_height="566dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="386dp"
+        android:layout_height="442dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonAnadirEdificioAdmin" />
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

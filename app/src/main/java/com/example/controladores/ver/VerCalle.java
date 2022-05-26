@@ -8,11 +8,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.controladores.Principal;
 import com.example.controladores.interfaces.ComunicaMenu;
+import com.example.controladores.listar.ListarMonumento;
 import com.example.just_scan.R;
 import com.example.maps.MapCalle;
 import com.google.android.gms.ads.AdRequest;
@@ -20,6 +23,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,7 +44,8 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
     private TextView tituloTv;
     private ImageView verFotoCalle;
     private TextView descripcionTv;
-    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion;
+    private int permisosUser;
+    private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion,borrarElemento,editarElemento;
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
     private Uri uri;
@@ -53,6 +59,7 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
 
             lat=getIntent().getDoubleExtra("latitud",lat);
             longi=getIntent().getDoubleExtra("longitud",longi);
+            permisosUser=getIntent().getIntExtra("permisos",permisosUser);
             nombre=getIntent().getStringExtra("nombre");
             historia=getIntent().getStringExtra("historia");
             fotoIntent=getIntent().getStringExtra("foto");
@@ -67,11 +74,43 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
             btnVerMapaGoogleMaps=findViewById(R.id.mostrarEnGoogleMapsCalle);
             btnVerMapa=findViewById(R.id.mostrarEnMapaCalle);
             btnAnimacion=findViewById(R.id.btnAnimationCalle);
+            borrarElemento=findViewById(R.id.borrarCalle);
+            editarElemento=findViewById(R.id.EditarCalle);
             fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
             fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
             rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
             rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
 
+        if(permisosUser==1){
+            borrarElemento.setVisibility(View.VISIBLE);
+            editarElemento.setVisibility(View.VISIBLE);
+        }else{
+            borrarElemento.setVisibility(View.GONE);
+            editarElemento.setVisibility(View.GONE);
+        }
+
+        borrarElemento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRef.child(idCalle).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Toast.makeText(VerCalle.this,"Elemento Borrado correctamente", Toast.LENGTH_SHORT).show();
+                        intent=new Intent(VerCalle.this, ListarMonumento.class);
+                        startActivity(intent);
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(VerCalle.this,"Error al borrar elemento", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+        });
 
         btnAnimacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +189,10 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
 
     private void animationOpen() {
         if(isOpen){
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.VISIBLE);
+                borrarElemento.setVisibility(View.VISIBLE);
+            }
             btnAnimacion.startAnimation(rotateForward);
             btnVerMapa.startAnimation(fabClose);
             btnVerMapa.setClickable(false);
@@ -161,6 +204,10 @@ public class VerCalle extends AppCompatActivity implements ComunicaMenu {
             btnVerMapaGoogleMaps.setClickable(false);
             isOpen=false;
         }else{
+            if(permisosUser==1){
+                editarElemento.setVisibility(View.GONE);
+                borrarElemento.setVisibility(View.GONE);
+            }
             btnAnimacion.startAnimation(rotateBackward);
             btnVerMapa.startAnimation(fabOpen);
             btnVerMapa.setClickable(true);
