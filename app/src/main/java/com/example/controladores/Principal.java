@@ -271,7 +271,7 @@ public class Principal extends AppCompatActivity implements View.OnClickListener
                     try {
                         Picasso.get().load(imagen).into(fotoUsuario);
                     }catch (Exception e){
-                        Picasso.get().load(R.drawable.ic_person_selected).into(fotoUsuario);
+                        Toast.makeText(Principal.this, "Errorr al cargar foto usuario",Toast.LENGTH_SHORT).show();
                     }
 
                 }

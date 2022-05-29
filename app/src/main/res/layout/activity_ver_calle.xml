@@ -59,12 +59,12 @@
         android:id="@+id/tituloCalleExtras"
         android:layout_width="318dp"
         android:layout_height="27dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginTop="268dp"
         android:text="TextView"
         android:textColor="#fff"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/verFotoCalleExtras" />
 

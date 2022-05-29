@@ -102,7 +102,7 @@ public class LogRegistro extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, "", esAdmin);
+                            Usuario usuario= new Usuario(email,nombreUsuario,telefono,password, "https://w7.pngwing.com/pngs/527/663/png-transparent-logo-person-user-person-icon-rectangle-photography-computer-wallpaper.png", esAdmin);
                             FirebaseDatabase.getInstance().getReference("Usuarios").child(FirebaseAuth.
                                     getInstance().getCurrentUser().getUid()).
                                     setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -78,7 +78,7 @@ public class LogUsuario extends AppCompatActivity {
         tvRegistro=findViewById(R.id.tvRegistro);
         //bd
         mAuth=FirebaseAuth.getInstance();
-        user=mAuth.getCurrentUser();
+
         //llamada al método de inicio de sesión
         iniciarSesion();
         //llamada al metodo de recuperar la contraseña
@@ -87,6 +87,7 @@ public class LogUsuario extends AppCompatActivity {
         linkARegistro();
         //mostrarAnuncio
         anuncio();
+
     }
 
     private void anuncio() {
@@ -97,30 +98,27 @@ public class LogUsuario extends AppCompatActivity {
         });
     }
 
-
     private void iniciarSesion(){
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email= txtEmail.getText().toString();
                 String contrasena=txtContra.getText().toString();
-
                 progressBarLogIn.setVisibility(View.VISIBLE);
-
                 mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            user=mAuth.getCurrentUser();
                             progressBarLogIn.setVisibility(View.GONE);
-                            if (user.isEmailVerified()){
+                            if (!user.isEmailVerified()){
+                                user.sendEmailVerification();
+                                Toast.makeText(LogUsuario.this,"Verifica tu correo electrónico",Toast.LENGTH_LONG).show();
+                            } else{
                                 intent= new Intent(LogUsuario.this, Principal.class);
                                 startActivity(intent);
-                            }else{
-                                Toast.makeText(LogUsuario.this,"Verifica tu correo electrónico",Toast.LENGTH_LONG).show();
-                                user.sendEmailVerification();
                             }
-
-                        }else{
+                       }else{
                             Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
                             progressBarLogIn.setVisibility(View.GONE);
                         }

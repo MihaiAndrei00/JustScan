@@ -59,13 +59,13 @@
         android:id="@+id/nombreMonumentoExtras"
         android:layout_width="273dp"
         android:layout_height="36dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="12dp"
         android:text="Neptuno"
         android:textColor="#fff"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -77,10 +77,10 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/verFotoMonumentoExtras"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreMonumentoExtras"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.256" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAnimationMonumento"

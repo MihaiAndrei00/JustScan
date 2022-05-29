@@ -50,6 +50,7 @@ public class VerPerfil extends AppCompatActivity {
     private EditText txtTelefono;
     private Button btnActualizar;
     private ImageView fotoPerfil;
+    private Button cerrarSesion;
     //adMob
     private AdView mAdView;
     private String tag ="Principal";
@@ -84,6 +85,7 @@ public class VerPerfil extends AppCompatActivity {
         txtTelefono=findViewById(R.id.txtTelefonoUpdate);
         btnActualizar=findViewById(R.id.btnActualizar);
         fotoPerfil=findViewById(R.id.fotoPerfil);
+        cerrarSesion=findViewById(R.id.btnCerrarSesion);
         //bd
         referenciaAlmacenamiento= FirebaseStorage.getInstance().getReference();
         auth=FirebaseAuth.getInstance();
@@ -99,6 +101,20 @@ public class VerPerfil extends AppCompatActivity {
         bannerAnuncio();
         //al clickar en el boton de actualizar, actualiza los datos y te redirige al main
         actualizarDatosEIntentPrincipal();
+        //metodo para cerrar sesion
+        cerrarSesion();
+    }
+
+    private void cerrarSesion() {
+        cerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                intent=new Intent(VerPerfil.this, Principal.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void actualizarDatosEIntentPrincipal() {
