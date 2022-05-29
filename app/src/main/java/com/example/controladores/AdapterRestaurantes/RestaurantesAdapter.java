@@ -17,9 +17,11 @@ import com.example.modelo.Restaurante;
 import java.util.ArrayList;
 
 public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapter.myViewHolder>{
-    Context context;
-    ArrayList<Restaurante> listaRestaurantes;
+    private Context context;
+    private ArrayList<Restaurante> listaRestaurantes;
     private RestaurantesAdapter.myViewHolder.onRestauranteListener onRestauranteListener;
+    private View view;
+    private Restaurante restaurante;
 
     public RestaurantesAdapter(Context context,   ArrayList<Restaurante> listaRestaurantes, RestaurantesAdapter.myViewHolder.onRestauranteListener onRestauranteListener) {
         this.context=context;
@@ -30,13 +32,13 @@ public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapte
     @NonNull
     @Override
     public RestaurantesAdapter.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurante,parent,false);
+        view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurante,parent,false);
         return new RestaurantesAdapter.myViewHolder(view,onRestauranteListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantesAdapter.myViewHolder holder, int position) {
-        Restaurante restaurante = listaRestaurantes.get(position);
+        restaurante = listaRestaurantes.get(position);
         holder.nombre.setText(restaurante.getNombre());
         holder.calleRestaurante.setText("Localización: " + restaurante.getCalle());
         Glide.with(context).load(listaRestaurantes.get(position).getFoto()).into(holder.img);

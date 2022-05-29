@@ -5,7 +5,6 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.VideoView;
@@ -16,22 +15,23 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.controladores.logs.LogRegistro;
 import com.example.controladores.logs.LogUsuario;
 import com.example.just_scan.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+    //video y mediaplayer
     private VideoView video;
     private MediaPlayer mediaPlayer;
-    private Uri uri;
     private int mCurrentVideoPosition;
-    private Button btnRegistro;
-    private Button btnInicioSesion;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
+    private Uri uri;
+    //vistas
+    private Button btnRegistro;
+    private Button btnInicioSesion;
+    //intent
     private Intent intent;
+    //bd
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     @Override
@@ -61,33 +61,15 @@ public class MainActivity extends AppCompatActivity {
         //asocio los botones con sus vistas
         btnRegistro=findViewById(R.id.btnIniciarSesion);
         btnInicioSesion=findViewById(R.id.btnInicioSesion);
-        // Write a message to the database
+        // bd
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("message");
-        myRef.setValue("Base de datos");
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("JUST_SCAN_APP", "Value is: " + value);
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("JUST_SCAN_APP", "Failed to read value.", error.toException());
-            }
-        });
-        //listener de los botones
-        btnRegistro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(MainActivity.this, LogRegistro.class);
-                startActivity(intent);
-            }
-        });
+
+        //intents de los botones
+        intentARegistro();
+        intentAInicioSesion();
+    }
+
+    private void intentAInicioSesion() {
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void intentARegistro() {
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(MainActivity.this, LogRegistro.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     protected void onPause() {
         super.onPause();

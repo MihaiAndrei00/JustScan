@@ -42,6 +42,7 @@ public class AnadirEdificio extends AppCompatActivity {
     private DatabaseReference myRef=database.getReference().child("Edificios");
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    //imagen
     private Uri imageUri;
     private String imagenRuta="foto";
     private ImageView fotoDeEdificio;
@@ -63,7 +64,11 @@ public class AnadirEdificio extends AppCompatActivity {
         //llamo al metodo para registrar
         registrarRuta();
 
+        //metodo que te lleva a la galeria y haced que puedas cambiar de foto
+        cambairFotoEdificio();
+    }
 
+    private void cambairFotoEdificio() {
         fotoDeEdificio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +103,7 @@ public class AnadirEdificio extends AppCompatActivity {
                 String longitud= longitudEdificio.getText().toString();
                 double longitudNum=Double.parseDouble(longitud);
 
-                StorageReference ref= storageReference.child("FotosDeEdificios/");
+                StorageReference ref= storageReference.child("FotosDeEdificios/*");
                 ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

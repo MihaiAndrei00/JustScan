@@ -36,18 +36,24 @@ public class ListarRestaurante extends AppCompatActivity implements Restaurantes
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-    private Button botonAnadirRestaurante;
+    private AdRequest adRequest;
+    //intent
     private Intent intent;
+    //vistas
+    private Button botonAnadirRestaurante;
+    private SearchView buscador;
+    private RecyclerView rv;
+    private RestaurantesAdapter adpt;
+    //bd
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceRestaurantes;
+    //datos usuarios
     private String userId;
     private String  fullName,email;
-    private SearchView buscador;
     private int permisos;
     private String telefono;
-    private RecyclerView rv;
-    private RestaurantesAdapter adpt;
+    //Lista restaurantes
     private ArrayList<Restaurante> listaRestaurantes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,40 +61,75 @@ public class ListarRestaurante extends AppCompatActivity implements Restaurantes
         setContentView(R.layout.activity_listar_restaurante);
         //AdMob
         MobileAds.initialize(this);
-        rv=(RecyclerView) findViewById(R.id.vistaRestaurantes);
-        buscador=findViewById(R.id.buscadorRestaurantes);
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //bd
         user= FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
         userId=user.getUid();
         referenceRestaurantes=FirebaseDatabase.getInstance().getReference("Restaurantes");
+        //vistas
+        rv=(RecyclerView) findViewById(R.id.vistaRestaurantes);
+        buscador=findViewById(R.id.buscadorRestaurantes);
+        botonAnadirRestaurante=findViewById(R.id.botonAnadirRestauranteAdmin);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaRestaurantes=new ArrayList<>();
         adpt= new RestaurantesAdapter(this,listaRestaurantes,this);
         rv.setAdapter(adpt);
-        botonAnadirRestaurante=findViewById(R.id.botonAnadirRestauranteAdmin);
-        botonAnadirRestaurante.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(ListarRestaurante.this, AnadirRestaurante.class);
-                startActivity(intent);
-            }
-        });
-        referenceRestaurantes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Restaurante restaurante= dataSnapshot.getValue(Restaurante.class);
-                    listaRestaurantes.add(restaurante);
-                }
-                adpt.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        //intent a la activity añadirRestaurante
+        intentAnadirRestaurante();
+        //Recorre firebase y añade restaurantes a mi lista
+        anadirRestauranteDeFirebaseALista();
+        // recupera los datos del usuario de firebase
+        recuperarDatosDeUsuario();
+        //busca en el recycler el restaurante por su nombre
+        buscarEnRecyclerRestaurantes();
+        //AdMob
+        anuncio();
+    }
+    //al clickar en un monumento me lleva a la vista de este y le paso como extras sus datos
+    @Override
+    public void clickEnRestaurante(int position) {
+        listaRestaurantes.get(position);
+        intent= new Intent(this, VerRestaurante.class);
+        intent.putExtra("nombre", listaRestaurantes.get(position).getNombre());
+        intent.putExtra("calle", listaRestaurantes.get(position).getCalle());
+        intent.putExtra("historia", listaRestaurantes.get(position).getDescripcion());
+        intent.putExtra("comida", listaRestaurantes.get(position).getTipoDeComida());
+        intent.putExtra("foto",listaRestaurantes.get(position).getFoto());
+        intent.putExtra("uid", listaRestaurantes.get(position).getuId());
+        intent.putExtra("latitud", listaRestaurantes.get(position).getLatitud());
+        intent.putExtra("longitud", listaRestaurantes.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
+        startActivity(intent);
+    }
 
+    private void anuncio() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        // Read from the database
+    }
+
+    private void buscarEnRecyclerRestaurantes() {
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                buscar(newText);
+                return false;
+            }
+        });
+    }
+
+    private void recuperarDatosDeUsuario() {
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,47 +150,35 @@ public class ListarRestaurante extends AppCompatActivity implements Restaurantes
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                buscar(newText);
-                return false;
-            }
-        });
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
     }
 
-    @Override
-    public void clickEnRestaurante(int position) {
-        listaRestaurantes.get(position);
-        intent= new Intent(this, VerRestaurante.class);
-        intent.putExtra("nombre", listaRestaurantes.get(position).getNombre());
-        intent.putExtra("calle", listaRestaurantes.get(position).getCalle());
-        intent.putExtra("historia", listaRestaurantes.get(position).getDescripcion());
-        intent.putExtra("comida", listaRestaurantes.get(position).getTipoDeComida());
-        intent.putExtra("foto",listaRestaurantes.get(position).getFoto());
-        intent.putExtra("uid", listaRestaurantes.get(position).getuId());
-        intent.putExtra("latitud", listaRestaurantes.get(position).getLatitud());
-        intent.putExtra("longitud", listaRestaurantes.get(position).getLongitud());
-        intent.putExtra("permisos",permisos);
-        startActivity(intent);
+    private void anadirRestauranteDeFirebaseALista() {
+        referenceRestaurantes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Restaurante restaurante= dataSnapshot.getValue(Restaurante.class);
+                    listaRestaurantes.add(restaurante);
+                }
+                adpt.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+
+    private void intentAnadirRestaurante() {
+        botonAnadirRestaurante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(ListarRestaurante.this, AnadirRestaurante.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void buscar(String s){
         ArrayList<Restaurante>restauranteBuscado=new ArrayList<>();
         for(Restaurante restaurante: listaRestaurantes){

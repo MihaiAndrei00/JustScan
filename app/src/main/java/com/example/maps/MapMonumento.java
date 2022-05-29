@@ -29,6 +29,7 @@ public class MapMonumento extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityMapMonumentoBinding binding;
     private double lat, longi;
+    private String nombreIntent;
     private UiSettings uiSettings;
     private List<Address> adressList=null;
     private Address address=null;
@@ -42,7 +43,7 @@ public class MapMonumento extends FragmentActivity implements OnMapReadyCallback
 
         lat = getIntent().getDoubleExtra("latitud", lat);
         longi = getIntent().getDoubleExtra("longitud", longi);
-
+        nombreIntent=getIntent().getStringExtra("nombre");
 
         binding = ActivityMapMonumentoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -75,7 +76,7 @@ public class MapMonumento extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         latLng = new LatLng(lat, longi);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Museo Del Prado"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title(nombreIntent));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 

@@ -28,6 +28,7 @@ public class MapRestaurante extends FragmentActivity implements OnMapReadyCallba
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private double lat, longi;
+    private String nombreIntent;
     private UiSettings uiSettings;
     private  List<Address>adressList=null;
     private Address address=null;
@@ -41,7 +42,7 @@ public class MapRestaurante extends FragmentActivity implements OnMapReadyCallba
 
         lat = getIntent().getDoubleExtra("latitud", lat);
         longi = getIntent().getDoubleExtra("longitud", longi);
-
+        nombreIntent=getIntent().getStringExtra("nombre");
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -73,7 +74,7 @@ public class MapRestaurante extends FragmentActivity implements OnMapReadyCallba
 
         // Add a marker in Sydney and move the camera
         latLng = new LatLng(lat, longi);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Toro Burger"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title(nombreIntent));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 

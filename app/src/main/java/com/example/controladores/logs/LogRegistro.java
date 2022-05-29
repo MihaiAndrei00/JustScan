@@ -30,14 +30,18 @@ public class LogRegistro extends AppCompatActivity {
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
+    private AdRequest adRequest;
+    //vistas
     private EditText txtEmail;
     private EditText txtNombreUsuario;
     private EditText txtTelefono;
     private EditText txtContra;
     private Button btnRegistrar;
-    private Intent intent;
-    private int esAdmin;
     private ProgressBar progressBar;
+    //intent
+    private Intent intent;
+    //atributo para que por defecto sean no admin
+    private int esAdmin;
     //llamamos a la base de datos
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
@@ -47,18 +51,17 @@ public class LogRegistro extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_registro);
-
         //AdMob
         MobileAds.initialize(this);
-
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         //variables para la animacion del main
-
         ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-
         //EditText
         txtEmail=findViewById(R.id.txtEmail);
         txtNombreUsuario=findViewById(R.id.txtNombreUsuario);
@@ -72,16 +75,17 @@ public class LogRegistro extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         //llamo al metodo para registrar
         registrar();
+        //muestro el anuncio
+        anuncio();
+    }
 
+    private void anuncio() {
         //AdMob
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 
     private void registrar(){
@@ -94,7 +98,6 @@ public class LogRegistro extends AppCompatActivity {
                 String password= txtContra.getText().toString();
                 esAdmin=0;
                 progressBar.setVisibility(View.VISIBLE);
-
                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -17,9 +17,11 @@ import com.example.modelo.Edificio;
 import java.util.ArrayList;
 
 public class EdificiosAdapter extends RecyclerView.Adapter<EdificiosAdapter.myViewHolder> {
-    Context context;
-    ArrayList<Edificio> listaEdificios;
+    private Context context;
+    private ArrayList<Edificio> listaEdificios;
     private myViewHolder.onEdificioListener onEdificioListener;
+    private View view;
+    private Edificio edificio;
 
     public EdificiosAdapter(Context context, ArrayList<Edificio> listaEdificios, myViewHolder.onEdificioListener onEdificioListener) {
         this.context=context;
@@ -30,13 +32,13 @@ public class EdificiosAdapter extends RecyclerView.Adapter<EdificiosAdapter.myVi
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_edificio,parent,false);
+        view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_edificio,parent,false);
         return new EdificiosAdapter.myViewHolder(view,onEdificioListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        Edificio edificio = listaEdificios.get(position);
+        edificio = listaEdificios.get(position);
         holder.nombre.setText(edificio.getNombre());
         holder.calleEdificio.setText("Localización: " + edificio.getCalle());
         Glide.with(context).load(listaEdificios.get(position).getFoto()).into(holder.img);

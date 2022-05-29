@@ -41,7 +41,7 @@ public class AnadirCalle extends AppCompatActivity {
     private DatabaseReference myRef=database.getReference().child("Calles");
     private FirebaseStorage storage;
     private StorageReference storageReference;
-
+    //imagen
     private Uri imageUri;
     private String imagenRuta="foto";
     private ImageView fotoDeCalle;
@@ -62,7 +62,11 @@ public class AnadirCalle extends AppCompatActivity {
         //llamo al metodo para registrar
         registrarRuta();
 
+        //metodo que te lleva a la galeria y haced que puedas cambiar de foto
+        cambiarFoto();
+    }
 
+    private void cambiarFoto() {
         fotoDeCalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

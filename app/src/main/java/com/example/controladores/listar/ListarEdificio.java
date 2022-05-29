@@ -36,44 +36,85 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-    private Button botonListarEdificio;
+    private AdRequest adRequest;
+    //intent
     private Intent intent;
+    //vistas
+    private Button botonAnadirEdificio;
+    private RecyclerView rv;
+    private EdificiosAdapter adpt;
+    private ArrayList<Edificio> listaEdificios;
+    //bd
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceEdificios;
+    //datos usuario
     private String userId;
     private String  fullName,email;
     private SearchView buscador;
     private int permisos;
     private String telefono;
-    private RecyclerView rv;
-    private EdificiosAdapter adpt;
-    private ArrayList<Edificio> listaEdificios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_edificio);
         //AdMob
         MobileAds.initialize(this);
-        rv=(RecyclerView) findViewById(R.id.vistaEdificios);
-        buscador=findViewById(R.id.buscadorEdificios);
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //bd
         user= FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
         userId=user.getUid();
         referenceEdificios=FirebaseDatabase.getInstance().getReference("Edificios");
+        //vistas
+        rv=(RecyclerView) findViewById(R.id.vistaEdificios);
+        buscador=findViewById(R.id.buscadorEdificios);
+        botonAnadirEdificio=findViewById(R.id.botonAnadirEdificioAdmin);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaEdificios=new ArrayList<>();
         adpt= new EdificiosAdapter(this,listaEdificios,this);
         rv.setAdapter(adpt);
-        botonListarEdificio=findViewById(R.id.botonAnadirEdificioAdmin);
-        botonListarEdificio.setOnClickListener(new View.OnClickListener() {
+        // intent hacia la pantalla de añadir edificios
+        intentAnadirEdificios();
+        //recorre los edificios de Firebase y los añade a mi lista
+        anadirEdificiosDeFirebaseALista();
+        // Read from the database
+        leerDatosUsuarioFirebase();
+        //metodod del buscador que busca por el nombre un edificio
+        buscarElementoEnLista();
+        //AdMob
+        anuncio();
+    }
+    //metodo que al clickar en un edificio te lleva a la clase VerEdificio
+    @Override
+    public void clickEnEdificio(int position) {
+        listaEdificios.get(position);
+        intent= new Intent(this, VerEdificio.class);
+        intent.putExtra("nombre", listaEdificios.get(position).getNombre());
+        intent.putExtra("calle", listaEdificios.get(position).getCalle());
+        intent.putExtra("historia", listaEdificios.get(position).getHistoria());
+        intent.putExtra("foto",listaEdificios.get(position).getFoto());
+        intent.putExtra("uid", listaEdificios.get(position).getuId());
+        intent.putExtra("latitud", listaEdificios.get(position).getLatitud());
+        intent.putExtra("longitud", listaEdificios.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
+        startActivity(intent);
+    }
+    private void  intentAnadirEdificios() {
+        botonAnadirEdificio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent= new Intent(ListarEdificio.this, AnadirEdificio.class);
                 startActivity(intent);
             }
         });
+    }
+
+    private void anadirEdificiosDeFirebaseALista() {
         referenceEdificios.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,7 +129,9 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
 
             }
         });
-        // Read from the database
+    }
+
+    private void leerDatosUsuarioFirebase() {
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,9 +142,9 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
                     permisos=userProfile.getEsAdmin();
                     telefono=userProfile.getTelefono();
                     if(permisos==1){
-                        botonListarEdificio.setVisibility(View.VISIBLE);
+                        botonAnadirEdificio.setVisibility(View.VISIBLE);
                     }else{
-                        botonListarEdificio.setVisibility(View.INVISIBLE);
+                        botonAnadirEdificio.setVisibility(View.INVISIBLE);
                     }
                 }
             }
@@ -109,7 +152,9 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
 
+    private void buscarElementoEnLista() {
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -122,39 +167,16 @@ public class ListarEdificio extends AppCompatActivity implements EdificiosAdapte
                 return false;
             }
         });
+    }
 
-        botonListarEdificio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(ListarEdificio.this, AnadirEdificio.class);
-                startActivity(intent);
-            }
-        });
 
-        //AdMob
+
+    private void anuncio() {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
-    @Override
-    public void clickEnEdificio(int position) {
-        listaEdificios.get(position);
-        intent= new Intent(this, VerEdificio.class);
-        intent.putExtra("nombre", listaEdificios.get(position).getNombre());
-        intent.putExtra("calle", listaEdificios.get(position).getCalle());
-        intent.putExtra("historia", listaEdificios.get(position).getHistoria());
-        intent.putExtra("foto",listaEdificios.get(position).getFoto());
-        intent.putExtra("uid", listaEdificios.get(position).getuId());
-        intent.putExtra("latitud", listaEdificios.get(position).getLatitud());
-        intent.putExtra("longitud", listaEdificios.get(position).getLongitud());
-        intent.putExtra("permisos",permisos);
-        startActivity(intent);
     }
     private void buscar(String s){
         ArrayList<Edificio>edificioBuscado=new ArrayList<>();

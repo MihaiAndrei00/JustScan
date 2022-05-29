@@ -29,6 +29,8 @@ public class Qr extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     private String token = "";
     private String tokenanterior = "";
+    private  BarcodeDetector barcodeDetector;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class Qr extends AppCompatActivity {
     public void initQR() {
 
         // creo el detector qr
-        BarcodeDetector barcodeDetector =
+        barcodeDetector =
                 new BarcodeDetector.Builder(this)
                         .setBarcodeFormats(Barcode.ALL_FORMATS)
                         .build();
@@ -118,15 +120,15 @@ public class Qr extends AppCompatActivity {
 
                         if (URLUtil.isValidUrl(token)) {
                             // si es una URL valida abre el navegador
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(token));
-                            startActivity(browserIntent);
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(token));
+                            startActivity(intent);
                         } else {
                             // comparte en otras apps
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, token);
-                            shareIntent.setType("text/plain");
-                            startActivity(shareIntent);
+                            intent = new Intent();
+                            intent.setAction(Intent.ACTION_SEND);
+                            intent.putExtra(Intent.EXTRA_TEXT, token);
+                            intent.setType("text/plain");
+                            startActivity(intent);
                         }
 
                         new Thread(new Runnable() {

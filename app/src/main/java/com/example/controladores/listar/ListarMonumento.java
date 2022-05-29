@@ -36,37 +36,78 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-    private Button botonAnadirMonumento;
+    private AdRequest adRequest;
+    //intent
     private Intent intent;
+    //vistas
+    private Button botonAnadirMonumento;
+    private RecyclerView rv;
+    private MonumentosAdapter adpt;
+    private ArrayList<Monumento> listaMonumentos;
+    //bd
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceEdificios;
+    //datos usuario
     private String userId;
     private String  fullName,email;
     private SearchView buscador;
     private int permisos;
     private String telefono;
-    private RecyclerView rv;
-    private MonumentosAdapter adpt;
-    private ArrayList<Monumento> listaMonumentos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_monumento);
         //AdMob
         MobileAds.initialize(this);
-        rv=(RecyclerView) findViewById(R.id.vistaMonumentos);
-        buscador=findViewById(R.id.buscadorMonumentosItem);
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //bd
         user= FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
         userId=user.getUid();
         referenceEdificios=FirebaseDatabase.getInstance().getReference("Monumentos");
+        //vistas
+        rv=(RecyclerView) findViewById(R.id.vistaMonumentos);
+        buscador=findViewById(R.id.buscadorMonumentosItem);
+        botonAnadirMonumento=findViewById(R.id.botonAnadirMonumentoAdmin);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaMonumentos=new ArrayList<>();
         adpt= new MonumentosAdapter(this,listaMonumentos,this);
         rv.setAdapter(adpt);
-        botonAnadirMonumento=findViewById(R.id.botonAnadirMonumentoAdmin);
+
+
+        //redireccion a añadir monumento
+        intentAnadirMonumento();
+        //añadir monumentos de firebase a mi lista
+        recorrerMonumentosEnfirebaseYAnadirALista();
+        // leer datos del usuario de firebase
+        recogerDatosUsuarioDeFirebase();
+        //buscar monumento en el adapter
+        buscarEnAdapterMonumentos();
+        //AdMob
+        anuncio();
+    }
+    //al clickar en un monumento me lleva a la vista de este y le paso como extras sus datos
+    @Override
+    public void clickEnMonumento(int position) {
+        listaMonumentos.get(position);
+        intent= new Intent(this, VerMonumento.class);
+        intent.putExtra("nombre", listaMonumentos.get(position).getNombre());
+        intent.putExtra("calle", listaMonumentos.get(position).getCalle());
+        intent.putExtra("historia", listaMonumentos.get(position).getHistoria());
+        intent.putExtra("foto",listaMonumentos.get(position).getFoto());
+        intent.putExtra("uid", listaMonumentos.get(position).getuId());
+        intent.putExtra("latitud", listaMonumentos.get(position).getLatitud());
+        intent.putExtra("longitud", listaMonumentos.get(position).getLongitud());
+        intent.putExtra("permisos",permisos);
+        startActivity(intent);
+    }
+
+    private void intentAnadirMonumento() {
         botonAnadirMonumento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +115,9 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
                 startActivity(intent);
             }
         });
+    }
+
+    private void recorrerMonumentosEnfirebaseYAnadirALista() {
         referenceEdificios.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,7 +132,9 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
 
             }
         });
-        // Read from the database
+    }
+
+    private void recogerDatosUsuarioDeFirebase() {
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,7 +155,9 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
 
+    private void buscarEnAdapterMonumentos() {
         buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -122,33 +170,16 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
                 return false;
             }
         });
+    }
 
-        //AdMob
+    private void anuncio() {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
     }
 
-    @Override
-    public void clickEnMonumento(int position) {
-        listaMonumentos.get(position);
-        intent= new Intent(this, VerMonumento.class);
-        intent.putExtra("nombre", listaMonumentos.get(position).getNombre());
-        intent.putExtra("calle", listaMonumentos.get(position).getCalle());
-        intent.putExtra("historia", listaMonumentos.get(position).getHistoria());
-        intent.putExtra("foto",listaMonumentos.get(position).getFoto());
-        intent.putExtra("uid", listaMonumentos.get(position).getuId());
-        intent.putExtra("latitud", listaMonumentos.get(position).getLatitud());
-        intent.putExtra("longitud", listaMonumentos.get(position).getLongitud());
-        intent.putExtra("permisos",permisos);
-        startActivity(intent);
-    }
     private void buscar(String s){
         ArrayList<Monumento>monumentoBuscado=new ArrayList<>();
 
@@ -160,6 +191,5 @@ public class ListarMonumento extends AppCompatActivity  implements MonumentosAda
         adpt=new MonumentosAdapter(this,monumentoBuscado,this);
         rv.setAdapter(adpt);
     }
-
 }
 

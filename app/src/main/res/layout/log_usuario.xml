@@ -5,8 +5,8 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.logs.LogUsuario"
-    android:background="@drawable/gradient_list">
+    android:background="@drawable/gradient_list"
+    tools:context="com.example.controladores.logs.LogUsuario">
 
 
     <EditText
@@ -125,8 +125,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent">
-    </com.google.android.gms.ads.AdView>
+        app:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

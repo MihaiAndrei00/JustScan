@@ -29,6 +29,7 @@ public class MapEdificio extends FragmentActivity implements OnMapReadyCallback 
     private GoogleMap mMap;
     private ActivityMapEdificioBinding binding;
     private double lat, longi;
+    private String nombreIntent;
     private UiSettings uiSettings;
     private List<Address> adressList=null;
     private Address address=null;
@@ -40,7 +41,7 @@ public class MapEdificio extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         lat = getIntent().getDoubleExtra("latitud", lat);
         longi = getIntent().getDoubleExtra("longitud", longi);
-
+        nombreIntent=getIntent().getStringExtra("nombre");
         binding = ActivityMapEdificioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -72,7 +73,7 @@ public class MapEdificio extends FragmentActivity implements OnMapReadyCallback 
 
         // Add a marker in Sydney and move the camera
         latLng = new LatLng(lat, longi);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Plaza mayor"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title(nombreIntent));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.controladores.listar.ListarRestaurante;
+import com.example.controladores.update.EditarRestaurante;
 import com.example.just_scan.R;
 import com.example.maps.MapRestaurante;
 import com.google.android.gms.ads.AdRequest;
@@ -34,28 +35,37 @@ public class VerRestaurante extends AppCompatActivity {
     //AdMob
     private String tag ="VerRestaurante";
     private AdView mAdView;
+    private AdRequest adRequest;
+    //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Restaurantes");
     private StorageReference reference= FirebaseStorage.getInstance().getReference();
+    //permisos user y datos restaurante
     private String nombre, descripcion , calle, fotoIntent,idRestaurante,tipoDeComida;
     private int permisosUser;
     private double lat, longi;
+    //intent
+    private Intent intent;
+    //vistas
     private TextView nombreTv;
     private TextView tipoDeComidaTv;
     private ImageView verFotoRestaurante;
     private TextView descripcionTv;
     private TextView calleTv;
     private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion, borrarElemento,editarElemento;
+    //animacion
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
-    private Intent intent;
     private Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_restaurante);
         //AdMob
-        MobileAds.initialize(this);
+        MobileAds.initialize(this); mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //permisos usuario y datos restaurante
         permisosUser=getIntent().getIntExtra("permisos",permisosUser);
         nombre=getIntent().getStringExtra("nombre");
         descripcion=getIntent().getStringExtra("historia");
@@ -65,6 +75,7 @@ public class VerRestaurante extends AppCompatActivity {
         tipoDeComida=getIntent().getStringExtra("comida");
         lat=getIntent().getDoubleExtra("latitud",lat);
         longi=getIntent().getDoubleExtra("longitud",longi);
+        //vistas
         nombreTv=findViewById(R.id.nombreRestauranteExtras);
         descripcionTv=findViewById(R.id.tvDescripcionRestauranteExtras);
         calleTv=findViewById(R.id.tvCalleRestauranteExtras);
@@ -81,20 +92,118 @@ public class VerRestaurante extends AppCompatActivity {
         btnAnimacion=findViewById(R.id.btnAnimationRestaurante);
         borrarElemento=findViewById(R.id.borrarRestaurante);
         editarElemento=findViewById(R.id.EditarRestaurante);
+        //animacion
         fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
         fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+        //oculta o muestra botones de borrar y editar segun los permisos
+        ocultarBotonesSegunPermisos();
+        //redirige a la pantalla de editar el elemento
+        intentAEditarElemento();
+        //borra el elemento
+        accionBorrarElemento();
+        //muestra u oculta botones del maps al clickar
+        animacionBotonPrincipalMaps();
+        //vista panoramica del restaurante
+        vistaPanoramicaRestauranteMaps();
+        //muestra con un marker la ubicacion del restaurante
+        mostrarEnMapaConMarker();
+        //muestra en el mapa el barrio del restaurante
+        mostrarBarrioEnGoogleMaps();
+        //navega con el gps hasta el restaurante
+        navegarHastaRestauranteGPS();
+        //muestra la foto del restaurante
+        mostrarFotoRestaurante();
+        //banner del anuncio
+        anuncio();
+    }
 
-        if(permisosUser==1){
-            borrarElemento.setVisibility(View.VISIBLE);
-            editarElemento.setVisibility(View.VISIBLE);
-        }else{
-            borrarElemento.setVisibility(View.GONE);
-            editarElemento.setVisibility(View.GONE);
+    private void anuncio() {
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+    }
+
+    private void mostrarFotoRestaurante() {
+        try {
+            Picasso.get().load(fotoIntent).into(verFotoRestaurante);
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.ic_person_selected).into(verFotoRestaurante);
         }
+    }
 
+    private void navegarHastaRestauranteGPS() {
+        btnNavegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri=Uri.parse("google.navigation:q="+lat+","+longi+"&mode=d");
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
 
+        });
+    }
+
+    private void mostrarBarrioEnGoogleMaps() {
+        btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri= Uri.parse("geo:"+lat+","+longi);
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void mostrarEnMapaConMarker() {
+        btnVerMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(VerRestaurante.this, MapRestaurante.class);
+                intent.putExtra("latitud", lat);
+                intent.putExtra("longitud", longi);
+                intent.putExtra("nombre", nombre);
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void vistaPanoramicaRestauranteMaps() {
+        btnPanoramico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri= Uri.parse("google.streetview:cbll="+lat+","+longi);
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void animacionBotonPrincipalMaps() {
+        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationOpen();
+            }
+        });
+    }
+
+    private void accionBorrarElemento() {
         borrarElemento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,80 +226,38 @@ public class VerRestaurante extends AppCompatActivity {
             }
 
         });
+    }
 
-        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+    private void intentAEditarElemento() {
+        editarElemento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animationOpen();
-            }
-        });
-
-        btnPanoramico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri=Uri.parse("google.streetview:cbll="+lat+","+longi);
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-        });
-
-
-        btnVerMapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent=new Intent(VerRestaurante.this, MapRestaurante.class);
+                intent=new Intent (VerRestaurante.this, EditarRestaurante.class);
+                intent.putExtra("nombre", nombre);
+                intent.putExtra("calle", calle);
+                intent.putExtra("historia", descripcion);
+                intent.putExtra("comida", tipoDeComida);
+                intent.putExtra("foto",fotoIntent);
+                intent.putExtra("uid", idRestaurante);
                 intent.putExtra("latitud", lat);
                 intent.putExtra("longitud", longi);
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
+                intent.putExtra("permisos",permisosUser);
 
+                startActivity(intent);
             }
         });
-
-        btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri=Uri.parse("geo:"+lat+","+longi);
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-        });
-
-        btnNavegar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri=Uri.parse("google.navigation:q="+lat+","+longi+"&mode=d");
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-
-        });
-        try {
-            Picasso.get().load(fotoIntent).into(verFotoRestaurante);
-        }catch (Exception e){
-            Picasso.get().load(R.drawable.ic_person_selected).into(verFotoRestaurante);
-        }
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
+
+    private void ocultarBotonesSegunPermisos() {
+        if(permisosUser==1){
+            borrarElemento.setVisibility(View.VISIBLE);
+            editarElemento.setVisibility(View.VISIBLE);
+        }else{
+            borrarElemento.setVisibility(View.GONE);
+            editarElemento.setVisibility(View.GONE);
+        }
+    }
+
     private void animationOpen(){
         if(isOpen){
             if(permisosUser==1){

@@ -43,6 +43,7 @@ public class AnadirRestaurante extends AppCompatActivity {
     private DatabaseReference myRef = database.getReference().child("Restaurantes");
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    //imagen
     private Uri imageUri;
     private String imagenRuta = "foto";
     private ImageView fotoDeRestaurante;
@@ -64,9 +65,13 @@ public class AnadirRestaurante extends AppCompatActivity {
         storageReference = storage.getReference();
         fotoDeRestaurante.setImageResource(R.drawable.logo);
         //llamo al metodo para registrar
-        registrarRuta();
+        registrarRestaurante();
 
+        //metodo que te lleva a la galeria y haced que puedas cambiar de foto
+        cambiarFotoRestaurante();
+    }
 
+    private void cambiarFotoRestaurante() {
         fotoDeRestaurante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +92,7 @@ public class AnadirRestaurante extends AppCompatActivity {
         }
     }
 
-    private void registrarRuta() {
+    private void registrarRestaurante() {
         anadirRestaurante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

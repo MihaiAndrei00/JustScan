@@ -30,7 +30,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JustScan.NoActionBar">
         <activity
-            android:name="com.example.controladores.VerPerfil"
+            android:name="com.example.controladores.update.EditarMonumento"
+            android:exported="false" />
+        <activity
+            android:name="com.example.controladores.update.EditarEdificio"
+            android:exported="false" />
+        <activity
+            android:name="com.example.controladores.update.EditarCalle"
+            android:exported="false" />
+        <activity
+            android:name="com.example.controladores.update.EditarRestaurante"
+            android:exported="false" />
+        <activity
+            android:name="com.example.controladores.ver.VerPerfil"
             android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -112,9 +124,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name="com.example.controladores.ver.VerRuta"
-            android:exported="false" />
         <activity
             android:name="com.example.controladores.logs.LogRegistro"
             android:exported="true" />

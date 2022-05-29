@@ -1,4 +1,4 @@
-package com.example.controladores;
+package com.example.controladores.update;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -18,17 +18,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.controladores.listar.ListarEdificio;
 import com.example.just_scan.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,71 +36,94 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
-public class VerPerfil extends AppCompatActivity {
-    private ImageView fotoPerfil;
-    private AdView mAdView;
-    private String tag ="Principal";
-    private EditText txtEmail;
-    private EditText txtNombreUsuario;
-    private EditText txtTelefono;
-    private Button btnActualizar;
-    private Intent intent;
-    private FirebaseUser user;
-    private FirebaseAuth auth;
-    private DatabaseReference reference;
-    private StorageReference referenciaAlmacenamiento;
-    private String rutaAlmacenamiento="FotosDePerfil/*";
+public class EditarEdificio extends AppCompatActivity {
+    private String rutaAlmacenamiento="FotosDeEdificios/*";
     private String [] permisosDeAlmacenamiento;
     private Uri imagen_uri;
-    private String perfilImagen="fotoPerfil";
-    /*PERMISOS*/
+    private String perfilImagen="foto";
+    //permisos
     private static final int CODIGO_DE_SOLICITUD_DE_ALMACENAMIENTO=200;
     private static final int CODIGO_PARA_LA_SELECCION_DE_LA_IMAGEN=300;
-
+    //intent
+    private Intent intent;
+    //vistas
+    private ImageView fotoDeEdificio;
+    private EditText editarNombreEdificio;
+    private EditText editarCalleEdificio;
+    private EditText editarHistoriaEdificio;
+    private EditText editarLatitudEdificio;
+    private EditText editarLongitudEdificio;
+    private Button btneditarEdificio;
+    //bd
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = database.getReference().child("Edificios");
+    private FirebaseStorage storage;
+    private StorageReference referenciaAlmacenamiento;
+    //datos edificio y permisos
+    private String nombre, histoira , fotoIntent,idEdificio,calleEdificio;
+    private int permisosUser;
+    private double lat, longi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ver_perfil);
-        txtEmail=findViewById(R.id.txtEmailUpdate);
-        txtNombreUsuario=findViewById(R.id.txtNombreUsuarioUpdate);
-        txtTelefono=findViewById(R.id.txtTelefonoUpdate);
-        btnActualizar=findViewById(R.id.btnActualizar);
-        mAdView = findViewById(R.id.adView);
-        fotoPerfil=findViewById(R.id.fotoPerfil);
-        referenciaAlmacenamiento= FirebaseStorage.getInstance().getReference();
-        permisosDeAlmacenamiento=new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        auth=FirebaseAuth.getInstance();
-        user=auth.getCurrentUser();
-        reference= FirebaseDatabase.getInstance().getReference("Usuarios");
+        setContentView(R.layout.activity_editar_edificio);
+        //datos edificio y permisos
+        permisosUser=getIntent().getIntExtra("permisos",permisosUser);
+        nombre=getIntent().getStringExtra("nombre");
+        histoira=getIntent().getStringExtra("historia");
+        fotoIntent=getIntent().getStringExtra("foto");
+        idEdificio=getIntent().getStringExtra("uid");
+        lat=getIntent().getDoubleExtra("latitud",lat);
+        longi=getIntent().getDoubleExtra("longitud",longi);
+        calleEdificio=getIntent().getStringExtra("calle");
+        //vistas
+        editarNombreEdificio = findViewById(R.id.editarNombreDeEdificio);
+        editarNombreEdificio.setText(nombre);
+        editarCalleEdificio=findViewById(R.id.editarCalleEdificio);
+        editarCalleEdificio.setText(calleEdificio);
+        editarHistoriaEdificio=findViewById(R.id.editarHistoriaEdificio);
+        editarHistoriaEdificio.setText(histoira);
+        editarLatitudEdificio=findViewById(R.id.editarEt_latitudEdificio);
+        editarLatitudEdificio.setText(Double.toString(lat));
+        editarLongitudEdificio=findViewById(R.id.editarEt_LongitudEdificio);
+        editarLongitudEdificio.setText(Double.toString(longi));
+        btneditarEdificio=findViewById(R.id.btnEditarEdificio);
+        fotoDeEdificio=findViewById(R.id.editarImagenEdificio);
+        //bd
+        storage = FirebaseStorage.getInstance();
+        referenciaAlmacenamiento = storage.getReference();
+        //muestra la foto del edificio
+        consultaParaMostrarFoto();
 
+        //al clickar en la foto del edificio te lleva a la galeria y te permite elegir otra
+        clickEnFotoEdificioParaCambiarla();
+        //
+        clickEnBotonParaCambiarDatos();
 
-        fotoPerfil.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void clickEnBotonParaCambiarDatos() {
+        btneditarEdificio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myRef.child(idEdificio).child("nombre").setValue(editarNombreEdificio.getText().toString());
+                myRef.child(idEdificio).child("historia").setValue(editarHistoriaEdificio.getText().toString());
+                myRef.child(idEdificio).child("latitud").setValue(Double.parseDouble(editarLatitudEdificio.getText().toString()));
+                myRef.child(idEdificio).child("longitud").setValue(Double.parseDouble(editarLongitudEdificio.getText().toString()));
+                myRef.child(idEdificio).child("calle").setValue(editarCalleEdificio.getText().toString());
+                intent=new Intent(EditarEdificio.this, ListarEdificio.class);
+                Toast.makeText(EditarEdificio.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void clickEnFotoEdificioParaCambiarla() {
+        fotoDeEdificio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 actualizarFotoPerfil();
             }
         });
-        usuarioLoggeado();
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        btnActualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               reference.child(user.getUid()).child("nombreUsuario").setValue(txtNombreUsuario.getText().toString());
-               reference.child(user.getUid()).child("email").setValue(txtEmail.getText().toString());
-               reference.child(user.getUid()).child("telefono").setValue(txtTelefono.getText().toString());
-            }
-        });
-
     }
 
     private void actualizarFotoPerfil() {
@@ -132,7 +149,7 @@ public class VerPerfil extends AppCompatActivity {
     }
     //Comprobar si los permisos de almacenamiento estan habilitados
     private boolean comprobarPermisosAlmacenamiento() {
-        boolean resultado= ContextCompat.checkSelfPermission(VerPerfil.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+        boolean resultado= ContextCompat.checkSelfPermission(EditarEdificio.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)==
                 (PackageManager.PERMISSION_GRANTED);
         return resultado;
     }
@@ -171,7 +188,7 @@ public class VerPerfil extends AppCompatActivity {
     }
 
     private void SubirFoto(Uri imagen_uri) {
-        String rutaDeArchivoYNombre=rutaAlmacenamiento + "" + perfilImagen +"_" +user.getUid();
+        String rutaDeArchivoYNombre=rutaAlmacenamiento + "" + perfilImagen +"_" +idEdificio;
         StorageReference storageReference= referenciaAlmacenamiento.child(rutaDeArchivoYNombre);
         storageReference.putFile(imagen_uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -183,26 +200,26 @@ public class VerPerfil extends AppCompatActivity {
                         if(uriTask.isSuccessful()){
                             HashMap<String, Object> resultado= new HashMap<>();
                             resultado.put(perfilImagen,downloadUri.toString());
-                            reference.child(user.getUid()).updateChildren(resultado).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            myRef.child(idEdificio).updateChildren(resultado).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(VerPerfil.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditarEdificio.this,"Foto actualizada correctamente", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditarEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }else{
-                            Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditarEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(VerPerfil.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -218,24 +235,17 @@ public class VerPerfil extends AppCompatActivity {
     private void solicitarPermisosAlmacenamiento() {
         requestPermissions(permisosDeAlmacenamiento,CODIGO_DE_SOLICITUD_DE_ALMACENAMIENTO);
     }
-    private void consultaParaMostrarDatos(){
-        Query query= reference.orderByChild("email").equalTo(user.getEmail());
+    private void consultaParaMostrarFoto(){
+        Query query= myRef.orderByChild("uid");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()){
-                    String nombreUsuario= ""+ ds.child("nombreUsuario").getValue();
-                    String imagen=""+ ds.child("fotoPerfil").getValue();
-                    String email=""+ds.child("email").getValue();
-                    String tlf=""+ds.child("telefono").getValue();
-                    txtNombreUsuario.setText(nombreUsuario);
-                    txtEmail.setText(email);
-                    txtTelefono.setText(tlf);
-
+                    String imagen=""+ ds.child("foto").getValue();
                     try {
-                        Picasso.get().load(imagen).into(fotoPerfil);
+                        Picasso.get().load(imagen).into(fotoDeEdificio);
                     }catch (Exception e){
-                        Picasso.get().load(R.drawable.ic_person_selected).into(fotoPerfil);
+                        Picasso.get().load(R.drawable.ic_person_selected).into(fotoDeEdificio);
                     }
 
                 }
@@ -247,14 +257,4 @@ public class VerPerfil extends AppCompatActivity {
             }
         });
     }
-    private void usuarioLoggeado(){
-        if(user!=null){
-            consultaParaMostrarDatos();
-            Toast.makeText(this,"Bienvenido a Just Scan", Toast.LENGTH_SHORT).show();
-        }else{
-            startActivity(new Intent(VerPerfil.this, Principal.class));
-            finish();
-        }
-    }
-
 }

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.controladores.listar.ListarMonumento;
+import com.example.controladores.update.EditarEdificio;
 import com.example.just_scan.R;
 import com.example.maps.MapEdificio;
 import com.google.android.gms.ads.AdRequest;
@@ -34,27 +35,38 @@ public class VerEdificio extends AppCompatActivity {
     //AdMob
     private String tag ="VerEdificio";
     private AdView mAdView;
+    private  AdRequest adRequest;
+    //intent
     private Intent intent;
+    //bd
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef=database.getReference().child("Edificios");
     private StorageReference reference= FirebaseStorage.getInstance().getReference();
+    //datos edificios y permisos usuarios
     private String titulo, descripcion , calle, fotoIntent,idEdificio;
+    private double lat, longi;
+    private int permisosUser;
+    //vistas
     private TextView nombreTv;
     private ImageView verFotoEdificio;
     private TextView descripcionTv;
     private TextView calleTv;
-    private int permisosUser;
     private FloatingActionButton btnVerMapa, btnVerMapaGoogleMaps, btnNavegar, btnPanoramico, btnAnimacion,borrarElemento,editarElemento;
+    //animacion
     private Animation fabOpen, fabClose, rotateForward, rotateBackward;
     private boolean isOpen=false;
     private Uri uri;
-    private double lat, longi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_edificio);
         //AdMob
         MobileAds.initialize(this);
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //datos edificio y permisos ususario
         lat=getIntent().getDoubleExtra("latitud",lat);
         longi=getIntent().getDoubleExtra("longitud",longi);
         titulo=getIntent().getStringExtra("nombre");
@@ -63,6 +75,7 @@ public class VerEdificio extends AppCompatActivity {
         fotoIntent=getIntent().getStringExtra("foto");
         idEdificio=getIntent().getStringExtra("uid");
         permisosUser=getIntent().getIntExtra("permisos",permisosUser);
+        //vistas
         nombreTv=findViewById(R.id.nombreEdificioExtras);
         descripcionTv=findViewById(R.id.tvDescripcionEdificioExtras);
         calleTv=findViewById(R.id.tvCalleEdificioExtras);
@@ -77,11 +90,34 @@ public class VerEdificio extends AppCompatActivity {
         btnAnimacion=findViewById(R.id.btnAnimationEdificio);
         borrarElemento=findViewById(R.id.borrarEdificio);
         editarElemento=findViewById(R.id.EditarEdificio);
+        //animacion
         fabOpen= AnimationUtils.loadAnimation(this,R.anim.fab_open);
         fabClose=AnimationUtils.loadAnimation(this,R.anim.fab_close);
         rotateForward=AnimationUtils.loadAnimation(this,R.anim.rotate_forward);
         rotateBackward=AnimationUtils.loadAnimation(this,R.anim.rotate_backward);
+        //oculta botones de editar y eliminar segun los permisos del usuario
+        ocultarBotonesSegunPermisos();
+        //intent a la ventana de editar
+        intentAEditarElemento();
+        //borrar elemento
+        borrarEdificioAccion();
+        //animacion que despliega o esconde los diferentes botones del maps
+        animacionBotonPrincipalMaps();
+        //boton de maps que despliega vista panoramica
+        mostrarVistaPanoramica();
+        //boton de maps que te ubica el edificio con un marker en el mapa
+        mostrarEdificioConMarker();
+        //boton de maps que te ubica el barrio del edificio
+        mostrarBarrioEdificio();
+        //boton del maps que te despliega un gps que navega hasta el edificio
+        navegarHastaEdificio();
+        //muestra la foto del edificio en la vista
+        mostrarFotoEdificio();
+        //anuncio
+        anuncio();
+    }
 
+    private void ocultarBotonesSegunPermisos() {
         if(permisosUser==1){
             borrarElemento.setVisibility(View.VISIBLE);
             editarElemento.setVisibility(View.VISIBLE);
@@ -89,6 +125,94 @@ public class VerEdificio extends AppCompatActivity {
             borrarElemento.setVisibility(View.GONE);
             editarElemento.setVisibility(View.GONE);
         }
+    }
+
+    private void anuncio() {
+        //AdMob
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+    }
+
+    private void mostrarFotoEdificio() {
+        try {
+            Picasso.get().load(fotoIntent).into(verFotoEdificio);
+        }catch (Exception e){
+            Picasso.get().load(R.drawable.ic_person_selected).into(verFotoEdificio);
+        }
+    }
+
+    private void navegarHastaEdificio() {
+        btnNavegar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri=Uri.parse("google.navigation:q="+lat+","+longi+"&mode=d");
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+
+        });
+    }
+
+    private void mostrarBarrioEdificio() {
+        btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri= Uri.parse("geo:"+lat+","+longi);
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void mostrarEdificioConMarker() {
+        btnVerMapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(VerEdificio.this, MapEdificio.class);
+                intent.putExtra("latitud", lat);
+                intent.putExtra("longitud", longi);
+                intent.putExtra("nombre", titulo);
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+
+            }
+        });
+    }
+
+    private void mostrarVistaPanoramica() {
+        btnPanoramico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uri= Uri.parse("google.streetview:cbll="+lat+","+longi);
+                intent=new Intent(Intent.ACTION_VIEW,uri);
+                intent.setPackage("com.google.android.apps.maps");
+                if(intent.resolveActivity(getPackageManager())!=null){
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void animacionBotonPrincipalMaps() {
+        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animationOpen();
+            }
+        });
+    }
+
+    private void borrarEdificioAccion() {
         borrarElemento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,76 +235,28 @@ public class VerEdificio extends AppCompatActivity {
             }
 
         });
-        btnAnimacion.setOnClickListener(new View.OnClickListener() {
+    }
+
+
+    private void intentAEditarElemento() {
+        editarElemento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animationOpen();
-            }
-        });
-        btnPanoramico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri= Uri.parse("google.streetview:cbll="+lat+","+longi);
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-        });
-        btnVerMapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent=new Intent(VerEdificio.this, MapEdificio.class);
+                intent=new Intent (VerEdificio.this, EditarEdificio.class);
+                intent.putExtra("nombre", titulo);
+                intent.putExtra("historia", descripcion);
+                intent.putExtra("foto",fotoIntent);
+                intent.putExtra("calle",calle);
+                intent.putExtra("uid", idEdificio);
                 intent.putExtra("latitud", lat);
                 intent.putExtra("longitud", longi);
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
+                intent.putExtra("permisos",permisosUser);
 
+                startActivity(intent);
             }
         });
-        btnVerMapaGoogleMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri=Uri.parse("geo:"+lat+","+longi);
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-        });
-        btnNavegar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uri=Uri.parse("google.navigation:q="+lat+","+longi+"&mode=d");
-                intent=new Intent(Intent.ACTION_VIEW,uri);
-                intent.setPackage("com.google.android.apps.maps");
-                if(intent.resolveActivity(getPackageManager())!=null){
-                    startActivity(intent);
-                }
-            }
-
-        });
-
-        try {
-            Picasso.get().load(fotoIntent).into(verFotoEdificio);
-        }catch (Exception e){
-            Picasso.get().load(R.drawable.ic_person_selected).into(verFotoEdificio);
-        }
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
     }
+
     private void animationOpen(){
         if(isOpen){
             if(permisosUser==1){

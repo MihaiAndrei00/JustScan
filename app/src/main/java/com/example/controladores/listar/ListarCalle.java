@@ -36,44 +36,76 @@ public class ListarCalle extends AppCompatActivity  implements CallesAdapter.myV
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-    private Button botonAnadirCalle;
+    private AdRequest adRequest;
+    //Intent
     private Intent intent;
+    //vistas
+    private SearchView buscador;
+    private RecyclerView rv;
+    private CallesAdapter adpt;
+    private Button botonAnadirCalle;
+    //bd
     private FirebaseUser user;
     private DatabaseReference reference;
     private DatabaseReference referenceCalles;
+    //datos usuario
     private String userId;
     private String  fullName,email;
-    private SearchView buscador;
     private int permisos;
     private String telefono;
-    private RecyclerView rv;
-    private CallesAdapter adpt;
+    //lista de calles
     private ArrayList<Calle> listaCalles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_calle);
         //AdMob
         MobileAds.initialize(this);
-        rv=(RecyclerView) findViewById(R.id.vistaCalle);
-        buscador=findViewById(R.id.buscadorCalle);
+        adRequest = new AdRequest.Builder().build();
+        mAdView = findViewById(R.id.adView);
+        mAdView.loadAd(adRequest);
+        //bd
         user= FirebaseAuth.getInstance().getCurrentUser();
         reference= FirebaseDatabase.getInstance().getReference("Usuarios");
+        rv=(RecyclerView) findViewById(R.id.vistaCalle);
         userId=user.getUid();
         referenceCalles=FirebaseDatabase.getInstance().getReference("Calles");
+        //vistas
+        buscador=findViewById(R.id.buscadorCalle);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         listaCalles=new ArrayList<>();
         adpt= new CallesAdapter(this,listaCalles,this);
         rv.setAdapter(adpt);
         botonAnadirCalle=findViewById(R.id.botonAnadirCalleAdmin);
-        botonAnadirCalle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent= new Intent(ListarCalle.this, AnadirCalle.class);
-                startActivity(intent);
-            }
-        });
+
+        //intnet que lleva al formulario de añadir calle
+        irAnadirCalle();
+        //metodo que recorre  las calles de Firebase y las añade a mi lista de calles
+        recorrerCallesYAnadirALista();
+        // metodo que recoge los datos del usuario de firebase
+        recogerDatosDelUsuarioDeFirebase();
+        //aplico el setOnQueryListener al buscador
+        aplicarListenerBuscar();
+        //AdMob
+        anuncio();
+    }
+    //Al clickar en una calle te lleva al activity para ver esa calle y le paso como extras los atributos de la calle
+    @Override
+    public void clickEnCalle(int position) {
+        listaCalles.get(position);
+        intent= new Intent(this, VerCalle.class);
+        intent.putExtra("nombre", listaCalles.get(position).getNombre());
+        intent.putExtra("historia", listaCalles.get(position).getHistoria());
+        intent.putExtra("foto", listaCalles.get(position).getFoto());
+        intent.putExtra("uid", listaCalles.get(position).getuId());
+        intent.putExtra("latitud", listaCalles.get(position).getLatitud());
+        intent.putExtra("longitud", listaCalles.get(position).getLongitud());
+        intent.putExtra("permisos", permisos);
+        startActivity(intent);
+    }
+    private void recorrerCallesYAnadirALista() {
         referenceCalles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,7 +120,42 @@ public class ListarCalle extends AppCompatActivity  implements CallesAdapter.myV
 
             }
         });
-        // Read from the database
+    }
+
+    private void irAnadirCalle() {
+        botonAnadirCalle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent= new Intent(ListarCalle.this, AnadirCalle.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void anuncio() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+    }
+
+    private void aplicarListenerBuscar() {
+        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                buscar(newText);
+                return false;
+            }
+        });
+    }
+
+    private void recogerDatosDelUsuarioDeFirebase() {
         reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,45 +176,9 @@ public class ListarCalle extends AppCompatActivity  implements CallesAdapter.myV
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        buscador.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                buscar(newText);
-                return false;
-            }
-        });
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
     }
 
-    @Override
-    public void clickEnCalle(int position) {
-        listaCalles.get(position);
-        intent= new Intent(this, VerCalle.class);
-        intent.putExtra("nombre", listaCalles.get(position).getNombre());
-        intent.putExtra("historia", listaCalles.get(position).getHistoria());
-        intent.putExtra("foto", listaCalles.get(position).getFoto());
-        intent.putExtra("uid", listaCalles.get(position).getuId());
-        intent.putExtra("latitud", listaCalles.get(position).getLatitud());
-        intent.putExtra("longitud", listaCalles.get(position).getLongitud());
-        intent.putExtra("permisos", permisos);
-        startActivity(intent);
-    }
+
     private void buscar(String s){
         ArrayList<Calle>calleBuscada=new ArrayList<>();
 

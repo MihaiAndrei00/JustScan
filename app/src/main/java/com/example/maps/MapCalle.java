@@ -29,6 +29,7 @@ public class MapCalle extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private ActivityMapCalleBinding binding;
     private double lat, longi;
+    private String nombreIntent;
     private UiSettings uiSettings;
     private List<Address> adressList=null;
     private Address address=null;
@@ -40,7 +41,7 @@ public class MapCalle extends FragmentActivity implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         lat = getIntent().getDoubleExtra("latitud", lat);
         longi = getIntent().getDoubleExtra("longitud", longi);
-
+        nombreIntent=getIntent().getStringExtra("nombre");
         binding = ActivityMapCalleBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -66,13 +67,14 @@ public class MapCalle extends FragmentActivity implements OnMapReadyCallback {
         uiSettings = mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
 
+        //pide aceptar los permisos necesarios para habilitar tu ubicacion
         habilitarMiLocacion();
-        //buscarCiudad();
+
 
 
         // Add a marker in Sydney and move the camera
         latLng = new LatLng(lat, longi);
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Gran via"));
+        mMap.addMarker(new MarkerOptions().position(latLng).title(nombreIntent));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
 

@@ -1,6 +1,7 @@
 package com.example.controladores.logs;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -31,21 +32,25 @@ public class LogUsuario extends AppCompatActivity {
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
+    private AdRequest adRequest;
+    //vistas
     private EditText txtEmail;
     private EditText txtContra;
     private Button btnInicioSesion;
     private TextView tvContra;
     private TextView tvRegistro;
     private ProgressBar progressBarLogIn;
+    //animacion
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
+    //intent
     private Intent intent;
+    //bd
     private FirebaseUser user;
-
-    //instancia del FirebaseAuth que nos proporciona diferentes metodos de autorización de firebase
     private FirebaseAuth mAuth;
-
-
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private String llave="sesion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,51 +59,45 @@ public class LogUsuario extends AppCompatActivity {
 
         //AdMob
         MobileAds.initialize(this);
-
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
-
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2500);
         animationDrawable.setExitFadeDuration(5000);
         animationDrawable.start();
-
-        //edittext
+        //vistas
         txtEmail=findViewById(R.id.txtEmail);
         txtContra=findViewById(R.id.txtContra);
-        //progressbar
         progressBarLogIn=findViewById(R.id.progressBarLogin);
         progressBarLogIn.setVisibility(View.GONE);
-         //boton
         btnInicioSesion=findViewById(R.id.btnIniciarSesion);
-        //textViews
         tvContra=findViewById(R.id.olvidarContra);
         tvRegistro=findViewById(R.id.tvRegistro);
+        //bd
         mAuth=FirebaseAuth.getInstance();
-
         user=mAuth.getCurrentUser();
         //llamada al método de inicio de sesión
         iniciarSesion();
-
-
         //llamada al metodo de recuperar la contraseña
         linkArecuperarContrasena();
-
         //llamada al metodo de registro
         linkARegistro();
+        //mostrarAnuncio
+        anuncio();
+    }
 
-        //AdMob
+    private void anuncio() {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-
     }
+
+
     private void iniciarSesion(){
         btnInicioSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,5 +149,6 @@ public class LogUsuario extends AppCompatActivity {
             }
         });
     }
+
 }
 

@@ -1,9 +1,5 @@
 package com.example.controladores.logs;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.just_scan.R;
 import com.google.android.gms.ads.AdRequest;
@@ -27,7 +27,8 @@ public class LogCambiarContra extends AppCompatActivity {
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
-
+    private AdRequest adRequest;
+    //animacion
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     //vistas
@@ -42,6 +43,9 @@ public class LogCambiarContra extends AppCompatActivity {
         setContentView(R.layout.log_cambiar_contra);
         //AdMob
         MobileAds.initialize(this);
+        mAdView = findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         //variables para la animacion del main
         constraintLayout = findViewById(R.id.mainLayout);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -52,24 +56,29 @@ public class LogCambiarContra extends AppCompatActivity {
         txtEmail=findViewById(R.id.txtEmail);
         btnCambiarContra=findViewById(R.id.btnIniciarSesion);
         mAuth=FirebaseAuth.getInstance();
+        //listener del boton que llama al metodo de recuperar contraseña
+        llamarARecuperarContraseña();
+        //AdMob
+        anuncio();
+    }
 
+    private void anuncio() {
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+    }
+
+    private void llamarARecuperarContraseña() {
         btnCambiarContra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetPassword();
             }
         });
-
-        //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
+
     private void resetPassword(){
         String email= txtEmail.getText().toString();
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
