@@ -8,8 +8,15 @@
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/custom_button4.xml" value="0.3671875" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/drawable/ic_menu_camera.xml" value="0.2703125" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_anadir_calle.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_anadir_edificio.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_anadir_monumento.xml" value="0.36666666666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_anadir_restaurante.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_cambiar_perfil.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_editar_calle.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_editar_edificio.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_editar_monumentos.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_editar_restaurante.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_home.xml" value="0.35104166666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_calle.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_listar_edificio.xml" value="0.25416666666666665" />
@@ -18,12 +25,15 @@
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_log_admin.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_main.xml" value="0.536" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_principal.xml" value="0.2" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_qr.xml" value="0.25416666666666665" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_trazar_linea.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_calle.xml" value="0.4" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_edificio.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_monumento.xml" value="0.36666666666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_perfil.xml" value="0.25416666666666665" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_restaurante.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.35104166666666664" />
-        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.35104166666666664" />
+        <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.264" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/app_bar_home.xml" value="0.2" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/btn_style.xml" value="0.36666666666666664" />
         <entry key="..\:/CosasMario/GitHub/JustScan/app/src/main/res/layout/content_home.xml" value="0.3140625" />
@@ -50,21 +60,15 @@
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/background_1.xml" value="0.3015625" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2898148148148148" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.3723958333333333" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_door_front_24.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_location_city_24.xml" value="0.31296296296296294" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_map_24.xml" value="0.31296296296296294" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_navigation_24.xml" value="0.3148148148148148" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/drawable/ic_baseline_panorama_24.xml" value="0.3148148148148148" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout-v26/activity_ver_calle.xml" value="0.30885416666666665" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_anadir_calle.xml" value="0.33" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_anadir_edificio.xml" value="0.3578125" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_anadir_monumento.xml" value="0.35625" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_anadir_restaurante.xml" value="0.35625" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_editar_calle.xml" value="0.371875" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_editar_edificio.xml" value="0.20052083333333334" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_editar_monumentos.xml" value="0.35625" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_editar_restaurante.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_home.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_listar_calle.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_listar_edificio.xml" value="0.19166666666666668" />
@@ -81,7 +85,6 @@
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_calle.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_edificio.xml" value="0.33" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_monumento.xml" value="0.33" />
-        <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_perfil.xml" value="0.371875" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_restaurante.xml" value="0.2467948717948718" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/activity_ver_ruta.xml" value="0.19166666666666668" />
         <entry key="..\:/Users/Andrei/AndroidStudioProjects/JustScan/app/src/main/res/layout/anadir_ruta.xml" value="0.371875" />

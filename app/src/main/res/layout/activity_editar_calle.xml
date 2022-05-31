@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context="com.example.controladores.update.EditarCalle">
 
     <Button
@@ -96,6 +97,7 @@
         android:layout_width="262dp"
         android:layout_height="216dp"
         android:layout_marginTop="28dp"
+        android:src="@drawable/logo_boton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
