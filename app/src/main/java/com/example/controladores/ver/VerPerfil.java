@@ -19,7 +19,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.controladores.Principal;
+import com.example.controladores.add.AnadirAdmin;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
+import com.example.modelo.Usuario;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -44,13 +47,15 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 public class VerPerfil extends AppCompatActivity {
+    //recojo permisos usuario
+    private int permisos;
     //vistas
     private EditText txtEmail;
     private EditText txtNombreUsuario;
     private EditText txtTelefono;
     private Button btnActualizar;
     private ImageView fotoPerfil;
-    private Button cerrarSesion;
+    private Button cerrarSesion, addAdmin;
     //adMob
     private AdView mAdView;
     private String tag ="Principal";
@@ -86,6 +91,7 @@ public class VerPerfil extends AppCompatActivity {
         btnActualizar=findViewById(R.id.btnActualizar);
         fotoPerfil=findViewById(R.id.fotoPerfil);
         cerrarSesion=findViewById(R.id.btnCerrarSesion);
+        addAdmin=findViewById(R.id.botonAnadirAdmin);
         //bd
         referenciaAlmacenamiento= FirebaseStorage.getInstance().getReference();
         auth=FirebaseAuth.getInstance();
@@ -103,8 +109,33 @@ public class VerPerfil extends AppCompatActivity {
         actualizarDatosEIntentPrincipal();
         //metodo para cerrar sesion
         cerrarSesion();
+        //boton para intent de añadir admin
+        intentAdAdmin();
+        //ocultar boton
+        recogerDatosDelUsuarioDeFirebase();
     }
 
+    private void recogerDatosDelUsuarioDeFirebase() {
+        reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Usuario userProfile= snapshot.getValue(Usuario.class);
+                if(userProfile!=null){
+
+                    permisos=userProfile.getEsAdmin();
+
+                    if(permisos==1){
+                        addAdmin.setVisibility(View.VISIBLE);
+                    }else{
+                        addAdmin.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
     private void cerrarSesion() {
         cerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,16 +147,50 @@ public class VerPerfil extends AppCompatActivity {
             }
         });
     }
+    private void intentAdAdmin() {
+        addAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent=new Intent(VerPerfil.this, AnadirAdmin.class);
+                startActivity(intent);
+            }
+        });
+    }
 
     private void actualizarDatosEIntentPrincipal() {
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               reference.child(user.getUid()).child("nombreUsuario").setValue(txtNombreUsuario.getText().toString());
-               reference.child(user.getUid()).child("email").setValue(txtEmail.getText().toString());
-               reference.child(user.getUid()).child("telefono").setValue(txtTelefono.getText().toString());
-               Toast.makeText(VerPerfil.this, "Datos acutalizados correctamente", Toast.LENGTH_SHORT).show();
-               intent=new Intent(VerPerfil.this, Principal.class);
+                if(txtNombreUsuario.getText().toString().isEmpty()){
+                    Toast.makeText(VerPerfil.this,"Nombre no puede estar vacio", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(txtEmail.getText().toString().isEmpty()){
+                        Toast.makeText(VerPerfil.this,"Email no puede estar vacio", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(txtTelefono.getText().toString().isEmpty()){
+                            Toast.makeText(VerPerfil.this,"Telefono no puede estar vacio", Toast.LENGTH_SHORT).show();
+                        }else{
+                            if(!Validar.validarUsuario(txtNombreUsuario)){
+                                Toast.makeText(VerPerfil.this,"Nombre no válido", Toast.LENGTH_SHORT).show();
+                            }else{
+                                if(!Validar.validarEmail(txtEmail)){
+                                    Toast.makeText(VerPerfil.this,"Email no válido", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    if(!Validar.validarTelefono(txtTelefono)){
+                                        Toast.makeText(VerPerfil.this,"Teléfono no válido", Toast.LENGTH_SHORT).show();
+                                    } else{
+                                        reference.child(user.getUid()).child("nombreUsuario").setValue(txtNombreUsuario.getText().toString());
+                                        reference.child(user.getUid()).child("email").setValue(txtEmail.getText().toString());
+                                        reference.child(user.getUid()).child("telefono").setValue(txtTelefono.getText().toString());
+                                        Toast.makeText(VerPerfil.this, "Datos acutalizados correctamente", Toast.LENGTH_SHORT).show();
+                                        intent=new Intent(VerPerfil.this, Principal.class);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         });
     }

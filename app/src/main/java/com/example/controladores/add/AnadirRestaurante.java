@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.example.modelo.Restaurante;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -105,41 +106,99 @@ public class AnadirRestaurante extends AppCompatActivity {
                 double latidudNum=Double.parseDouble(latitud);
                 String longitud= longitudRestaurante.getText().toString();
                 double longitudNum=Double.parseDouble(longitud);
-
                 StorageReference ref = storageReference.child("FotosDeRestaurantes/");
-                ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                                while (!uriTask.isSuccessful()) ;
-                                Uri downloadUri = uriTask.getResult();
-                                if (uriTask.isSuccessful()) {
-                                    HashMap<String, Object> resultado = new HashMap<>();
-                                    resultado.put(imagenRuta, downloadUri.toString());
-                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(),latidudNum,longitudNum );
-                                    myRef.child(restaurante.getuId()).setValue(restaurante);
-                                    Toast.makeText(AnadirRestaurante.this, "Restaurante subida correctamente", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(AnadirRestaurante.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                if(nombre.isEmpty()){
+                    Toast.makeText(AnadirRestaurante.this, "nombre no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    if(calle.isEmpty()){
+                        Toast.makeText(AnadirRestaurante.this, "calle no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(descripcion.isEmpty()){
+                            Toast.makeText(AnadirRestaurante.this, "descripcion no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(tipoComida.isEmpty()){
+                                Toast.makeText(AnadirRestaurante.this, "Tipo de comida no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(latitud.isEmpty()){
+                                    Toast.makeText(AnadirRestaurante.this, "latitud no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(longitud.isEmpty()){
+                                        Toast.makeText(AnadirRestaurante.this, "longitud no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(nombreRestaurante)){
+                                            Toast.makeText(AnadirRestaurante.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(calleRestaurante)){
+                                                Toast.makeText(AnadirRestaurante.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                if(!Validar.validarLetrasNumYSpace(descripcionRestaurante)){
+                                                    Toast.makeText(AnadirRestaurante.this, "Formato descripción incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if(!Validar.validarLetras(tipoDeComida)){
+                                                        Toast.makeText(AnadirRestaurante.this, "Formato tipo de comida", Toast.LENGTH_SHORT).show();
+
+                                                    }else{
+                                                        if(!Validar.validarNumDouble(latitudRestaurante)){
+                                                            Toast.makeText(AnadirRestaurante.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                        }else{
+                                                            if(!Validar.validarNumDouble(longitudRestaurante)){
+                                                                Toast.makeText(AnadirRestaurante.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                            }else{
+                                                                ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                                    @Override
+                                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                            @Override
+                                                                            public void onSuccess(Uri uri) {
+                                                                                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                                                                while (!uriTask.isSuccessful()) ;
+                                                                                Uri downloadUri = uriTask.getResult();
+                                                                                if (uriTask.isSuccessful()) {
+                                                                                    HashMap<String, Object> resultado = new HashMap<>();
+                                                                                    resultado.put(imagenRuta, downloadUri.toString());
+                                                                                    Restaurante restaurante = new Restaurante(uId, nombre, calle,tipoComida,descripcion, downloadUri.toString(),latidudNum,longitudNum );
+                                                                                    myRef.child(restaurante.getuId()).setValue(restaurante);
+                                                                                    Toast.makeText(AnadirRestaurante.this, "Restaurante subida correctamente", Toast.LENGTH_SHORT).show();
+                                                                                } else {
+                                                                                    Toast.makeText(AnadirRestaurante.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                                    @Override
+                                                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                                                    }
+                                                                }).addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+
+                                                                        Toast.makeText(AnadirRestaurante.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        });
+                        }
                     }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(AnadirRestaurante.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
             }
         });
     }

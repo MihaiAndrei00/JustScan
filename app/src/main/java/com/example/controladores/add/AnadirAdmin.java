@@ -1,7 +1,6 @@
-package com.example.controladores.logs;
+package com.example.controladores.add;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,8 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.controladores.logs.LogUsuario;
 import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.example.modelo.Usuario;
@@ -26,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class LogRegistro extends AppCompatActivity {
+public class AnadirAdmin extends AppCompatActivity {
     //AdMob
     private String tag ="Principal";
     private AdView mAdView;
@@ -41,7 +40,6 @@ public class LogRegistro extends AppCompatActivity {
     private Intent intent;
     //atributo para que por defecto sean no admin
     private int esAdmin;
-    private boolean validar;
     //llamamos a la base de datos
     private FirebaseDatabase database=FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth;
@@ -50,26 +48,18 @@ public class LogRegistro extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.log_registro);
-        //AdMob
+        setContentView(R.layout.activity_anadir_admin);
         MobileAds.initialize(this);
         mAdView = findViewById(R.id.adView);
         adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        //variables para la animacion del main
-        ConstraintLayout constraintLayout = findViewById(R.id.mainLayout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2500);
-        animationDrawable.setExitFadeDuration(5000);
-        animationDrawable.start();
         //EditText
-        txtEmail=findViewById(R.id.txtEmail);
-        txtNombreUsuario=findViewById(R.id.txtNombreUsuario);
-        txtTelefono=findViewById(R.id.txtTelefono);
-        txtContra=findViewById(R.id.txtContra);
-
+        txtEmail=findViewById(R.id.txtEmailAdmin);
+        txtNombreUsuario=findViewById(R.id.txtNombreUsuarioAdmin);
+        txtTelefono=findViewById(R.id.txtTelefonoAdmin);
+        txtContra=findViewById(R.id.txtContraAdmin);
         //botón
-        btnRegistrar=findViewById(R.id.btnRegistrar);
+        btnRegistrar=findViewById(R.id.btnRegistrarAdmin);
         //creamos la instancia de la base de datos con la referencia de nuestro modelo, en este caso Usuario
         mAuth = FirebaseAuth.getInstance();
         //llamo al metodo para registrar
@@ -77,7 +67,6 @@ public class LogRegistro extends AppCompatActivity {
         //muestro el anuncio
         anuncio();
     }
-
     private void anuncio() {
         //AdMob
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -95,37 +84,35 @@ public class LogRegistro extends AppCompatActivity {
                 String nombreUsuario= txtNombreUsuario.getText().toString();
                 String telefono= txtTelefono.getText().toString();
                 String password= txtContra.getText().toString();
-                esAdmin=0;
-
-
+                esAdmin=1;
                 if(email.isEmpty()){
-                    Toast.makeText(LogRegistro.this,"El email no puede estar vacío", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnadirAdmin.this,"El email no puede estar vacío", Toast.LENGTH_SHORT).show();
 
                 }else{
                     if(nombreUsuario.isEmpty()){
-                        Toast.makeText(LogRegistro.this,"El nombre usuario no puede estar vacío", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AnadirAdmin.this,"El nombre usuario no puede estar vacío", Toast.LENGTH_SHORT).show();
 
                     }else{
                         if(telefono.isEmpty()){
-                            Toast.makeText(LogRegistro.this,"El teléfono no puede estar vacío", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AnadirAdmin.this,"El teléfono no puede estar vacío", Toast.LENGTH_SHORT).show();
 
                         }else{
                             if(password.isEmpty()){
-                                Toast.makeText(LogRegistro.this,"La contraseña no puede estar vacía", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AnadirAdmin.this,"La contraseña no puede estar vacía", Toast.LENGTH_SHORT).show();
                             }else{
                                 if(!Validar.validarEmail(txtEmail)){
-                                    Toast.makeText(LogRegistro.this,"Formato del email no válido", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AnadirAdmin.this,"Formato del email no válido", Toast.LENGTH_SHORT).show();
                                 }else{
                                     if (!Validar.validarUsuario(txtNombreUsuario)){
-                                        Toast.makeText(LogRegistro.this,"Formato del usuario no válido", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AnadirAdmin.this,"Formato del usuario no válido", Toast.LENGTH_SHORT).show();
 
                                     }else{
                                         if(!Validar.validarTelefono(txtTelefono)){
-                                            Toast.makeText(LogRegistro.this,"Formato del telefono no válido", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AnadirAdmin.this,"Formato del telefono no válido", Toast.LENGTH_SHORT).show();
 
                                         }else{
                                             if(!Validar.validarPassword(txtContra)){
-                                                Toast.makeText(LogRegistro.this,"Formato de la contraseña no válido", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AnadirAdmin.this,"Formato de la contraseña no válido", Toast.LENGTH_SHORT).show();
 
                                             }else{
                                                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -139,17 +126,17 @@ public class LogRegistro extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if(task.isSuccessful()){
-                                                                        Toast.makeText(LogRegistro.this,"Usuario Registrado",Toast.LENGTH_LONG).show();
-                                                                        intent=new Intent(LogRegistro.this, LogUsuario.class);
+                                                                        Toast.makeText(AnadirAdmin.this,"Usuario Registrado",Toast.LENGTH_LONG).show();
+                                                                        intent=new Intent(AnadirAdmin.this, LogUsuario.class);
                                                                         startActivity(intent);
                                                                     }else{
-                                                                        Toast.makeText(LogRegistro.this,"Registro Fallido",Toast.LENGTH_LONG).show();
+                                                                        Toast.makeText(AnadirAdmin.this,"Registro Fallido",Toast.LENGTH_LONG).show();
 
                                                                     }
                                                                 }
                                                             });
                                                         }else{
-                                                            Toast.makeText(LogRegistro.this,"Fallido",Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(AnadirAdmin.this,"Fallido",Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });
@@ -165,7 +152,4 @@ public class LogRegistro extends AppCompatActivity {
             }
         });
     }
-
 }
-
-

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.controladores.listar.ListarMonumento;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -105,14 +106,62 @@ public class EditarMonumento extends AppCompatActivity {
         btnEditarMonumento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child(idMonumento).child("nombre").setValue(editarNombreMonumento.getText().toString());
-                myRef.child(idMonumento).child("historia").setValue(editarHistoriaMonumento.getText().toString());
-                myRef.child(idMonumento).child("latitud").setValue(Double.parseDouble(editarLatitudMonumento.getText().toString()));
-                myRef.child(idMonumento).child("longitud").setValue(Double.parseDouble(editarLongitudMonumento.getText().toString()));
-                myRef.child(idMonumento).child("calle").setValue(editarCalleMonumento.getText().toString());
-                intent=new Intent(EditarMonumento.this, ListarMonumento.class);
-                Toast.makeText(EditarMonumento.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                if(editarNombreMonumento.getText().toString().isEmpty()){
+                    Toast.makeText(EditarMonumento.this, "El nombre no puede estar vacio", Toast.LENGTH_SHORT).show();
 
+                }else{
+                    if(editarHistoriaMonumento.getText().toString().isEmpty()){
+                        Toast.makeText(EditarMonumento.this, "La historia no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(editarCalleMonumento.getText().toString().isEmpty()){
+                            Toast.makeText(EditarMonumento.this, "la calle no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(editarLatitudMonumento.getText().toString().isEmpty()){
+                                Toast.makeText(EditarMonumento.this, "La latitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(editarLongitudMonumento.getText().toString().isEmpty()){
+                                    Toast.makeText(EditarMonumento.this, "La longitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(!Validar.validarLetrasNumYSpace(editarNombreMonumento)){
+                                        Toast.makeText(EditarMonumento.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(editarHistoriaMonumento)){
+                                            Toast.makeText(EditarMonumento.this, "Formato hisroria incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(editarCalleMonumento)){
+                                                Toast.makeText(EditarMonumento.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                if(!Validar.validarNumDouble(editarLatitudMonumento)){
+                                                    Toast.makeText(EditarMonumento.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if(!Validar.validarNumDouble(editarLongitudMonumento)){
+                                                        Toast.makeText(EditarMonumento.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        myRef.child(idMonumento).child("nombre").setValue(editarNombreMonumento.getText().toString());
+                                                        myRef.child(idMonumento).child("historia").setValue(editarHistoriaMonumento.getText().toString());
+                                                        myRef.child(idMonumento).child("latitud").setValue(Double.parseDouble(editarLatitudMonumento.getText().toString()));
+                                                        myRef.child(idMonumento).child("longitud").setValue(Double.parseDouble(editarLongitudMonumento.getText().toString()));
+                                                        myRef.child(idMonumento).child("calle").setValue(editarCalleMonumento.getText().toString());
+                                                        intent=new Intent(EditarMonumento.this, ListarMonumento.class);
+                                                        Toast.makeText(EditarMonumento.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
     }

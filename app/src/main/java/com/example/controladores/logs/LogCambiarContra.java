@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -81,20 +82,24 @@ public class LogCambiarContra extends AppCompatActivity {
 
     private void resetPassword(){
         String email= txtEmail.getText().toString();
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(LogCambiarContra.this,"Revisa tu email para el cambio de contraseña",Toast.LENGTH_LONG).show();
-                    intent= new Intent(LogCambiarContra.this, LogUsuario.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(LogCambiarContra.this,"Error al cambiar la contraseña",Toast.LENGTH_LONG).show();
-                }
+        if(email.isEmpty()){
+            Toast.makeText(LogCambiarContra.this, "El email no puede estar vacio",Toast.LENGTH_SHORT).show();
+            if(Validar.validarEmail(txtEmail)){
+                Toast.makeText(LogCambiarContra.this, "Formato de email incorrecto",Toast.LENGTH_SHORT).show();
+            }else{
+                mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(LogCambiarContra.this,"Revisa tu email para el cambio de contraseña",Toast.LENGTH_LONG).show();
+                            intent= new Intent(LogCambiarContra.this, LogUsuario.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(LogCambiarContra.this,"Error al cambiar la contraseña",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
-        });
-
-
-
+        }
     }
 }

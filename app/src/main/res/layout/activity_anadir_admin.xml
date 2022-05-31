@@ -2,17 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.controladores.logs.LogRegistro"
-    android:background="@drawable/gradient_list">
+    tools:context="com.example.controladores.add.AnadirAdmin">
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logoAdmin"
         android:layout_width="157dp"
         android:layout_height="191dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtEmail"
+        app:layout_constraintBottom_toTopOf="@+id/txtEmailAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +19,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtEmailAdmin"
         android:layout_width="358dp"
         android:layout_height="48dp"
         android:layout_marginBottom="36dp"
@@ -33,7 +31,7 @@
         android:inputType="textEmailAddress"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtNombreUsuario"
+        app:layout_constraintBottom_toTopOf="@+id/txtNombreUsuarioAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +40,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/txtNombreUsuario"
+        android:id="@+id/txtNombreUsuarioAdmin"
         android:layout_width="358dp"
         android:layout_height="48dp"
         android:layout_marginBottom="32dp"
@@ -54,7 +52,7 @@
         android:inputType="textPersonName"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtTelefono"
+        app:layout_constraintBottom_toTopOf="@+id/txtTelefonoAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +61,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/txtContra"
+        android:id="@+id/txtContraAdmin"
         android:layout_width="358dp"
         android:layout_height="48dp"
         android:background="@drawable/custom_input"
@@ -74,7 +72,7 @@
         android:inputType="textPassword"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRegistrar"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistrarAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +81,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/txtTelefono"
+        android:id="@+id/txtTelefonoAdmin"
         android:layout_width="358dp"
         android:layout_height="48dp"
         android:layout_marginBottom="28dp"
@@ -95,7 +93,7 @@
         android:inputType="text|phone"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtContra"
+        app:layout_constraintBottom_toTopOf="@+id/txtContraAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +102,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/btnRegistrar"
+        android:id="@+id/btnRegistrarAdmin"
         android:layout_width="284dp"
         android:layout_height="48dp"
         android:background="@drawable/custom_button"

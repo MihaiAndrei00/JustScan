@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.controladores.listar.ListarRestaurante;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -109,14 +110,63 @@ public class EditarRestaurante extends AppCompatActivity {
         editarRestaurante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child(idRestaurante).child("nombre").setValue(nombreRestaurante.getText().toString());
-                myRef.child(idRestaurante).child("calle").setValue(calleRestaurante.getText().toString());
-                myRef.child(idRestaurante).child("tipoDeComida").setValue(tipoDeComida.getText().toString());
-                myRef.child(idRestaurante).child("descripcion").setValue(descripcionRestaurante.getText().toString());
-                myRef.child(idRestaurante).child("latitud").setValue(Double.parseDouble(latitudRestaurante.getText().toString()));
-                myRef.child(idRestaurante).child("longitud").setValue(Double.parseDouble(longitudRestaurante.getText().toString()));
-                intent=new Intent(EditarRestaurante.this, ListarRestaurante.class);
-                Toast.makeText(EditarRestaurante.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                if(nombreRestaurante.getText().toString().isEmpty()){
+                    Toast.makeText(EditarRestaurante.this, "El nombre no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    if(descripcionRestaurante.getText().toString().isEmpty()){
+                        Toast.makeText(EditarRestaurante.this, "La historia no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(calleRestaurante.getText().toString().isEmpty()){
+                            Toast.makeText(EditarRestaurante.this, "la calle no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(latitudRestaurante.getText().toString().isEmpty()){
+                                Toast.makeText(EditarRestaurante.this, "La latitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(longitudRestaurante.getText().toString().isEmpty()){
+                                    Toast.makeText(EditarRestaurante.this, "La longitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(!Validar.validarLetrasNumYSpace(nombreRestaurante)){
+                                        Toast.makeText(EditarRestaurante.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(descripcionRestaurante)){
+                                            Toast.makeText(EditarRestaurante.this, "Formato hisroria incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(calleRestaurante)){
+                                                Toast.makeText(EditarRestaurante.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                if(!Validar.validarNumDouble(latitudRestaurante)){
+                                                    Toast.makeText(EditarRestaurante.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if(!Validar.validarNumDouble(longitudRestaurante)){
+                                                        Toast.makeText(EditarRestaurante.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        myRef.child(idRestaurante).child("nombre").setValue(nombreRestaurante.getText().toString());
+                                                        myRef.child(idRestaurante).child("calle").setValue(calleRestaurante.getText().toString());
+                                                        myRef.child(idRestaurante).child("tipoDeComida").setValue(tipoDeComida.getText().toString());
+                                                        myRef.child(idRestaurante).child("descripcion").setValue(descripcionRestaurante.getText().toString());
+                                                        myRef.child(idRestaurante).child("latitud").setValue(Double.parseDouble(latitudRestaurante.getText().toString()));
+                                                        myRef.child(idRestaurante).child("longitud").setValue(Double.parseDouble(longitudRestaurante.getText().toString()));
+                                                        intent=new Intent(EditarRestaurante.this, ListarRestaurante.class);
+                                                        Toast.makeText(EditarRestaurante.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
     }

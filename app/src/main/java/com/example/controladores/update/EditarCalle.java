@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.controladores.listar.ListarCalle;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -104,13 +105,51 @@ public class EditarCalle extends AppCompatActivity {
         editarCalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child(idCalle).child("nombre").setValue(nombreCalle.getText().toString());
-                myRef.child(idCalle).child("descripcion").setValue(descripcionCalle.getText().toString());
-                myRef.child(idCalle).child("latitud").setValue(Double.parseDouble(latitudCalle.getText().toString()));
-                myRef.child(idCalle).child("longitud").setValue(Double.parseDouble(longitudCalle.getText().toString()));
-                intent=new Intent(EditarCalle.this, ListarCalle.class);
-                Toast.makeText(EditarCalle.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                if(nombreCalle.getText().toString().isEmpty()){
+                    Toast.makeText(EditarCalle.this, "Nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
 
+                }else{
+                    if(descripcionCalle.getText().toString().isEmpty()){
+                        Toast.makeText(EditarCalle.this, "la descripción no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(latitudCalle.getText().toString().isEmpty()){
+                            Toast.makeText(EditarCalle.this, "la latitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(longitudCalle.getText().toString().isEmpty()){
+                                Toast.makeText(EditarCalle.this, "la longitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(!Validar.validarLetrasNumYSpace(nombreCalle)){
+                                    Toast.makeText(EditarCalle.this, "Formato de calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(!Validar.validarLetrasNumYSpace(descripcionCalle)){
+                                        Toast.makeText(EditarCalle.this, "Formato de descripción incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarNumDouble(latitudCalle)){
+                                            Toast.makeText(EditarCalle.this, "Formato de latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarNumDouble(longitudCalle)){
+                                                Toast.makeText(EditarCalle.this, "Formato de longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                myRef.child(idCalle).child("nombre").setValue(nombreCalle.getText().toString());
+                                                myRef.child(idCalle).child("descripcion").setValue(descripcionCalle.getText().toString());
+                                                myRef.child(idCalle).child("latitud").setValue(Double.parseDouble(latitudCalle.getText().toString()));
+                                                myRef.child(idCalle).child("longitud").setValue(Double.parseDouble(longitudCalle.getText().toString()));
+                                                intent=new Intent(EditarCalle.this, ListarCalle.class);
+                                                Toast.makeText(EditarCalle.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         });
     }

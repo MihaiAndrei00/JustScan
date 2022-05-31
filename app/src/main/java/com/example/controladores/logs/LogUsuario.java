@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.controladores.Principal;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -39,7 +39,6 @@ public class LogUsuario extends AppCompatActivity {
     private Button btnInicioSesion;
     private TextView tvContra;
     private TextView tvRegistro;
-    private ProgressBar progressBarLogIn;
     //animacion
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
@@ -71,8 +70,6 @@ public class LogUsuario extends AppCompatActivity {
         //vistas
         txtEmail=findViewById(R.id.txtEmail);
         txtContra=findViewById(R.id.txtContra);
-        progressBarLogIn=findViewById(R.id.progressBarLogin);
-        progressBarLogIn.setVisibility(View.GONE);
         btnInicioSesion=findViewById(R.id.btnIniciarSesion);
         tvContra=findViewById(R.id.olvidarContra);
         tvRegistro=findViewById(R.id.tvRegistro);
@@ -104,27 +101,39 @@ public class LogUsuario extends AppCompatActivity {
             public void onClick(View v) {
                 String email= txtEmail.getText().toString();
                 String contrasena=txtContra.getText().toString();
-                progressBarLogIn.setVisibility(View.VISIBLE);
-                mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            user=mAuth.getCurrentUser();
-                            progressBarLogIn.setVisibility(View.GONE);
-                            if (!user.isEmailVerified()){
-                                user.sendEmailVerification();
-                                Toast.makeText(LogUsuario.this,"Verifica tu correo electrónico",Toast.LENGTH_LONG).show();
-                            } else{
-                                intent= new Intent(LogUsuario.this, Principal.class);
-                                startActivity(intent);
+                if(email.isEmpty()){
+                    Toast.makeText(LogUsuario.this, "El email no puede estar vacio", Toast.LENGTH_SHORT).show();
+                }else{
+                    if (contrasena.isEmpty()){
+                        Toast.makeText(LogUsuario.this, "La contraseña no puede estar vacia", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(!Validar.validarEmail(txtEmail)){
+                            Toast.makeText(LogUsuario.this, "El formato del email es incorrecto", Toast.LENGTH_SHORT).show();
+                        }else{
+                            if(!Validar.validarPassword(txtContra)){
+                                Toast.makeText(LogUsuario.this, "El formato de la contraseña es incorrecto", Toast.LENGTH_SHORT).show();
+                            }else{
+                                mAuth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            user=mAuth.getCurrentUser();
+                                            if (!user.isEmailVerified()){
+                                                user.sendEmailVerification();
+                                                Toast.makeText(LogUsuario.this,"Verifica tu correo electrónico",Toast.LENGTH_LONG).show();
+                                            } else{
+                                                intent= new Intent(LogUsuario.this, Principal.class);
+                                                startActivity(intent);
+                                            }
+                                        }else{
+                                            Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
                             }
-                       }else{
-                            Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
-                            progressBarLogIn.setVisibility(View.GONE);
                         }
                     }
-                });
-
+                }
             }
         });
     }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.example.modelo.Edificio;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -96,47 +97,92 @@ public class AnadirEdificio extends AppCompatActivity {
                 String nombre = nombreEdificio.getText().toString();
                 String calle = calleEdificio.getText().toString();
                 String historia = historiaEdificio.getText().toString();
-                String foto = "https://firebasestorage.googleapis.com/v0/b/justscan-c5c3e.appspot.com/o/fotoRutas%2Flogo.png?alt=media&token=8fd56909-e3f5-463b-be59-cc106a09bb8e";
                 String uId = UUID.randomUUID().toString();
                 String latitud= latitudEdificio.getText().toString();
                 double latidudNum=Double.parseDouble(latitud);
                 String longitud= longitudEdificio.getText().toString();
                 double longitudNum=Double.parseDouble(longitud);
-
                 StorageReference ref= storageReference.child("FotosDeEdificios/*");
-                ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Task<Uri> uriTask=taskSnapshot.getStorage().getDownloadUrl();
-                                while (!uriTask.isSuccessful());
-                                Uri downloadUri=uriTask.getResult();
-                                if(uriTask.isSuccessful()){
-                                    HashMap<String, Object> resultado= new HashMap<>();
-                                    resultado.put(imagenRuta,downloadUri.toString());
-                                    Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),latidudNum,longitudNum);
-                                    myRef.child(edificio.getuId()).setValue(edificio);
-                                    Toast.makeText(AnadirEdificio.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
+                if(nombre.isEmpty()){
+                    Toast.makeText(AnadirEdificio.this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(calle.isEmpty()){
+                        Toast.makeText(AnadirEdificio.this, "La calle no puede estar vacía", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(historia.isEmpty()){
+                            Toast.makeText(AnadirEdificio.this, "La historia no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(latitud.isEmpty()){
+                                Toast.makeText(AnadirEdificio.this, "la latitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(longitud.isEmpty()){
+                                    Toast.makeText(AnadirEdificio.this, "la longitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
                                 }else{
-                                    Toast.makeText(AnadirEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                    if(!Validar.validarLetrasNumYSpace(nombreEdificio)){
+                                        Toast.makeText(AnadirEdificio.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(calleEdificio)){
+                                            Toast.makeText(AnadirEdificio.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(historiaEdificio)){
+                                                Toast.makeText(AnadirEdificio.this, "Formato historia incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                if (!Validar.validarNumDouble(latitudEdificio)){
+                                                    Toast.makeText(AnadirEdificio.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if (!Validar.validarNumDouble(longitudEdificio)){
+                                                        Toast.makeText(AnadirEdificio.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                    @Override
+                                                                    public void onSuccess(Uri uri) {
+                                                                        Task<Uri> uriTask=taskSnapshot.getStorage().getDownloadUrl();
+                                                                        while (!uriTask.isSuccessful());
+                                                                        Uri downloadUri=uriTask.getResult();
+                                                                        if(uriTask.isSuccessful()){
+                                                                            HashMap<String, Object> resultado= new HashMap<>();
+                                                                            resultado.put(imagenRuta,downloadUri.toString());
+                                                                            Edificio edificio = new Edificio(uId, nombre, calle, historia, downloadUri.toString(),latidudNum,longitudNum);
+                                                                            myRef.child(edificio.getuId()).setValue(edificio);
+                                                                            Toast.makeText(AnadirEdificio.this, "Edificio subida correctamente", Toast.LENGTH_SHORT).show();
+                                                                        }else{
+                                                                            Toast.makeText(AnadirEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+
+                                                                Toast.makeText(AnadirEdificio.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        });
+                        }
                     }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(AnadirEdificio.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
             }
         });
     }

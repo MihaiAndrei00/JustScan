@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.controladores.listar.ListarEdificio;
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -106,13 +107,64 @@ public class EditarEdificio extends AppCompatActivity {
         btneditarEdificio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child(idEdificio).child("nombre").setValue(editarNombreEdificio.getText().toString());
-                myRef.child(idEdificio).child("historia").setValue(editarHistoriaEdificio.getText().toString());
-                myRef.child(idEdificio).child("latitud").setValue(Double.parseDouble(editarLatitudEdificio.getText().toString()));
-                myRef.child(idEdificio).child("longitud").setValue(Double.parseDouble(editarLongitudEdificio.getText().toString()));
-                myRef.child(idEdificio).child("calle").setValue(editarCalleEdificio.getText().toString());
-                intent=new Intent(EditarEdificio.this, ListarEdificio.class);
-                Toast.makeText(EditarEdificio.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                if(editarNombreEdificio.getText().toString().isEmpty()){
+                    Toast.makeText(EditarEdificio.this, "El nombre no puede estar vacio", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    if(editarHistoriaEdificio.getText().toString().isEmpty()){
+                        Toast.makeText(EditarEdificio.this, "La historia no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(editarCalleEdificio.getText().toString().isEmpty()){
+                            Toast.makeText(EditarEdificio.this, "la calle no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(editarLatitudEdificio.getText().toString().isEmpty()){
+                                Toast.makeText(EditarEdificio.this, "La latitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(editarLongitudEdificio.getText().toString().isEmpty()){
+                                    Toast.makeText(EditarEdificio.this, "La longitud no puede estar vacia", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(!Validar.validarLetrasNumYSpace(editarNombreEdificio)){
+                                        Toast.makeText(EditarEdificio.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(editarHistoriaEdificio)){
+                                            Toast.makeText(EditarEdificio.this, "Formato hisroria incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(editarCalleEdificio)){
+                                                Toast.makeText(EditarEdificio.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            } else{
+                                                if(!Validar.validarNumDouble(editarLatitudEdificio)){
+                                                    Toast.makeText(EditarEdificio.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if(!Validar.validarNumDouble(editarLongitudEdificio)){
+                                                        Toast.makeText(EditarEdificio.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        myRef.child(idEdificio).child("nombre").setValue(editarNombreEdificio.getText().toString());
+                                                        myRef.child(idEdificio).child("historia").setValue(editarHistoriaEdificio.getText().toString());
+                                                        myRef.child(idEdificio).child("latitud").setValue(Double.parseDouble(editarLatitudEdificio.getText().toString()));
+                                                        myRef.child(idEdificio).child("longitud").setValue(Double.parseDouble(editarLongitudEdificio.getText().toString()));
+                                                        myRef.child(idEdificio).child("calle").setValue(editarCalleEdificio.getText().toString());
+                                                        intent=new Intent(EditarEdificio.this, ListarEdificio.class);
+                                                        Toast.makeText(EditarEdificio.this, "Datos cambiados correctamente", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
             }
         });
     }

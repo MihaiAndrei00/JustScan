@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.controladores.validar.Validar;
 import com.example.just_scan.R;
 import com.example.modelo.Monumento;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -104,39 +105,88 @@ public class AnadirMonumento extends AppCompatActivity {
                 double longitudNum=Double.parseDouble(longitud);
 
                 StorageReference ref = storageReference.child("FotosDeMonumentos/*");
-                ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                                while (!uriTask.isSuccessful()) ;
-                                Uri downloadUri = uriTask.getResult();
-                                if (uriTask.isSuccessful()) {
-                                    HashMap<String, Object> resultado = new HashMap<>();
-                                    resultado.put(imagenRuta, downloadUri.toString());
-                                    Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(),latidudNum, longitudNum);
-                                    myRef.child(monumento.getuId()).setValue(monumento);
-                                    Toast.makeText(AnadirMonumento.this, "Monumento subida correctamente", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(AnadirMonumento.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                if(nombre.isEmpty()){
+                    Toast.makeText(AnadirMonumento.this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    if(calle.isEmpty()){
+                        Toast.makeText(AnadirMonumento.this, "La calle no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                    }else{
+                        if(historia.isEmpty()){
+                            Toast.makeText(AnadirMonumento.this, "La historia no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            if(latitud.isEmpty()){
+                                Toast.makeText(AnadirMonumento.this, "la latitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                            }else{
+                                if(longitud.isEmpty()){
+                                    Toast.makeText(AnadirMonumento.this, "la longitud no puede estar vacía", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    if(!Validar.validarLetrasNumYSpace(nombreMonumento)){
+                                        Toast.makeText(AnadirMonumento.this, "Formato nombre incorrecto", Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        if(!Validar.validarLetrasNumYSpace(calleMonumento)){
+                                            Toast.makeText(AnadirMonumento.this, "Formato calle incorrecto", Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            if(!Validar.validarLetrasNumYSpace(historiaMonumento)){
+                                                Toast.makeText(AnadirMonumento.this, "Formato historia incorrecto", Toast.LENGTH_SHORT).show();
+
+                                            }else{
+                                                if (!Validar.validarNumDouble(latitudMonumento)){
+                                                    Toast.makeText(AnadirMonumento.this, "Formato latitud incorrecto", Toast.LENGTH_SHORT).show();
+
+                                                }else{
+                                                    if (!Validar.validarNumDouble(longitudMonumento)){
+                                                        Toast.makeText(AnadirMonumento.this, "Formato longitud incorrecto", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        ref.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                                    @Override
+                                                                    public void onSuccess(Uri uri) {
+                                                                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                                                                        while (!uriTask.isSuccessful()) ;
+                                                                        Uri downloadUri = uriTask.getResult();
+                                                                        if (uriTask.isSuccessful()) {
+                                                                            HashMap<String, Object> resultado = new HashMap<>();
+                                                                            resultado.put(imagenRuta, downloadUri.toString());
+                                                                            Monumento monumento = new Monumento(uId, nombre, calle, historia, downloadUri.toString(),latidudNum, longitudNum);
+                                                                            myRef.child(monumento.getuId()).setValue(monumento);
+                                                                            Toast.makeText(AnadirMonumento.this, "Monumento subida correctamente", Toast.LENGTH_SHORT).show();
+                                                                        } else {
+                                                                            Toast.makeText(AnadirMonumento.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                                            @Override
+                                                            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+
+                                                            }
+                                                        }).addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+
+                                                                Toast.makeText(AnadirMonumento.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                        });
+                        }
                     }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        Toast.makeText(AnadirMonumento.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }
             }
         });
     }
