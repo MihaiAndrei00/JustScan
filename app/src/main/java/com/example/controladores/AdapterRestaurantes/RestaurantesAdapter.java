@@ -69,7 +69,8 @@ public class RestaurantesAdapter extends RecyclerView.Adapter<RestaurantesAdapte
         public void onClick(View v) {
             onRestauranteListener.clickEnRestaurante(getAdapterPosition());
         }
-
+        //interfaz que se impplementará em la clase listar para realizar la función de , al clickar en un elemento del adapter
+        // llevar a ver
         public interface onRestauranteListener{
             void clickEnRestaurante(int position);
         }
