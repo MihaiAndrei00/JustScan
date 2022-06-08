@@ -95,7 +95,7 @@ public class LogCambiarContra extends AppCompatActivity {
                             intent= new Intent(LogCambiarContra.this, LogUsuario.class);
                             startActivity(intent);
                         }else{
-                            Toast.makeText(LogCambiarContra.this,"Error al cambiar la contraseña",Toast.LENGTH_LONG).show();
+                            Toast.makeText(LogCambiarContra.this,"Error al cambiar la contraseña,volver a intentar",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

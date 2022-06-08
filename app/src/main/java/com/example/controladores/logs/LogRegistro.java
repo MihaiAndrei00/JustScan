@@ -149,7 +149,7 @@ public class LogRegistro extends AppCompatActivity {
                                                                 }
                                                             });
                                                         }else{
-                                                            Toast.makeText(LogRegistro.this,"Fallido",Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(LogRegistro.this,"Fallido,volver a intentar",Toast.LENGTH_LONG).show();
                                                         }
                                                     }
                                                 });

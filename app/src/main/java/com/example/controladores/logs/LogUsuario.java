@@ -126,7 +126,7 @@ public class LogUsuario extends AppCompatActivity {
                                                 startActivity(intent);
                                             }
                                         }else{
-                                            Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos",Toast.LENGTH_LONG).show();
+                                            Toast.makeText(LogUsuario.this,"Email o contraseña incorrectos,volver a intentar",Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });

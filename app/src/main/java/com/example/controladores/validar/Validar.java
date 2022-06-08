@@ -35,6 +35,7 @@ public class Validar {
     }
 
     public static boolean validarLetras(EditText let){
+
         String letValida=let.getText().toString();
         String regex= "[a-zA-ZñÑ ]$";
         return letValida.matches(regex);

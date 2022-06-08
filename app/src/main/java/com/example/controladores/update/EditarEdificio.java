@@ -264,7 +264,7 @@ public class EditarEdificio extends AppCompatActivity {
                                 }
                             });
                         }else{
-                            Toast.makeText(EditarEdificio.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditarEdificio.this,"Ha ocurrido un error,volver a intentar", Toast.LENGTH_SHORT).show();
                         }
 
                     }

@@ -160,7 +160,7 @@ public class AnadirMonumento extends AppCompatActivity {
                                                                             myRef.child(monumento.getuId()).setValue(monumento);
                                                                             Toast.makeText(AnadirMonumento.this, "Monumento subida correctamente", Toast.LENGTH_SHORT).show();
                                                                         } else {
-                                                                            Toast.makeText(AnadirMonumento.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                                                                            Toast.makeText(AnadirMonumento.this, "Ha ocurrido un error,volver a intentar", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     }
                                                                 });

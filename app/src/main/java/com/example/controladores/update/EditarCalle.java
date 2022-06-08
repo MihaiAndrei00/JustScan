@@ -256,7 +256,7 @@ public class EditarCalle extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditarCalle.this,"Ha ocurrido un error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarCalle.this,"Ha ocurrido un error,volver a intentar", Toast.LENGTH_SHORT).show();
             }
         });
     }

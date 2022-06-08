@@ -159,7 +159,7 @@ public class AnadirCalle extends AppCompatActivity {
                                                     }).addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(AnadirCalle.this, "Subida de imagen fallida", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(AnadirCalle.this, "Subida de imagen fallida,volver a intentar", Toast.LENGTH_SHORT).show();
                                                         }
                                                     });
                                                 }

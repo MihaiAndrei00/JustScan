@@ -130,7 +130,7 @@ public class AnadirAdmin extends AppCompatActivity {
                                                                         intent=new Intent(AnadirAdmin.this, LogUsuario.class);
                                                                         startActivity(intent);
                                                                     }else{
-                                                                        Toast.makeText(AnadirAdmin.this,"Registro Fallido",Toast.LENGTH_LONG).show();
+                                                                        Toast.makeText(AnadirAdmin.this,"Registro Fallido,volver a intentar",Toast.LENGTH_LONG).show();
 
                                                                     }
                                                                 }
