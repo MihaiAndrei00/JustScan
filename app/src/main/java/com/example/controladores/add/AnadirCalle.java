@@ -78,7 +78,7 @@ public class AnadirCalle extends AppCompatActivity {
             }
         });
     }
-
+    //chequea si los permisos están aceptados y la foto no es nula , entonces setea la url de la imagen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -99,7 +99,7 @@ public class AnadirCalle extends AppCompatActivity {
                 double latidudNum=Double.parseDouble(latitud);
                 String longitud= longitudCalle.getText().toString();
                 double longitudNum=Double.parseDouble(longitud);
-
+                // le ponemos la referencia de la storage de las calles
                 StorageReference ref= storageReference.child("FotosDeCalles/");
                     if(nombre.isEmpty()){
                         Toast.makeText(AnadirCalle.this, "Nombre de calle no puede estar vacío", Toast.LENGTH_SHORT).show();

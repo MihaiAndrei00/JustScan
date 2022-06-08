@@ -62,7 +62,8 @@ public class CallesAdapter extends RecyclerView.Adapter<CallesAdapter.myViewHold
         public void onClick(View v) {
             onCalleListener.clickEnCalle(getAdapterPosition());
         }
-
+        //interfaz que se impplementará em la clase listar para realizar la función de , al clickar en un elemento del adapter
+        // llevar a ver
         public interface onCalleListener{
             void clickEnCalle(int position);
         }

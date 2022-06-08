@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context="com.example.controladores.add.AnadirRestaurante">
 
     <EditText
@@ -131,6 +132,7 @@
         android:layout_width="244dp"
         android:layout_height="199dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/logo_boton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

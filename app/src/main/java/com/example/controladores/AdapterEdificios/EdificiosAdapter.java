@@ -67,7 +67,8 @@ public class EdificiosAdapter extends RecyclerView.Adapter<EdificiosAdapter.myVi
         public void onClick(View v) {
             onEdificioListener.clickEnEdificio(getAdapterPosition());
         }
-
+        //interfaz que se impplementará em la clase listar para realizar la función de , al clickar en un elemento del adapter
+        // llevar a ver
         public interface onEdificioListener{
             void clickEnEdificio(int position);
         }
